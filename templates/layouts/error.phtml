@@ -1,0 +1,39 @@
+<?php /* @var $e \Exception */ ?>
+<?php if (is_cli()): ?>
+    <?=$e->getFile() . PHP_EOL; ?>
+    <?=$e->getLine() . PHP_EOL; ?>
+    <?=$e->getMessage() . PHP_EOL; ?>
+    <?=$e->getTraceAsString() . PHP_EOL; ?>
+<?php endif; ?>
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Error</title>
+
+        <link rel="stylesheet" type="text/css" href="assets/vendors/bootstrap-3.3.5-dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+
+    </head>
+
+    <body>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Error</h1>
+                </div>
+                    <?php if (env('ENV') === 'local') : ?>
+                        <h2><?php echo $e->getMessage() ?></h2>
+                <div class="col-lg-12">
+                    <pre>
+<?php echo $e->getTraceAsString() ?>
+                    </pre>
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
+   </body>
+
+</html>
