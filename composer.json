@@ -4,7 +4,9 @@
         "thingengineer/mysqli-database-class": "dev-master",
         "nesbot/carbon": "^3.3",
         "jolicode/slack-php-api": "^4.7",
-        "jdrieghe/array-helpers": "^0.2.0"
+        "jdrieghe/array-helpers": "^0.2.0",
+        "abraham/twitteroauth": "^7.0",
+        "symfony/http-client": "^7.0"
     },
     "config": {
         "allow-plugins": {

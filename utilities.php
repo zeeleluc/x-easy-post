@@ -136,3 +136,31 @@ if (!function_exists('parse_form_errors')) {
         return $html;
     }
 }
+
+if (!function_exists('download_remote_url_and_return_temp_path')) {
+    function download_remote_url_and_return_temp_path(string $slug, string $filename): string
+    {
+        $remoteUrl = get_url_digital_ocean($slug, $filename);
+
+        $path = ROOT . '/tmp/' . $slug . '-' . $filename;
+        $image = file_get_contents($remoteUrl);
+        file_put_contents($path, $image);
+        chmod($path, 0777);
+
+        return $path;
+    }
+}
+
+if (!function_exists('get_url_digital_ocean')) {
+    function get_url_digital_ocean(string $slug, string $filename): string
+    {
+        return 'https://familynfts.sfo3.cdn.digitaloceanspaces.com/' . $slug . '/' . $filename;
+    }
+}
+
+if (!function_exists('get_random_number')) {
+    function get_random_number(int $min, int $max): int
+    {
+        return rand($min, $max);
+    }
+}
