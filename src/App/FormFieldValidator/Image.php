@@ -24,12 +24,14 @@ class Image extends FormFieldValidator
     {
         return [
             'Looney Luca',
-            'LoadingPunks (NFT)',
-            'LoadingPunks (Pixel Count)',
-            'PipingPunks (NFT)',
-            'PipingPunks (still)',
+            'LoadingPunks NFT',
+            'LoadingPunks Pixel Count',
+            'PipingPunks NFT',
+            'PipingPunks Moving',
+            'RipplePunks',
+            'RipplePunks QR',
             'SOLpepens',
-            'Text: Centered One Line',
+            'Text Centered One Line',
         ];
     }
 }

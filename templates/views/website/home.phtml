@@ -69,11 +69,10 @@
         </div>
         <div class="col col-12 col-sm-8">
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table">
                     <?php foreach ($lastPosts as $post): /* @var $post \App\Models\Post */ ?>
                         <tr title="<?=json_encode($post->result); ?>">
                             <td><?=$post->postId ? 'R' : 'P'; ?></td>
-                            <td style="min-width: 200px;"><?=$post->postId ?: '-'; ?></td>
                             <td><?=$post->posted ? 'Y' : 'N'; ?></td>
                             <td class="w-100">
                                 <?php if ($post->posted): ?>

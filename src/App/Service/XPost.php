@@ -88,7 +88,7 @@ class XPost
         if ($this->image) {
             $mediaIds = [];
             $mediaChunks = $this->getConnection('1.1')
-                ->upload('media/upload', ['media' => $this->image]);
+                ->upload('media/upload', ['media' => $this->image], ['chunkedUpload' => true]);
             $mediaIds[] = $mediaChunks->media_id_string;
 
             if ($mediaIds) {

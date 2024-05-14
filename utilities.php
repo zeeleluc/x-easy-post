@@ -1,4 +1,5 @@
 <?php
+include "uuid_loading_punks.php";
 
 if (!function_exists('is_cli')) {
     function is_cli() {
@@ -98,12 +99,21 @@ if (!function_exists('generate_token')) {
 }
 
 if (!function_exists('flatten_string')) {
-    function flatten_string($string): string
+    function flatten_string(string $string): string
     {
-        $string = preg_replace('/[^a-zA-Z0-9\s]/', '', $string);
-        $string = str_replace(' ', '_', $string);
+        $result = '';
 
-        return strtolower($string);
+        for ($i = 0; $i < strlen($string); $i++) {
+            $char = $string[$i];
+
+            if (ctype_upper($char)) {
+                $result .= '_' . strtolower($char);
+            } else {
+                $result .= $char;
+            }
+        }
+
+        return ltrim($result, '_');
     }
 }
 
@@ -193,5 +203,18 @@ if (!function_exists('array_cast_recursive')) {
         }
 
         return $array;
+    }
+}
+
+if (!function_exists('convert_snakecase_to_camelcase')) {
+    function convert_snakecase_to_camelcase(string $string, bool $capitalizeFirstCharacter = false): string
+    {
+        $string = str_replace(' ', '', ucwords(str_replace('_', ' ', $string)));
+
+        if (!$capitalizeFirstCharacter) {
+            $string[0] = strtolower($string[0]);
+        }
+
+        return $string;
     }
 }

@@ -64,13 +64,15 @@ class Home extends BaseFormAction
         $text = $this->validatedFormValues['text'];
         $image = $this->validatedFormValues['image'];
         $nftId = $this->validatedFormValues['nft_id'] ?: null;
+        $resolvedImage = ResolveImage::make($image, $nftId)->do();
+
+        if (!$resolvedImage) {
+            abort('Could not resolve image.');
+        }
 
         $xPost = new XPost();
         $xPost->setText($text);
-        $resolvedImage = ResolveImage::make($image, $nftId)->do();
-        if ($resolvedImage) {
-            $xPost->setImage($resolvedImage->urlTMP);
-        }
+        $xPost->setImage($resolvedImage->urlTMP);
 
         if ($postId) {
             $result = $xPost->reply($postId);
@@ -83,6 +85,10 @@ class Home extends BaseFormAction
         if (array_key_exists('status', $result)) {
             $posted = false;
             $readableResult = $result['status'] . ': ' . $result['detail'];
+        } elseif (array_key_exists('errors', $result)) {
+            $posted = false;
+            $readableResult = $result['title'] . ': ' . $result['detail'];
+
         } else {
             $readableResult = $result['data']['id'];
         }
@@ -92,15 +98,17 @@ class Home extends BaseFormAction
             $post->postId = $postId;
         }
         $post->posted = $posted;
-        if ($resolvedImage) {
-            $post->image = $resolvedImage->urlCDN;
-        }
+        $post->image = $resolvedImage->urlCDN;
         $post->replyType = $image;
         $post->readableResult = $readableResult;
         $post->result = $result;
         $post->save();
 
-        success('', 'Posted ' . $text . ' ' . $postId);
+        if ($posted) {
+            success('', 'Posted: ' . $text);
+        } else {
+            abort('Not posted: ' . $text);
+        }
     }
 
     public function run()
