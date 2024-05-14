@@ -73,6 +73,13 @@ class XPost
             ->post('tweets', $parameters, ['jsonPayload' => true]));
     }
 
+    public function clear(): self
+    {
+        unlink($this->image);
+
+        return $this;
+    }
+
     /**
      * @throws TwitterOAuthException
      */

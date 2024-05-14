@@ -77,6 +77,7 @@ class Home extends BaseFormAction
         } else {
             $result = $xPost->post();
         }
+        $xPost->clear();
 
         $posted = true;
         if (array_key_exists('status', $result)) {
