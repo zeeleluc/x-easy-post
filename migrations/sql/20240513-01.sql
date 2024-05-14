@@ -1,6 +1,6 @@
 CREATE TABLE posts (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    post_id VARCHAR(255) NOT NULL,
+    post_id VARCHAR(255),
     posted BOOLEAN NOT NULL,
     reply_type VARCHAR(255) NOT NULL,
     result JSON NOT NULL,
