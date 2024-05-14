@@ -2,7 +2,12 @@
 namespace App\Action\Actions;
 
 use App\Action\BaseFormAction;
+use App\FormFieldValidator\PostID;
+use App\FormFieldValidator\RegularString;
+use App\Models\Post;
+use App\Query\PostQuery;
 use App\Service\XPost;
+use App\Variable;
 
 class Home extends BaseFormAction
 {
@@ -12,6 +17,54 @@ class Home extends BaseFormAction
 
         $this->setLayout('default');
         $this->setView('website/home');
+
+        if ($this->getRequest()->isGet()) {
+            $this->performGet();
+        } elseif ($this->getRequest()->isPost()) {
+            $this->performPost();
+        }
+    }
+
+    /**
+     * @throws \Exception
+     */
+    protected function performGet()
+    {
+        parent::performGet();
+
+        $this->setVariable(new Variable('lastPosts', (new PostQuery())->getLastPosts()));
+        $this->setVariable(new Variable('countPostsInLastPeriod', (new PostQuery())->getCountPostsInLastPeriod()));
+    }
+
+    /**
+     * @throws \Exception
+     */
+    protected function performPost()
+    {
+        $this->validateFormValues([
+            new PostID('post_id', $this->getRequest()->getPostParam('post_id')),
+            new RegularString('text', $this->getRequest()->getPostParam('text')),
+        ]);
+    }
+
+    protected function handleForm(): void
+    {
+        $postId = $this->validatedFormValues['post_id'];
+        $text = $this->validatedFormValues['text'];
+
+        $post = new Post();
+        $post->postId = $postId;
+        $post->posted = true;
+        $post->replyType = 'Testing';
+        $post->result = ['adfafas'];
+        $post->save();
+
+//        $xPost = new XPost();
+//        $xPost->setText('Have you seen this collection already?');
+//        $xPost->setImageLooneyLuca();
+//        $xPost->reply('');
+
+        success('', 'Posted ' . $text . ' ' . $postId);
     }
 
     public function run()
@@ -21,16 +74,5 @@ class Home extends BaseFormAction
         return $this;
     }
 
-    protected function performPost()
-    {
-        $xPost = new XPost();
-        $xPost->setText('Have you seen this collection already?');
-        $xPost->setImageLooneyLuca();
-        $xPost->reply('');
-    }
 
-    protected function handleForm()
-    {
-        // TODO: Implement handleForm() method.
-    }
 }

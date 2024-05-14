@@ -1,7 +1,56 @@
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col col-12">
-            home
+            <h1>
+                <?=$countPostsInLastPeriod; ?>
+                post<?=$countPostsInLastPeriod > 1 ? 's' : ''; ?>
+                in the last 3 hours
+            </h1>
+        </div>
+        <div class="col col-12 col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <form id="register" method="post" action="">
+                        <div class="form-group my-3">
+                            <label for="email" class="my-2">Post ID (or URL)</label>
+                            <input
+                                type="post_id"
+                                name="post_id"
+                                class="form-control <?=$formErrors && isset($formErrors['post_id']) ? 'is-invalid' : ''; ?>"
+                                value="<?=$formValidatedValues && isset($formValidatedValues['post_id']) ? $formValidatedValues['email'] : ''; ?>"
+                                id="post_id"
+                            />
+                            <?=parse_form_errors('post_id', $formErrors); ?>
+                        </div>
+                        <div class="form-group my-3">
+                            <label for="project_name" class="my-2">Text</label>
+                            <input
+                                type="text"
+                                name="text"
+                                class="form-control <?=$formErrors && isset($formErrors['text']) ? 'is-invalid' : ''; ?>"
+                                value="<?=$formValidatedValues && isset($formValidatedValues['text']) ? $formValidatedValues['text'] : ''; ?>"
+                                id="text"
+                            />
+                            <?=parse_form_errors('text', $formErrors); ?>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Post on X</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col col-12 col-sm-8">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <?php foreach ($lastPosts as $post): /* @var $post \App\Models\Post */ ?>
+                        <tr>
+                            <td><?=$post->postId; ?></td>
+                            <td><?=$post->posted ? 'Y' : 'N'; ?></td>
+                            <td class="w-100"><?=json_encode($post->result); ?></td>
+                            <td style="min-width: 200px;" class="text-end"><?=$post->createdAt; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
         </div>
     </div>
 </div>

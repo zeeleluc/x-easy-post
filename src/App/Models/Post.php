@@ -11,7 +11,7 @@ class Post extends BaseModel
 
     public ?int $id = null;
 
-    public string $tweetId;
+    public string $postId;
 
     public bool $posted;
 
@@ -19,7 +19,7 @@ class Post extends BaseModel
 
     public array $result;
 
-    public Carbon $createdAt;
+    public ?Carbon $createdAt = null;
 
     public function initNew(array $values)
     {
@@ -35,7 +35,7 @@ class Post extends BaseModel
             $post->id = $id;
         }
         $post->posted = (bool) Arr::get($values, 'posted');
-        $post->tweetId = Arr::get($values, 'tweet_id');
+        $post->postId = Arr::get($values, 'post_id');
         $post->replyType = Arr::get($values, 'reply_type');
         $post->result = (array) json_decode(Arr::get($values, 'result'), true);
         $post->createdAt = Carbon::parse(Arr::get($values, 'created_at'));
@@ -51,10 +51,12 @@ class Post extends BaseModel
             $array['id'] = $this->id;
         }
         $array['posted'] = $this->posted ? 1 : 0;
-        $array['tweet_id'] = $this->tweetId;
+        $array['post_id'] = $this->postId;
         $array['reply_type'] = $this->replyType;
         $array['result'] = json_encode($this->result);
-        $array['created_at'] = $this->createdAt;
+        if ($this->createdAt) {
+            $array['created_at'] = $this->createdAt;
+        }
 
         return $array;
     }
@@ -64,8 +66,8 @@ class Post extends BaseModel
      */
     public function save()
     {
-        if ($this->getQueryObject()->doesPostExistOnTweetId($this->tweetId)) {
-            throw new \Exception('Post `' . $this->tweetId . '` already replied on!');
+        if ($this->getQueryObject()->doesPostExistForPostId($this->postId)) {
+            throw new \Exception('Post `' . $this->postId . '` already replied on!');
         }
 
         return $this->getQueryObject()->createNewPost($this->toArray());

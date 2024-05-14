@@ -164,3 +164,10 @@ if (!function_exists('get_random_number')) {
         return rand($min, $max);
     }
 }
+
+if (!function_exists('now')) {
+    function now(): \Carbon\Carbon
+    {
+        return \Carbon\Carbon::now('America/Curacao');
+    }
+}

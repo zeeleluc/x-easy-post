@@ -26,6 +26,8 @@ abstract class FormFieldValidator
 
     protected function setMessage(string $message): void
     {
-        $this->messages[] = $message;
+        if (!in_array($message, $this->messages)) {
+            $this->messages[] = $message;
+        }
     }
 }

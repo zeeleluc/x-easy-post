@@ -23,7 +23,12 @@ class PostQuery extends Query
             throw new \Exception('Post not created.');
         }
 
-        return $this->getPostByEmail(Arr::get($values, 'email'));
+        $values = $this->getPostByPostId(Arr::get($values, 'post_id'));
+
+        $post = new Post();
+        $post->fromArray($values);
+
+        return $post;
     }
 
     /**
@@ -42,11 +47,46 @@ class PostQuery extends Query
         return $posts;
     }
 
-    public function doesPostExistOnTweetId(string $tweetId): bool
+    public function doesPostExistForPostId(string $postId): bool
     {
         return (bool) $this->db
             ->where('posted', 1)
-            ->where('tweet_id', $tweetId)
+            ->where('post_id', $postId)
             ->getOne($this->table);
+    }
+
+
+    public function getPostByPostId(string $postId): array
+    {
+        return $this->db
+            ->where('post_id', $postId)
+            ->getOne($this->table);
+    }
+
+    /**
+     * @param int $limit
+     * @return array|Post[]
+     * @throws \Exception
+     */
+    public function getLastPosts(int $limit = 10): array
+    {
+        $posts = [];
+        $results = $this->db
+            ->orderBy('created_at')
+            ->get($this->table);
+
+        foreach ($results as $result) {
+            $posts[] = (new Post())->fromArray($result);
+        }
+
+        return $posts;
+    }
+
+    public function getCountPostsInLastPeriod(): int
+    {
+        return count($this->db
+            ->where('posted', true)
+            ->where('created_at', now()->subHours(3)->format('Y-m-d H:i:s'), '>')
+            ->get($this->table));
     }
 }
