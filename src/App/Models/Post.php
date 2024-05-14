@@ -15,6 +15,8 @@ class Post extends BaseModel
 
     public bool $posted;
 
+    public string $image;
+
     public string $replyType;
 
     public string $readableResult;
@@ -23,7 +25,10 @@ class Post extends BaseModel
 
     public ?Carbon $createdAt = null;
 
-    public function initNew(array $values)
+    /**
+     * @throws \Exception
+     */
+    public function initNew(array $values): Post
     {
         $post = $this->fromArray($values);
 
@@ -40,6 +45,7 @@ class Post extends BaseModel
             $post->postId = $postId;
         }
         $post->posted = (bool) Arr::get($values, 'posted');
+        $post->image = Arr::get($values, 'image');
         $post->replyType = Arr::get($values, 'reply_type');
         $post->readableResult = Arr::get($values, 'readable_result');
         $post->result = (array) json_decode(Arr::get($values, 'result'), true);
@@ -59,6 +65,7 @@ class Post extends BaseModel
             $array['post_id'] = $this->postId;
         }
         $array['posted'] = $this->posted ? 1 : 0;
+        $array['image'] = $this->image;
         $array['reply_type'] = $this->replyType;
         $array['readable_result'] = $this->readableResult;
         $array['result'] = json_encode($this->result);

@@ -137,7 +137,7 @@ if (!function_exists('parse_form_errors')) {
 }
 
 if (!function_exists('download_remote_url_and_return_temp_path')) {
-    function download_remote_url_and_return_temp_path(string $slug, string $filename): string
+    function download_remote_url_and_return_temp_path(string $slug, string $filename): array
     {
         $remoteUrl = get_url_digital_ocean($slug, $filename);
 
@@ -146,7 +146,10 @@ if (!function_exists('download_remote_url_and_return_temp_path')) {
         file_put_contents($path, $image);
         chmod($path, 0777);
 
-        return $path;
+        return [
+            'urlTMP' => $path,
+            'urlCDN' => $remoteUrl,
+        ];
     }
 }
 

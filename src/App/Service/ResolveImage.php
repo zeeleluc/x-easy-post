@@ -3,6 +3,10 @@ namespace App\Service;
 
 class ResolveImage
 {
+    public string $urlTMP;
+
+    public string $urlCDN;
+
     public function __construct(
         private readonly string $imageTypeSlug,
         private ?int $id = null
@@ -14,16 +18,19 @@ class ResolveImage
         return new self($imageTypeSlug, $id);
     }
 
-    public function do():? string
+    public function do():? ResolveImage
     {
         if ($this->imageTypeSlug === 'looney_luca') {
-            return $this->getLooneyLucaImage();
+            $images = $this->getLooneyLucaImages();
+            $this->urlTMP = $images['urlTMP'];
+            $this->urlCDN = $images['urlCDN'];
+            return $this;
         }
 
         return null;
     }
 
-    private function getLooneyLucaImage(): string
+    private function getLooneyLucaImages(): array
     {
         if (!$this->id) {
             $this->id = get_random_number(1, 10000);

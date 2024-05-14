@@ -77,7 +77,9 @@
                             <td><?=$post->posted ? 'Y' : 'N'; ?></td>
                             <td class="w-100">
                                 <?php if ($post->posted): ?>
-                                    <a target="_blank" href="https://x.com/HasMints/status/<?=$post->readableResult; ?>"><?=$post->readableResult; ?></a>
+                                    <a target="_blank" href="https://x.com/HasMints/status/<?=$post->readableResult; ?>">
+                                        <img class="w-25" src="<?=$post->image; ?>" />
+                                    </a>
                                 <?php else: ?>
                                     <?=$post->readableResult; ?>
                                 <?php endif; ?>

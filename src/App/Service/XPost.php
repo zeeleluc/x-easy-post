@@ -14,7 +14,7 @@ class XPost
 
     private string $text;
 
-    private array $images = [];
+    private ?string $image = null;
 
     public function __construct()
     {
@@ -32,9 +32,14 @@ class XPost
 
     public function setImage(string $path): self
     {
-        $this->images[] = $path;
+        $this->image = $path;
 
         return $this;
+    }
+
+    public function getImage(): string
+    {
+        return $this->image;
     }
 
     /**
@@ -73,13 +78,11 @@ class XPost
      */
     private function uploadAndAttachMediaIds(&$parameters = []): void
     {
-        if ($this->images) {
+        if ($this->image) {
             $mediaIds = [];
-            foreach ($this->images as $image) {
-                $mediaChunks = $this->getConnection('1.1')
-                    ->upload('media/upload', ['media' => $image]);
-                $mediaIds[] = $mediaChunks->media_id_string;
-            }
+            $mediaChunks = $this->getConnection('1.1')
+                ->upload('media/upload', ['media' => $this->image]);
+            $mediaIds[] = $mediaChunks->media_id_string;
 
             if ($mediaIds) {
                 $parameters['media'] = [

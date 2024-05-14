@@ -67,17 +67,16 @@ class Home extends BaseFormAction
 
         $xPost = new XPost();
         $xPost->setText($text);
-        if ($image) {
-            if ($resolvedImage = ResolveImage::make($image, $nftId)->do()) {
-                $xPost->setImage($resolvedImage);
-            }
+        $resolvedImage = ResolveImage::make($image, $nftId)->do();
+        if ($resolvedImage) {
+            $xPost->setImage($resolvedImage->urlTMP);
         }
+
         if ($postId) {
             $result = $xPost->reply($postId);
         } else {
             $result = $xPost->post();
         }
-//        $result = [];
 
         $posted = true;
         if (array_key_exists('status', $result)) {
@@ -92,6 +91,9 @@ class Home extends BaseFormAction
             $post->postId = $postId;
         }
         $post->posted = $posted;
+        if ($resolvedImage) {
+            $post->image = $resolvedImage->urlCDN;
+        }
         $post->replyType = $image;
         $post->readableResult = $readableResult;
         $post->result = $result;
