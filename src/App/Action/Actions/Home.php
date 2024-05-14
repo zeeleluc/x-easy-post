@@ -8,6 +8,7 @@ use App\FormFieldValidator\PostID;
 use App\FormFieldValidator\RegularString;
 use App\Models\Post;
 use App\Query\PostQuery;
+use App\Service\ResolveImage;
 use App\Service\XPost;
 use App\Variable;
 
@@ -59,20 +60,42 @@ class Home extends BaseFormAction
 
     protected function handleForm(): void
     {
-        $postId = $this->validatedFormValues['post_id'];
+        $postId = $this->validatedFormValues['post_id'] ?: null;
         $text = $this->validatedFormValues['text'];
+        $image = $this->validatedFormValues['image'];
+        $nftId = $this->validatedFormValues['nft_id'] ?: null;
+
+        $xPost = new XPost();
+        $xPost->setText($text);
+        if ($image) {
+            if ($resolvedImage = ResolveImage::make($image, $nftId)->do()) {
+                $xPost->setImage($resolvedImage);
+            }
+        }
+        if ($postId) {
+            $result = $xPost->reply($postId);
+        } else {
+            $result = $xPost->post();
+        }
+//        $result = [];
+
+        $posted = true;
+        if (array_key_exists('status', $result)) {
+            $posted = false;
+            $readableResult = $result['status'] . ': ' . $result['detail'];
+        } else {
+            $readableResult = $result['data']['id'];
+        }
 
         $post = new Post();
-        $post->postId = $postId;
-        $post->posted = true;
-        $post->replyType = 'Testing';
-        $post->result = ['adfafas'];
+        if ($postId) {
+            $post->postId = $postId;
+        }
+        $post->posted = $posted;
+        $post->replyType = $image;
+        $post->readableResult = $readableResult;
+        $post->result = $result;
         $post->save();
-
-//        $xPost = new XPost();
-//        $xPost->setText('Have you seen this collection already?');
-//        $xPost->setImageLooneyLuca();
-//        $xPost->reply('');
 
         success('', 'Posted ' . $text . ' ' . $postId);
     }

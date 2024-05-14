@@ -11,11 +11,13 @@ class Post extends BaseModel
 
     public ?int $id = null;
 
-    public string $postId;
+    public ?string $postId = null;
 
     public bool $posted;
 
     public string $replyType;
+
+    public string $readableResult;
 
     public array $result;
 
@@ -34,9 +36,12 @@ class Post extends BaseModel
         if ($id = Arr::get($values, 'id')) {
             $post->id = $id;
         }
+        if ($postId = Arr::get($values, 'post_id')) {
+            $post->postId = $postId;
+        }
         $post->posted = (bool) Arr::get($values, 'posted');
-        $post->postId = Arr::get($values, 'post_id');
         $post->replyType = Arr::get($values, 'reply_type');
+        $post->readableResult = Arr::get($values, 'readable_result');
         $post->result = (array) json_decode(Arr::get($values, 'result'), true);
         $post->createdAt = Carbon::parse(Arr::get($values, 'created_at'));
 
@@ -50,9 +55,12 @@ class Post extends BaseModel
         if ($this->id) {
             $array['id'] = $this->id;
         }
+        if ($this->postId) {
+            $array['post_id'] = $this->postId;
+        }
         $array['posted'] = $this->posted ? 1 : 0;
-        $array['post_id'] = $this->postId;
         $array['reply_type'] = $this->replyType;
+        $array['readable_result'] = $this->readableResult;
         $array['result'] = json_encode($this->result);
         if ($this->createdAt) {
             $array['created_at'] = $this->createdAt;
@@ -66,7 +74,7 @@ class Post extends BaseModel
      */
     public function save()
     {
-        if ($this->getQueryObject()->doesPostExistForPostId($this->postId)) {
+        if ($this->postId && $this->getQueryObject()->doesPostExistForPostId($this->postId)) {
             throw new \Exception('Post `' . $this->postId . '` already replied on!');
         }
 

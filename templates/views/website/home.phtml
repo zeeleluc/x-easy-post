@@ -71,10 +71,17 @@
             <div class="table-responsive">
                 <table class="table table-striped">
                     <?php foreach ($lastPosts as $post): /* @var $post \App\Models\Post */ ?>
-                        <tr>
-                            <td><?=$post->postId; ?></td>
+                        <tr title="<?=json_encode($post->result); ?>">
+                            <td><?=$post->postId ? 'R' : 'P'; ?></td>
+                            <td style="min-width: 200px;"><?=$post->postId ?: '-'; ?></td>
                             <td><?=$post->posted ? 'Y' : 'N'; ?></td>
-                            <td class="w-100"><?=json_encode($post->result); ?></td>
+                            <td class="w-100">
+                                <?php if ($post->posted): ?>
+                                    <a target="_blank" href="https://x.com/HasMints/status/<?=$post->readableResult; ?>"><?=$post->readableResult; ?></a>
+                                <?php else: ?>
+                                    <?=$post->readableResult; ?>
+                                <?php endif; ?>
+                            </td>
                             <td style="min-width: 200px;" class="text-end"><?=$post->createdAt; ?></td>
                         </tr>
                     <?php endforeach; ?>

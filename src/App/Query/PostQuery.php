@@ -2,7 +2,6 @@
 namespace App\Query;
 
 use App\Models\Post;
-use ArrayHelpers\Arr;
 use Carbon\Carbon;
 
 class PostQuery extends Query
@@ -10,6 +9,9 @@ class PostQuery extends Query
 
     private string $table = 'posts';
 
+    /**
+     * @throws \Exception
+     */
     public function createNewPost(array $values): Post
     {
         foreach ($values as $key => $value) {
@@ -23,7 +25,7 @@ class PostQuery extends Query
             throw new \Exception('Post not created.');
         }
 
-        $values = $this->getPostByPostId(Arr::get($values, 'post_id'));
+        $values = $this->getPostById($this->db->getInsertId());
 
         $post = new Post();
         $post->fromArray($values);
@@ -56,10 +58,10 @@ class PostQuery extends Query
     }
 
 
-    public function getPostByPostId(string $postId): array
+    public function getPostById(int $id): array
     {
         return $this->db
-            ->where('post_id', $postId)
+            ->where('id', $id)
             ->getOne($this->table);
     }
 

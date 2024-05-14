@@ -14,7 +14,7 @@ class XPost
 
     private string $text;
 
-    private array $images;
+    private array $images = [];
 
     public function __construct()
     {
@@ -30,19 +30,32 @@ class XPost
         return $this;
     }
 
-    public function setImageLooneyLuca(int $id = null)
+    public function setImage(string $path): self
     {
-        if (!$id) {
-            $id = get_random_number(1, 10000);
-        }
+        $this->images[] = $path;
 
-        $this->images[] = download_remote_url_and_return_temp_path('looney-luca-ether', $id . '.png');
+        return $this;
     }
 
     /**
      * @throws TwitterOAuthException
      */
-    public function reply(string $inReplyTo): object|array
+    public function post(): array
+    {
+        $parameters = [
+            'text' => $this->text,
+        ];
+
+        $this->uploadAndAttachMediaIds($parameters);
+
+        return array_cast_recursive($this->getConnection('2')
+            ->post('tweets', $parameters, ['jsonPayload' => true]));
+    }
+
+    /**
+     * @throws TwitterOAuthException
+     */
+    public function reply(string $inReplyTo): array
     {
         $parameters = [
             'text' => $this->text,
@@ -51,8 +64,8 @@ class XPost
 
         $this->uploadAndAttachMediaIds($parameters);
 
-        return $this->getConnection('2')
-            ->post('tweets', $parameters, ['jsonPayload' => true]);
+        return array_cast_recursive($this->getConnection('2')
+            ->post('tweets', $parameters, ['jsonPayload' => true]));
     }
 
     /**

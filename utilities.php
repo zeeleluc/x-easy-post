@@ -170,3 +170,25 @@ if (!function_exists('now')) {
         return \Carbon\Carbon::now('America/Curacao');
     }
 }
+
+if (!function_exists('array_cast_recursive')) {
+    function array_cast_recursive($array)
+    {
+        if (is_array($array)) {
+            foreach ($array as $key => $value) {
+                if (is_array($value)) {
+                    $array[$key] = array_cast_recursive($value);
+                }
+                if ($value instanceof stdClass) {
+                    $array[$key] = array_cast_recursive((array) $value);
+                }
+            }
+        }
+
+        if ($array instanceof stdClass) {
+            return array_cast_recursive((array) $array);
+        }
+
+        return $array;
+    }
+}
