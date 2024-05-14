@@ -98,11 +98,10 @@ if (!function_exists('generate_token')) {
 }
 
 if (!function_exists('flatten_string')) {
-    function flatten_string(string $string)
+    function flatten_string($string): string
     {
-        $string = str_replace(' ', '', $string);
-        $string = str_replace('-', '', $string);
-        $string = str_replace('_', '', $string);
+        $string = preg_replace('/[^a-zA-Z0-9\s]/', '', $string);
+        $string = str_replace(' ', '_', $string);
 
         return strtolower($string);
     }

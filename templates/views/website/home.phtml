@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <form id="register" method="post" action="">
                         <div class="form-group my-3">
-                            <label for="email" class="my-2">Post ID (or URL)</label>
+                            <label for="email" class="my-2">Post ID (or URL) *</label>
                             <input
                                 type="text"
                                 name="post_id"
@@ -23,7 +23,7 @@
                             <?=parse_form_errors('post_id', $formErrors); ?>
                         </div>
                         <div class="form-group my-3">
-                            <label for="project_name" class="my-2">Text</label>
+                            <label for="project_name" class="my-2">Text *</label>
                             <input
                                 type="text"
                                 name="text"
@@ -32,6 +32,35 @@
                                 id="text"
                             />
                             <?=parse_form_errors('text', $formErrors); ?>
+                        </div>
+                        <div class="form-group my-3">
+                            <label for="project_name" class="my-2">NFT ID (optional)</label>
+                            <input
+                                type="text"
+                                name="nft_id"
+                                class="form-control <?=$formErrors && isset($formErrors['nft_id']) ? 'is-invalid' : ''; ?>"
+                                value="<?=$formValidatedValues && isset($formValidatedValues['nft_id']) ? $formValidatedValues['nft_id'] : ''; ?>"
+                                id="nft_id"
+                            />
+                            <?=parse_form_errors('nft_id', $formErrors); ?>
+                        </div>
+                        <div class="form-group my-3">
+                            <label for="image" class="my-2">Image</label>
+                            <select
+                                name="image"
+                                class="custom-select form-control <?=$formErrors && isset($formErrors['image']) ? 'is-invalid' : ''; ?>"
+                                id="image"
+                            >
+                                <?php foreach(\App\FormFieldValidator\Image::getOptions() as $option) : ?>
+                                    <option
+                                        value="<?=flatten_string($option); ?>"
+                                        <?=$formValidatedValues && isset($formValidatedValues['image']) && ($formValidatedValues['image'] === flatten_string($option)) ? 'selected' : ''; ?>
+                                    >
+                                        <?=$option; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                            <?=parse_form_errors('image', $formErrors); ?>
                         </div>
                         <button type="submit" class="btn btn-primary">Post on X</button>
                     </form>

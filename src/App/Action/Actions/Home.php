@@ -2,6 +2,8 @@
 namespace App\Action\Actions;
 
 use App\Action\BaseFormAction;
+use App\FormFieldValidator\Image;
+use App\FormFieldValidator\NFTID;
 use App\FormFieldValidator\PostID;
 use App\FormFieldValidator\RegularString;
 use App\Models\Post;
@@ -50,6 +52,8 @@ class Home extends BaseFormAction
         $this->validateFormValues([
             new PostID('post_id', $postId),
             new RegularString('text', $this->getRequest()->getPostParam('text')),
+            new NFTID('nft_id', $this->getRequest()->getPostParam('nft_id')),
+            new Image('image', $this->getRequest()->getPostParam('image')),
         ]);
     }
 
