@@ -14,10 +14,10 @@
                         <div class="form-group my-3">
                             <label for="email" class="my-2">Post ID (or URL)</label>
                             <input
-                                type="post_id"
+                                type="text"
                                 name="post_id"
                                 class="form-control <?=$formErrors && isset($formErrors['post_id']) ? 'is-invalid' : ''; ?>"
-                                value="<?=$formValidatedValues && isset($formValidatedValues['post_id']) ? $formValidatedValues['email'] : ''; ?>"
+                                value="<?=$formValidatedValues && isset($formValidatedValues['post_id']) ? $formValidatedValues['post_id'] : ''; ?>"
                                 id="post_id"
                             />
                             <?=parse_form_errors('post_id', $formErrors); ?>

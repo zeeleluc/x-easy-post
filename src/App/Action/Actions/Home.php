@@ -41,8 +41,14 @@ class Home extends BaseFormAction
      */
     protected function performPost()
     {
+        $postId = $this->getRequest()->getPostParam('post_id');
+        if (filter_var($postId, FILTER_VALIDATE_URL)) {
+            $parts = explode('/', $postId);
+            $postId = end($parts);
+        }
+
         $this->validateFormValues([
-            new PostID('post_id', $this->getRequest()->getPostParam('post_id')),
+            new PostID('post_id', $postId),
             new RegularString('text', $this->getRequest()->getPostParam('text')),
         ]);
     }
