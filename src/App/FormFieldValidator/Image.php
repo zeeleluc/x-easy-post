@@ -36,6 +36,7 @@ class Image extends FormFieldValidator
             'Text Four Words Luc Diana',
             'Text Centered BaseAliens',
             'Text Centered LooneyLuca',
+            'Text Centered RipplePunks',
         ];
     }
 }

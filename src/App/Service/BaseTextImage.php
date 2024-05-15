@@ -3,8 +3,21 @@ namespace App\Service;
 
 class BaseTextImage
 {
+    public function getRipplePunkFixedSize(float $resize = 100): \Imagick
+    {
+        $ids = range(0, 9999);
+        shuffle($ids);
 
-    public function getLooneyLuca(int $id, int $resize = 100): \Imagick
+        $tmpPath = $this->getTempImageFromCDN(
+            'ripplepunks-transparent',
+            $ids[0] . '.png',
+            'ripplepunk.png'
+        );
+
+        return $this->getImage(realpath($tmpPath), $resize);
+    }
+
+    public function getLooneyLuca(int $id, float $resize = 100): \Imagick
     {
         $tmpPath = $this->getTempImageFromCDN(
             'looney-luca-ether',
@@ -15,7 +28,7 @@ class BaseTextImage
         return $this->getImage(realpath($tmpPath), $resize);
     }
 
-    public function getRandomImageBaseAlienFirst(int $resize = 100): \Imagick
+    public function getRandomImageBaseAlienFirst(float $resize = 100): \Imagick
     {
         $tmpPath = $this->getTempImageFromCDN(
             'base-punks-png',
@@ -26,7 +39,7 @@ class BaseTextImage
         return $this->getImage(realpath($tmpPath), $resize);
     }
 
-    public function getRandomImageBaseAlienSecond(int $resize = 100): \Imagick
+    public function getRandomImageBaseAlienSecond(float $resize = 100): \Imagick
     {
         $tmpPath = $this->getTempImageFromCDN(
             'base-punks-png',
@@ -56,7 +69,7 @@ class BaseTextImage
     /**
      * @throws \ImagickException
      */
-    private function getImage(string $path, int $resize = 100): \Imagick
+    private function getImage(string $path, float $resize = 100): \Imagick
     {
         $sizes = getimagesize($path);
         $width = $sizes[0];

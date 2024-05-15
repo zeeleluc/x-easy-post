@@ -164,4 +164,12 @@ class ResolveImage
 
         return $textImage->render();
     }
+
+    public function getTextCenteredRipplePunks(): array
+    {
+        $textImage = new TextImageCenteredRipplePunks();
+        $textImage->setText($this->text);
+
+        return $textImage->render();
+    }
 }

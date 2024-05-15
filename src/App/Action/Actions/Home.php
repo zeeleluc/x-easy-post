@@ -78,6 +78,7 @@ class Home extends BaseFormAction
             'text_four_words_luc_diana',
             'text_centered_base_aliens',
             'text_centered_looney_luca',
+            'text_centered_ripple_punks',
         ])) {
             $xPost->setText($text);
         }
