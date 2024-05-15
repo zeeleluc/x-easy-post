@@ -31,7 +31,7 @@ class Home extends BaseFormAction
     /**
      * @throws \Exception
      */
-    protected function performGet()
+    protected function performGet(): void
     {
         parent::performGet();
 
@@ -42,7 +42,7 @@ class Home extends BaseFormAction
     /**
      * @throws \Exception
      */
-    protected function performPost()
+    protected function performPost(): void
     {
         $postId = $this->getRequest()->getPostParam('post_id');
         if (filter_var($postId, FILTER_VALIDATE_URL)) {
@@ -64,14 +64,22 @@ class Home extends BaseFormAction
         $text = $this->validatedFormValues['text'];
         $image = $this->validatedFormValues['image'];
         $nftId = $this->validatedFormValues['nft_id'] ?: null;
-        $resolvedImage = ResolveImage::make($image, $nftId)->do();
+        $resolvedImage = ResolveImage::make($image, [
+            'nft_id' => $nftId,
+            'text' => $text,
+        ])->do();
 
         if (!$resolvedImage) {
             abort('Could not resolve image.');
         }
 
         $xPost = new XPost();
-        $xPost->setText($text);
+        if (!in_array($image, [
+            'text_four_words_luc_diana',
+            'text_centered_base_aliens',
+        ])) {
+            $xPost->setText($text);
+        }
         $xPost->setImage($resolvedImage->urlTMP);
 
         if ($postId) {

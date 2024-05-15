@@ -113,6 +113,8 @@ if (!function_exists('flatten_string')) {
             }
         }
 
+        $result = str_replace(' ', '', $result);
+
         return ltrim($result, '_');
     }
 }

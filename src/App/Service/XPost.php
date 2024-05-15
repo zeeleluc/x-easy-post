@@ -12,7 +12,7 @@ class XPost
 
     private string $oauthTokenSecret;
 
-    private string $text;
+    private string $text = '';
 
     private ?string $image = null;
 

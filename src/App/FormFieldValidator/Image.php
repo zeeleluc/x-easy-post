@@ -30,8 +30,11 @@ class Image extends FormFieldValidator
             'PipingPunks Moving',
             'RipplePunks',
             'RipplePunks QR',
+            'BaseAliens',
+            'BaseAliens Moving',
             'SOLpepens',
-            'Text Centered One Line',
+            'Text Four Words Luc Diana',
+            'Text Centered BaseAliens',
         ];
     }
 }

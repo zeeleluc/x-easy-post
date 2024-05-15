@@ -5,19 +5,25 @@ use Couchbase\ValueRecorder;
 
 class ResolveImage
 {
+    private ?int $id;
+
+    private ?string $text;
+
     public string $urlTMP;
 
     public string $urlCDN;
 
     public function __construct(
         private readonly string $imageTypeSlug,
-        private ?int $id = null
+        private readonly ?array $options = []
     ) {
+        $this->id = $this->options['nft_id'];
+        $this->text = $this->options['text'];
     }
 
-    public static function make(string $imageTypeSlug, int $id = null): ResolveImage
+    public static function make(string $imageTypeSlug, array $options = []): ResolveImage
     {
-        return new self($imageTypeSlug, $id);
+        return new self($imageTypeSlug, $options);
     }
 
     public function do():? ResolveImage
@@ -105,8 +111,49 @@ class ResolveImage
         return download_remote_url_and_return_temp_path('ripplepunks-qr', $this->id . '.png');
     }
 
-    public function getTextCenteredOneLine(): array
+    public function getBaseAliens(): array
     {
+        if (!$this->id) {
+            $this->id = get_random_number(1, 4444);
+        }
 
+        return download_remote_url_and_return_temp_path('base-punks-png', $this->id . '.png');
+    }
+
+    public function getBaseAliensMoving(): array
+    {
+        if (!$this->id) {
+            $this->id = get_random_number(1, 4444);
+        }
+
+        return download_remote_url_and_return_temp_path('base-punks-gif', $this->id . '.gif');
+    }
+
+    public function getTextFourWordsLucDiana(): array
+    {
+        $textImage = new TextImageMaxFourSingleWordsLucDiana();
+        $chunks = explode(' ', $this->text);
+        if (isset($chunks[0])) {
+            $textImage->textFirstRow($chunks[0]);
+        }
+        if (isset($chunks[1])) {
+            $textImage->textSecondRow($chunks[1]);
+        }
+        if (isset($chunks[2])) {
+            $textImage->textThirdRow($chunks[2]);
+        }
+        if (isset($chunks[3])) {
+            $textImage->textFourthRow($chunks[3]);
+        }
+
+        return $textImage->render();
+    }
+
+    public function getTextCenteredBaseAliens(): array
+    {
+        $textImage = new TextImageCenteredBaseAliens();
+        $textImage->setText($this->text);
+
+        return $textImage->render();
     }
 }

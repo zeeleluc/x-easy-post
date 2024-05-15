@@ -6,7 +6,11 @@
         "jolicode/slack-php-api": "^4.7",
         "jdrieghe/array-helpers": "^0.2.0",
         "abraham/twitteroauth": "^7.0",
-        "symfony/http-client": "^7.0"
+        "symfony/http-client": "^7.0",
+        "toin0u/digitalocean-v2": "^4.9",
+        "guzzlehttp/guzzle": "^7.8",
+        "http-interop/http-factory-guzzle": "^1.2",
+        "aws/aws-sdk-php": "^3.306"
     },
     "config": {
         "allow-plugins": {
