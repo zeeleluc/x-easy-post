@@ -77,6 +77,7 @@ class Home extends BaseFormAction
         if (!in_array($image, [
             'text_four_words_luc_diana',
             'text_centered_base_aliens',
+            'text_centered_looney_luca',
         ])) {
             $xPost->setText($text);
         }

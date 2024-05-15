@@ -1,5 +1,6 @@
 <?php
 include "uuid_loading_punks.php";
+include "id_background_hex_looney_luca.php";
 
 if (!function_exists('is_cli')) {
     function is_cli() {
@@ -218,5 +219,41 @@ if (!function_exists('convert_snakecase_to_camelcase')) {
         }
 
         return $string;
+    }
+}
+
+if (!function_exists('adjust_brightness')) {
+    function adjust_brightness($hexCode, $adjustPercent)
+    {
+        $hexCode = ltrim($hexCode, '#');
+
+        if (strlen($hexCode) == 3) {
+            $hexCode = $hexCode[0] . $hexCode[0] . $hexCode[1] . $hexCode[1] . $hexCode[2] . $hexCode[2];
+        }
+
+        $hexCode = array_map('hexdec', str_split($hexCode, 2));
+
+        foreach ($hexCode as & $colorX) {
+            $adjustableLimit = $adjustPercent < 0 ? $colorX : 255 - $colorX;
+            $adjustAmount = ceil($adjustableLimit * $adjustPercent);
+            $colorX = str_pad(dechex((int)$colorX + $adjustAmount), 2, '0', STR_PAD_LEFT);
+        }
+
+        return '#' . implode($hexCode);
+    }
+}
+if (!function_exists('darken_color')) {
+    function darken_color($hex, $percent) {
+        $hex = str_replace('#', '', $hex);
+
+        $r = hexdec(substr($hex, 0, 2));
+        $g = hexdec(substr($hex, 2, 2));
+        $b = hexdec(substr($hex, 4, 2));
+
+        $r = max(0, $r - round($r * $percent / 100));
+        $g = max(0, $g - round($g * $percent / 100));
+        $b = max(0, $b - round($b * $percent / 100));
+
+        return sprintf("#%02x%02x%02x", $r, $g, $b);
     }
 }

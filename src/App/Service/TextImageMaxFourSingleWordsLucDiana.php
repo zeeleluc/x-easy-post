@@ -57,7 +57,7 @@ class TextImageMaxFourSingleWordsLucDiana extends BaseTextImage
      */
     public function render(): array
     {
-        $filename = 'text-image.png';
+        $filename = uniqid() . '.png';
         $urlTMP = ROOT . '/tmp/' . $filename;
 
         $image = new \Imagick();

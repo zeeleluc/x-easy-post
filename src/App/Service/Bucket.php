@@ -27,7 +27,7 @@ class Bucket
         try {
             $result = $this->s3->putObject([
                 'Bucket' => env('S3_BUCKET_NAME'),
-                'Key'    => 'text-images/ ' . $key,
+                'Key'    => 'text-images/' . $key,
                 'Body'   => fopen($path, 'rb'),
                 'ACL'    => 'public-read'
             ]);

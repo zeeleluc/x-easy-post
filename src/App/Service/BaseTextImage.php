@@ -4,6 +4,17 @@ namespace App\Service;
 class BaseTextImage
 {
 
+    public function getLooneyLuca(int $id, int $resize = 100): \Imagick
+    {
+        $tmpPath = $this->getTempImageFromCDN(
+            'looney-luca-ether',
+            $id . '.png',
+            'looney-luca.png'
+        );
+
+        return $this->getImage(realpath($tmpPath), $resize);
+    }
+
     public function getRandomImageBaseAlienFirst(int $resize = 100): \Imagick
     {
         $tmpPath = $this->getTempImageFromCDN(
@@ -52,8 +63,8 @@ class BaseTextImage
         $height = $sizes[1];
 
         if ($resize < 100) {
-            $width = $width - ($width * ($resize / 100));
-            $height = $height - ($height * ($resize / 100));
+            $width = round($width - ($width * ($resize / 100)));
+            $height = round($height - ($height * ($resize / 100)));
         }
 
         $imagick = new \Imagick(realpath($path));

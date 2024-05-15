@@ -156,4 +156,12 @@ class ResolveImage
 
         return $textImage->render();
     }
+
+    public function getTextCenteredLooneyLuca(): array
+    {
+        $textImage = new TextImageCenteredLooneyLuca();
+        $textImage->setText($this->text);
+
+        return $textImage->render();
+    }
 }
