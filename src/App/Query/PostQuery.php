@@ -70,11 +70,12 @@ class PostQuery extends Query
      * @return array|Post[]
      * @throws \Exception
      */
-    public function getLastPosts(int $limit = 10): array
+    public function getLastPosts(): array
     {
         $posts = [];
         $results = $this->db
             ->orderBy('created_at')
+            ->where('created_at', now()->subDay()->format('Y-m-d H:i:s'), '>')
             ->get($this->table);
 
         foreach ($results as $result) {
@@ -88,7 +89,7 @@ class PostQuery extends Query
     {
         return count($this->db
             ->where('posted', true)
-            ->where('created_at', now()->subHours(3)->format('Y-m-d H:i:s'), '>')
+            ->where('created_at', now()->subDay()->format('Y-m-d H:i:s'), '>')
             ->get($this->table));
     }
 }
