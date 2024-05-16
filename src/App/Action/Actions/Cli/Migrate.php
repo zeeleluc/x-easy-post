@@ -70,9 +70,11 @@ class Migrate extends BaseAction
         } else {
             foreach ($migrations as $migration) {
                 $sql = file_get_contents(ROOT . '/migrations/sql/' . $migration . '.sql');
-                $this->migrationQuery->executeMigration($sql, $migration);
-
-                echo 'SQL migration ' . $migration . ' done!' . PHP_EOL;
+                if ($this->migrationQuery->executeMigration($sql, $migration)) {
+                    echo 'SQL migration ' . $migration . ' done!' . PHP_EOL;
+                } else {
+                    echo 'SQL migration ' . $migration . ' has ERRORS!' . PHP_EOL;
+                }
             }
         }
     }

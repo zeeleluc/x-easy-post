@@ -13,13 +13,12 @@
                     <form id="register" method="post" action="">
                         <div class="form-group my-3">
                             <label for="project_name" class="my-2">Text *</label>
-                            <input
-                                type="text"
+                            <textarea
                                 name="text"
                                 class="form-control <?=$formErrors && isset($formErrors['text']) ? 'is-invalid' : ''; ?>"
-                                value="<?=$formValidatedValues && isset($formValidatedValues['text']) ? $formValidatedValues['text'] : ''; ?>"
                                 id="text"
-                            />
+                                rows="5"
+                            ><?=$formValidatedValues && isset($formValidatedValues['text']) ? $formValidatedValues['text'] : ''; ?></textarea>
                             <?=parse_form_errors('text', $formErrors); ?>
                         </div>
                         <div class="form-group my-3">
@@ -81,7 +80,7 @@
                             <?php endif; ?>
                             <td>
                                 <?php if (isset($post->text)): ?>
-                                    <?=$post->text; ?>
+                                    <?=nl2br($post->text); ?>
                                 <?php endif; ?>
                                 <?php if (isset($post->image)): ?>
                                     <?php if (isset($post->text)): ?>

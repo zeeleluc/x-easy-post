@@ -70,7 +70,7 @@ class Home extends BaseFormAction
         ])->do();
 
         if ($postId) {
-            $this->doReply($imageType, $text, $resolvedImage, $postId);
+            $this->doReply($imageType, $text, $postId, $resolvedImage);
         } else {
             $this->schedulePost($imageType, $text, $resolvedImage);
         }
@@ -87,19 +87,23 @@ class Home extends BaseFormAction
         success('', 'Scheduled');
     }
     
-    private function doReply(string $imageType, string $text, ResolveImage $resolvedImage, string $postId): void
+    private function doReply(string $imageType, string $text, string $postId, ResolveImage $resolvedImage = null): void
     {
         // reply
         $xPost = new XPost();
-        if (!in_array($imageType, [
-            'text_four_words_luc_diana',
-            'text_centered_base_aliens',
-            'text_centered_looney_luca',
-            'text_centered_ripple_punks',
-        ])) {
+        if ($resolvedImage) {
+            if (!in_array($imageType, [
+                'text_four_words_luc_diana',
+                'text_centered_base_aliens',
+                'text_centered_looney_luca',
+                'text_centered_ripple_punks',
+            ])) {
+                $xPost->setText($text);
+            }
+            $xPost->setImage($resolvedImage->urlTMP);
+        } else {
             $xPost->setText($text);
         }
-        $xPost->setImage($resolvedImage->urlTMP);
         $result = $xPost->reply($postId);
         $xPost->clear();
         
@@ -126,7 +130,9 @@ class Home extends BaseFormAction
         $post->imageType = $imageType;
         $post->readableResult = $readableResult;
         $post->result = $result;
-        $post->postedAt = now();
+        if ($success) {
+            $post->postedAt = now();
+        }
         $post->save();
 
         if ($success) {

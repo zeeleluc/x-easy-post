@@ -1,0 +1,2 @@
+ALTER TABLE posts
+    MODIFY COLUMN result TEXT;

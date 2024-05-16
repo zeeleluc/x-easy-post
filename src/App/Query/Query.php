@@ -18,7 +18,9 @@ abstract class Query extends BaseObject
             env('DB_HOST'),
             env('DB_USERNAME'),
             env('DB_PASSWORD'),
-            env('DB_DBNAME')
+            env('DB_DBNAME'),
+            3306,
+            ''
         );
     }
 }
