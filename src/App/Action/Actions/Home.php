@@ -37,6 +37,10 @@ class Home extends BaseFormAction
 
         $this->setVariable(new Variable('lastPosts', (new PostQuery())->getLastPosts()));
         $this->setVariable(new Variable('countPostsInLastPeriod', (new PostQuery())->getCountPostsInLastPeriod()));
+
+        $countScheduledPosts = (new PostQuery())->getCountScheduledPosts();
+        $this->setVariable(new Variable('countScheduledPosts', $countScheduledPosts));
+        $this->setVariable(new Variable('lastPostScheduledForDate', now()->addHours($countScheduledPosts)));
     }
 
     /**

@@ -120,6 +120,18 @@ class PostQuery extends Query
             ->get($this->table));
     }
 
+    public function getCountScheduledPosts(): int
+    {
+        $sql = <<<SQL
+SELECT COUNT(*) AS row_count FROM {$this->table}
+    WHERE posted_at IS NULL
+SQL;
+
+        $results = $this->db->rawQuery($sql);
+
+        return $results[0]['row_count'];
+    }
+
     public function getNextScheduledPost():? Post
     {
         $sql = <<<SQL

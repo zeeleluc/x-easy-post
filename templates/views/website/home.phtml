@@ -6,8 +6,16 @@
                 post<?=$countPostsInLastPeriod > 1 ? 's' : ''; ?>
                 in the last 24 hours
             </h1>
+            <strong>
+                There <?=$countScheduledPosts > 1 ? 'are' : 'is'; ?> <?=$countScheduledPosts; ?> scheduled post<?=$countScheduledPosts > 1 ? 's' : ''; ?>
+            </strong>
+            <?php if ($countScheduledPosts >= 1): ?>
+                <small>
+                    (Last post scheduled for <?=$lastPostScheduledForDate->format('d/m H:00'); ?>)
+                </small>
+            <?php endif ?>
         </div>
-        <div class="col col-12 col-sm-4">
+        <div class="col col-12 col-sm-4 mt-4">
             <div class="card">
                 <div class="card-body">
                     <form id="register" method="post" action="">
@@ -67,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <div class="col col-12 col-sm-8">
+        <div class="col col-12 col-sm-8 mt-4">
             <div class="table-responsive">
                 <table class="table">
                     <?php foreach ($lastPosts as $post): /* @var $post \App\Models\Post */ ?>
@@ -78,7 +86,7 @@
                             <?php else: ?>
                                 <td>-</td>
                             <?php endif; ?>
-                            <td>
+                            <td class="w-100">
                                 <?php if (isset($post->text)): ?>
                                     <?=nl2br($post->text); ?>
                                 <?php endif; ?>
@@ -87,7 +95,7 @@
                                         <br />
                                     <?php endif; ?>
                                     <a target="_blank" href="<?=$post->image; ?>">
-                                        <img class="w-25" src="<?=$post->image; ?>" />
+                                        <img class="w-50" src="<?=$post->image; ?>" />
                                     </a>
                                 <?php endif; ?>
                                 <?php if (isset($post->success) && !$post->success): ?>
