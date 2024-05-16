@@ -62,8 +62,8 @@ class TextImageCenteredLooneyLuca extends BaseTextImage
         $looneyLucaSecond = $this->getLooneyLuca($looneyLucaSecondId, 85);
         $looneyLucaSecond->flopImage();
 
-        $image->compositeImage($looneyLuca, \Imagick::COMPOSITE_ATOP, 25, 493);
-        $image->compositeImage($looneyLucaSecond, \Imagick::COMPOSITE_ATOP, 468, 493);
+        $image->compositeImage($looneyLuca, \Imagick::COMPOSITE_ATOP, 75, 493);
+        $image->compositeImage($looneyLucaSecond, \Imagick::COMPOSITE_ATOP, 418, 493);
 
         # add Looney Luca #IDs in bottom corners
         $draw = new \ImagickDraw();
