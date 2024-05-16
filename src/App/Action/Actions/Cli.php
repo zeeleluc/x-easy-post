@@ -2,6 +2,7 @@
 namespace App\Action\Actions;
 
 use App\Action\Actions\Cli\Migrate;
+use App\Action\Actions\Cli\NextPost;
 use App\Action\BaseAction;
 
 class Cli extends BaseAction
@@ -29,6 +30,10 @@ class Cli extends BaseAction
 
         if ($this->action === 'migrate') {
             (new Migrate())->run();
+        }
+
+        if ($this->action === 'next-post') {
+            (new NextPost())->run();
         }
     }
 }

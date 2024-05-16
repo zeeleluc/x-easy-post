@@ -33,6 +33,26 @@ class PostQuery extends Query
         return $post;
     }
 
+    public function updatePost(array $values): Post
+    {
+        foreach ($values as $key => $value) {
+            if ($value instanceof Carbon) {
+                $values[$key] = $value->format('Y-m-d H:i:s');
+            }
+        }
+
+        $result = $this->db->where('id', $values['id'])->update($this->table, $values);
+        if (!$result) {
+            throw new \Exception('Post not created.');
+        }
+
+        $values = $this->getPostById($values['id']);
+
+        $post = new Post();
+        $post->fromArray($values);
+
+        return $post;    }
+
     /**
      * @return array|Post[]
      * @throws \Exception
@@ -90,5 +110,22 @@ class PostQuery extends Query
             ->where('success', true)
             ->where('created_at', now()->subDay()->format('Y-m-d H:i:s'), '>')
             ->get($this->table));
+    }
+
+    public function getNextScheduledPost():? Post
+    {
+        $sql = <<<SQL
+SELECT * FROM {$this->table}
+    WHERE posted_at IS NULL
+    ORDER BY created_at ASC
+    LIMIT 1
+SQL;
+
+        $results = $this->db->rawQuery($sql);
+        if (!$results) {
+            return null;
+        }
+
+        return (new Post())->fromArray($results[0]);
     }
 }

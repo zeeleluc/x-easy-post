@@ -121,7 +121,11 @@ class Post extends BaseModel
             throw new \Exception('Post `' . $this->postId . '` already replied on!');
         }
 
-        return $this->getQueryObject()->createNewPost($this->toArray());
+        if ($this->id) {
+            return $this->getQueryObject()->updatePost($this->toArray());
+        } else {
+            return $this->getQueryObject()->createNewPost($this->toArray());
+        }
     }
 
     public function update()
