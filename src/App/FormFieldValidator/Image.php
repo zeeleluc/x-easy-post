@@ -7,16 +7,18 @@ class Image extends FormFieldValidator
 
     public function validate(): void
     {
-        $validOption = false;
-        foreach (self::getOptions() as $option) {
-            if (flatten_string($option) === $this->value) {
-                $validOption = true;
-                break;
+        if ($this->value) {
+            $validOption = false;
+            foreach (self::getOptions() as $option) {
+                if (flatten_string($option) === $this->value) {
+                    $validOption = true;
+                    break;
+                }
             }
-        }
 
-        if (!$validOption) {
-            $this->setMessage('Image option invalid');
+            if (!$validOption) {
+                $this->setMessage('Image option invalid');
+            }
         }
     }
 

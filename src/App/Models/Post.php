@@ -13,11 +13,11 @@ class Post extends BaseModel
 
     public ?string $postId = null;
 
-    public bool $posted;
+    public bool $success;
 
     public string $image;
 
-    public string $replyType;
+    public string $imageType;
 
     public string $readableResult;
 
@@ -44,9 +44,9 @@ class Post extends BaseModel
         if ($postId = Arr::get($values, 'post_id')) {
             $post->postId = $postId;
         }
-        $post->posted = (bool) Arr::get($values, 'posted');
+        $post->success = (bool) Arr::get($values, 'success');
         $post->image = Arr::get($values, 'image');
-        $post->replyType = Arr::get($values, 'reply_type');
+        $post->imageType = Arr::get($values, 'image_type');
         $post->readableResult = Arr::get($values, 'readable_result');
         $post->result = (array) json_decode(Arr::get($values, 'result'), true);
         $post->createdAt = Carbon::parse(Arr::get($values, 'created_at'));
@@ -64,9 +64,9 @@ class Post extends BaseModel
         if ($this->postId) {
             $array['post_id'] = $this->postId;
         }
-        $array['posted'] = $this->posted ? 1 : 0;
+        $array['success'] = $this->success ? 1 : 0;
         $array['image'] = $this->image;
-        $array['reply_type'] = $this->replyType;
+        $array['image_type'] = $this->imageType;
         $array['readable_result'] = $this->readableResult;
         $array['result'] = json_encode($this->result);
         if ($this->createdAt) {

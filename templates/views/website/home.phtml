@@ -23,12 +23,13 @@
                             <?=parse_form_errors('text', $formErrors); ?>
                         </div>
                         <div class="form-group my-3">
-                            <label for="image" class="my-2">Image *</label>
+                            <label for="image" class="my-2">Image (optional)</label>
                             <select
                                 name="image"
                                 class="custom-select form-control <?=$formErrors && isset($formErrors['image']) ? 'is-invalid' : ''; ?>"
                                 id="image"
                             >
+                                <option></option>
                                 <?php foreach(\App\FormFieldValidator\Image::getOptions() as $option) : ?>
                                     <option
                                         value="<?=flatten_string($option); ?>"
@@ -73,9 +74,9 @@
                     <?php foreach ($lastPosts as $post): /* @var $post \App\Models\Post */ ?>
                         <tr title="<?=json_encode($post->result); ?>">
                             <td><?=$post->postId ? 'R' : 'P'; ?></td>
-                            <td><?=$post->posted ? 'Y' : 'N'; ?></td>
+                            <td><?=$post->success ? 'Y' : 'N'; ?></td>
                             <td class="w-100">
-                                <?php if ($post->posted): ?>
+                                <?php if ($post->success): ?>
                                     <a target="_blank" href="https://x.com/HasMints/status/<?=$post->readableResult; ?>">
                                         <img class="w-25" src="<?=$post->image; ?>" />
                                     </a>

@@ -52,7 +52,7 @@ class PostQuery extends Query
     public function doesPostExistForPostId(string $postId): bool
     {
         return (bool) $this->db
-            ->where('posted', 1)
+            ->where('success', 1)
             ->where('post_id', $postId)
             ->getOne($this->table);
     }
@@ -88,7 +88,7 @@ class PostQuery extends Query
     public function getCountPostsInLastPeriod(): int
     {
         return count($this->db
-            ->where('posted', true)
+            ->where('success', true)
             ->where('created_at', now()->subDay()->format('Y-m-d H:i:s'), '>')
             ->get($this->table));
     }

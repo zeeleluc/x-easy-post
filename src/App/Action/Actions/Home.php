@@ -62,9 +62,9 @@ class Home extends BaseFormAction
     {
         $postId = $this->validatedFormValues['post_id'] ?: null;
         $text = $this->validatedFormValues['text'];
-        $image = $this->validatedFormValues['image'];
+        $imageType = $this->validatedFormValues['image'];
         $nftId = $this->validatedFormValues['nft_id'] ?: null;
-        $resolvedImage = ResolveImage::make($image, [
+        $resolvedImage = ResolveImage::make($imageType, [
             'nft_id' => $nftId,
             'text' => $text,
         ])->do();
@@ -73,8 +73,23 @@ class Home extends BaseFormAction
             abort('Could not resolve image.');
         }
 
+        if ($postId) {
+            $this->doReply($imageType, $text, $resolvedImage, $postId);
+        } else {
+            $this->schedulePost();
+        }
+    }
+    
+    private function schedulePost()
+    {
+        
+    }
+    
+    private function doReply(string $imageType, string $text, ResolveImage $resolvedImage, string $postId): void
+    {
+        // reply
         $xPost = new XPost();
-        if (!in_array($image, [
+        if (!in_array($imageType, [
             'text_four_words_luc_diana',
             'text_centered_base_aliens',
             'text_centered_looney_luca',
@@ -83,41 +98,37 @@ class Home extends BaseFormAction
             $xPost->setText($text);
         }
         $xPost->setImage($resolvedImage->urlTMP);
-
-        if ($postId) {
-            $result = $xPost->reply($postId);
-        } else {
-            $result = $xPost->post();
-        }
+        $result = $xPost->reply($postId);
         $xPost->clear();
-
-        $posted = true;
+        
+        $success = true;
         if (array_key_exists('status', $result)) {
-            $posted = false;
+            $success = false;
             $readableResult = $result['status'] . ': ' . $result['detail'];
         } elseif (array_key_exists('errors', $result)) {
-            $posted = false;
+            $success = false;
             $readableResult = $result['title'] . ': ' . $result['detail'];
 
         } else {
             $readableResult = $result['data']['id'];
         }
 
+        // store reply post results
         $post = new Post();
         if ($postId) {
             $post->postId = $postId;
         }
-        $post->posted = $posted;
+        $post->success = $success;
         $post->image = $resolvedImage->urlCDN;
-        $post->replyType = $image;
+        $post->imageType = $imageType;
         $post->readableResult = $readableResult;
         $post->result = $result;
         $post->save();
 
-        if ($posted) {
-            success('', 'Posted: ' . $text);
+        if ($success) {
+            success('', 'Success: ' . $text);
         } else {
-            abort('Not posted: ' . $text);
+            abort('Not success: ' . $text);
         }
     }
 
