@@ -51,7 +51,13 @@ class PostQuery extends Query
         $post = new Post();
         $post->fromArray($values);
 
-        return $post;    }
+        return $post;
+    }
+
+    public function deletePost(Post $post): bool
+    {
+        return $this->db->where('id', $post->id)->delete($this->table);
+    }
 
     /**
      * @return array|Post[]
@@ -78,7 +84,7 @@ class PostQuery extends Query
     }
 
 
-    public function getPostById(int $id): array
+    public function getPostById(int $id):? array
     {
         return $this->db
             ->where('id', $id)

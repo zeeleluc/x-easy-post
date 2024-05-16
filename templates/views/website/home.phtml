@@ -95,7 +95,17 @@
                                     <?=$post->readableResult; ?>
                                 <?php endif; ?>
                             </td>
-                            <td style="min-width: 200px;" class="text-end"><?=$post->postedAt ?: 'Scheduled'; ?></td>
+                            <td style="min-width: 200px;" class="text-end">
+                                <?=$post->postedAt ?: 'Scheduled'; ?>
+                                <?php if (!$post->postedAt): ?>
+                                    <br />
+                                    <small>
+                                        <a href="/delete-scheduled-post/<?=$post->id; ?>">
+                                            (delete)
+                                        </a>
+                                    </small>
+                                <?php endif; ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </table>

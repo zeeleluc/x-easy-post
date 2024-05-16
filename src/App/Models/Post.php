@@ -135,7 +135,7 @@ class Post extends BaseModel
 
     public function delete()
     {
-        // TODO: Implement delete() method.
+        $this->getQueryObject()->deletePost($this);
     }
 
     public function getQueryObject()

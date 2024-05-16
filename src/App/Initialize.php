@@ -67,6 +67,10 @@ class Initialize extends BaseObject
             return new Action\Actions\Home();
         }
 
+        if ($get['action'] === 'delete-scheduled-post') {
+            return new Action\Actions\DeleteScheduledPost();
+        }
+
         throw new \Exception('Page not found.');
     }
 
