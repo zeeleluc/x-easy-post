@@ -6,6 +6,7 @@ use App\FormFieldValidator\Image;
 use App\FormFieldValidator\NFTID;
 use App\FormFieldValidator\PostID;
 use App\FormFieldValidator\RegularString;
+use App\FormFieldValidator\Type;
 use App\Models\Post;
 use App\Query\PostQuery;
 use App\Service\ResolveImage;
@@ -59,6 +60,7 @@ class Home extends BaseFormAction
             new RegularString('text', $this->getRequest()->getPostParam('text')),
             new NFTID('nft_id', $this->getRequest()->getPostParam('nft_id')),
             new Image('image', $this->getRequest()->getPostParam('image')),
+            new Type('type', $this->getRequest()->getPostParam('type')),
         ]);
     }
 
@@ -68,8 +70,10 @@ class Home extends BaseFormAction
         $text = $this->validatedFormValues['text'];
         $imageType = $this->validatedFormValues['image'];
         $nftId = $this->validatedFormValues['nft_id'] ?: null;
+        $type = $this->validatedFormValues['type'] ?: null;
         $resolvedImage = ResolveImage::make($imageType, [
             'nft_id' => $nftId,
+            'type' => $type,
             'text' => $text,
         ])->do();
 

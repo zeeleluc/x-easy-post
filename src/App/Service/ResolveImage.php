@@ -7,6 +7,8 @@ class ResolveImage
 {
     private ?int $id;
 
+    private ?string $type;
+
     private ?string $text;
 
     public string $urlTMP;
@@ -19,6 +21,7 @@ class ResolveImage
     ) {
         $this->id = $this->options['nft_id'];
         $this->text = $this->options['text'];
+        $this->type = $this->options['type'];
     }
 
     public static function make(string $imageTypeSlug, array $options = []): ResolveImage
@@ -51,7 +54,11 @@ class ResolveImage
     public function getLoadingPunksNFT(): array
     {
         if (!$this->id) {
-            $this->id = get_random_number(0, 9999);
+            if ($this->type) {
+                $this->id = get_random_cryptopunk_id_for_type($this->type);
+            } else {
+                $this->id = get_random_number(0, 9999);
+            }
         }
 
         return download_remote_url_and_return_temp_path('loadingpunks', get_uuid_for_loading_punk($this->id) . '.gif');
@@ -60,7 +67,11 @@ class ResolveImage
     public function getLoadingPunksPixelCount(): array
     {
         if (!$this->id) {
-            $this->id = get_random_number(0, 9999);
+            if ($this->type) {
+                $this->id = get_random_cryptopunk_id_for_type($this->type);
+            } else {
+                $this->id = get_random_number(0, 9999);
+            }
         }
 
         return download_remote_url_and_return_temp_path('loadingpunks-pixel-counts', get_uuid_for_loading_punk($this->id) . '.png');
@@ -69,7 +80,11 @@ class ResolveImage
     public function getPipingPunksMoving(): array
     {
         if (!$this->id) {
-            $this->id = get_random_number(0, 9999);
+            if ($this->type) {
+                $this->id = get_random_cryptopunk_id_for_type($this->type);
+            } else {
+                $this->id = get_random_number(0, 9999);
+            }
         }
 
         return download_remote_url_and_return_temp_path('pipingpunks-gif', $this->id . '.gif');
@@ -78,7 +93,11 @@ class ResolveImage
     public function getPipingPunksNFT(): array
     {
         if (!$this->id) {
-            $this->id = get_random_number(0, 9999);
+            if ($this->type) {
+                $this->id = get_random_cryptopunk_id_for_type($this->type);
+            } else {
+                $this->id = get_random_number(0, 9999);
+            }
         }
 
         return download_remote_url_and_return_temp_path('pipingpunks-png', $this->id . '.png');
@@ -96,7 +115,11 @@ class ResolveImage
     public function getRipplePunks(): array
     {
         if (!$this->id) {
-            $this->id = get_random_number(0, 9999);
+            if ($this->type) {
+                $this->id = get_random_cryptopunk_id_for_type($this->type);
+            } else {
+                $this->id = get_random_number(0, 9999);
+            }
         }
 
         return download_remote_url_and_return_temp_path('ripplepunks', $this->id . '.png');
@@ -105,7 +128,11 @@ class ResolveImage
     public function getRipplePunksQR(): array
     {
         if (!$this->id) {
-            $this->id = get_random_number(0, 9999);
+            if ($this->type) {
+                $this->id = get_random_cryptopunk_id_for_type($this->type);
+            } else {
+                $this->id = get_random_number(0, 9999);
+            }
         }
 
         return download_remote_url_and_return_temp_path('ripplepunks-qr', $this->id . '.png');

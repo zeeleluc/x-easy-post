@@ -1,8 +1,21 @@
 <?php
 
-function get_random_id_for_cryptopunk_type(string $type):? int
+function get_random_cryptopunk_id_for_type(string $type):? int
 {
-    $typeIds = [
+    $types = get_cryptopunks_types_and_ids();
+    if (!array_key_exists($type, $types)) {
+        return null;
+    }
+
+    $ids = $types[$type];
+    shuffle($ids);
+
+    return $ids[0];
+}
+
+function get_cryptopunks_types_and_ids(): array
+{
+    return [
         'Attribute:Green Eye Shadow' => [
             0,
             71,
@@ -27854,14 +27867,5 @@ function get_random_id_for_cryptopunk_type(string $type):? int
             7804,
         ],
     ];
-
-    if (!array_key_exists($type, $typeIds)) {
-        return null;
-    }
-
-    $ids = $typeIds[$type];
-    shuffle($ids);
-
-    return $ids[0];
 }
 

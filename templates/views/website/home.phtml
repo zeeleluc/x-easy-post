@@ -70,6 +70,25 @@
                             />
                             <?=parse_form_errors('nft_id', $formErrors); ?>
                         </div>
+                        <div class="form-group my-3">
+                            <label for="project_name" class="my-2">Type (optional)</label>
+                            <select
+                                name="type"
+                                class="hide custom-select form-control <?=$formErrors && isset($formErrors['type']) ? 'is-invalid' : ''; ?>"
+                                id="type"
+                            >
+                                <option></option>
+                                <?php foreach(\App\FormFieldValidator\Type::getTypes() as $type) : ?>
+                                    <option
+                                        value="<?=$type; ?>"
+                                        <?=$formValidatedValues && isset($formValidatedValues['type']) && ($formValidatedValues['type'] === $type) ? 'selected' : ''; ?>
+                                    >
+                                        <?=$type; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                            <?=parse_form_errors('type', $formErrors); ?>
+                        </div>
                         <button type="submit" class="btn btn-primary">Post on X</button>
                     </form>
                 </div>
