@@ -72,19 +72,30 @@
             <div class="table-responsive">
                 <table class="table">
                     <?php foreach ($lastPosts as $post): /* @var $post \App\Models\Post */ ?>
-                        <tr title="<?=json_encode($post->result); ?>">
+                        <tr class="<?=!isset($post->success) ? 'scheduled' : ''; ?>" title="<?=json_encode($post->result); ?>">
                             <td><?=$post->postId ? 'R' : 'P'; ?></td>
-                            <td><?=$post->success ? 'Y' : 'N'; ?></td>
-                            <td class="w-100">
-                                <?php if ($post->success): ?>
-                                    <a target="_blank" href="https://x.com/HasMints/status/<?=$post->readableResult; ?>">
+                            <?php if (isset($post->success)): ?>
+                                <td><?=$post->success ? '<a target="_blank" href="https://x.com/HasMints/status/' . $post->readableResult . '">Y</a>' : 'N'; ?></td>
+                            <?php else: ?>
+                                <td>-</td>
+                            <?php endif; ?>
+                            <td>
+                                <?php if (isset($post->text)): ?>
+                                    <?=$post->text; ?>
+                                <?php endif; ?>
+                                <?php if (isset($post->image)): ?>
+                                    <?php if (isset($post->text)): ?>
+                                        <br />
+                                    <?php endif; ?>
+                                    <a target="_blank" href="<?=$post->image; ?>">
                                         <img class="w-25" src="<?=$post->image; ?>" />
                                     </a>
-                                <?php else: ?>
+                                <?php endif; ?>
+                                <?php if (isset($post->success) && !$post->success): ?>
                                     <?=$post->readableResult; ?>
                                 <?php endif; ?>
                             </td>
-                            <td style="min-width: 200px;" class="text-end"><?=$post->createdAt; ?></td>
+                            <td style="min-width: 200px;" class="text-end"><?=$post->postedAt ?: 'Scheduled'; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </table>

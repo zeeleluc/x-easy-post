@@ -69,20 +69,22 @@ class Home extends BaseFormAction
             'text' => $text,
         ])->do();
 
-        if (!$resolvedImage) {
-            abort('Could not resolve image.');
-        }
-
         if ($postId) {
             $this->doReply($imageType, $text, $resolvedImage, $postId);
         } else {
-            $this->schedulePost();
+            $this->schedulePost($imageType, $text, $resolvedImage);
         }
     }
     
-    private function schedulePost()
+    private function schedulePost(string $imageType, string $text, ResolveImage $resolvedImage = null)
     {
-        
+        $post = new Post();
+        $post->text = $text;
+        $post->image = $resolvedImage?->urlCDN;
+        $post->imageType = $imageType;
+        $post->save();
+
+        success('', 'Scheduled');
     }
     
     private function doReply(string $imageType, string $text, ResolveImage $resolvedImage, string $postId): void
@@ -119,10 +121,12 @@ class Home extends BaseFormAction
             $post->postId = $postId;
         }
         $post->success = $success;
+        $post->text = $text;
         $post->image = $resolvedImage->urlCDN;
         $post->imageType = $imageType;
         $post->readableResult = $readableResult;
         $post->result = $result;
+        $post->postedAt = now();
         $post->save();
 
         if ($success) {

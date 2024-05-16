@@ -66,7 +66,6 @@ class PostQuery extends Query
     }
 
     /**
-     * @param int $limit
      * @return array|Post[]
      * @throws \Exception
      */

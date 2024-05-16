@@ -13,15 +13,19 @@ class Post extends BaseModel
 
     public ?string $postId = null;
 
-    public bool $success;
+    public ?bool $success = null;
 
-    public string $image;
+    public ?string $text = null;
 
-    public string $imageType;
+    public ?string $image = null;
 
-    public string $readableResult;
+    public ?string $imageType = null;
 
-    public array $result;
+    public ?string $readableResult = null;
+
+    public ?array $result = null;
+
+    public ?Carbon $postedAt = null;
 
     public ?Carbon $createdAt = null;
 
@@ -44,11 +48,27 @@ class Post extends BaseModel
         if ($postId = Arr::get($values, 'post_id')) {
             $post->postId = $postId;
         }
-        $post->success = (bool) Arr::get($values, 'success');
-        $post->image = Arr::get($values, 'image');
-        $post->imageType = Arr::get($values, 'image_type');
-        $post->readableResult = Arr::get($values, 'readable_result');
-        $post->result = (array) json_decode(Arr::get($values, 'result'), true);
+        if ($success = Arr::get($values, 'success')) {
+            $post->success = (bool) $success;
+        }
+        if ($text = Arr::get($values, 'text')) {
+            $post->text = $text;
+        }
+        if ($image = Arr::get($values, 'image')) {
+            $post->image = $image;
+        }
+        if ($imageType = Arr::get($values, 'image_type')) {
+            $post->imageType = $imageType;
+        }
+        if ($readableResult = Arr::get($values, 'readable_result')) {
+            $post->readableResult = $readableResult;
+        }
+        if ($result = Arr::get($values, 'result')) {
+            $post->result = (array) json_decode($result, true);
+        }
+        if ($postedAt = Arr::get($values, 'posted_at')) {
+            $post->postedAt = Carbon::parse($postedAt);
+        }
         $post->createdAt = Carbon::parse(Arr::get($values, 'created_at'));
 
         return $post;
@@ -64,11 +84,27 @@ class Post extends BaseModel
         if ($this->postId) {
             $array['post_id'] = $this->postId;
         }
-        $array['success'] = $this->success ? 1 : 0;
-        $array['image'] = $this->image;
-        $array['image_type'] = $this->imageType;
-        $array['readable_result'] = $this->readableResult;
-        $array['result'] = json_encode($this->result);
+        if (isset($this->success)) {
+            $array['success'] = $this->success ? 1 : 0;
+        }
+        if ($this->image) {
+            $array['image'] = $this->image;
+        }
+        if ($this->text) {
+            $array['text'] = $this->text;
+        }
+        if ($this->imageType) {
+            $array['image_type'] = $this->imageType;
+        }
+        if ($this->readableResult) {
+            $array['readable_result'] = $this->readableResult;
+        }
+        if ($this->result) {
+            $array['result'] = json_encode($this->result);
+        }
+        if ($this->postedAt) {
+            $array['posted_at'] = $this->postedAt;
+        }
         if ($this->createdAt) {
             $array['created_at'] = $this->createdAt;
         }
