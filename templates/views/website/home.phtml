@@ -15,6 +15,15 @@
                 </small>
             <?php endif ?>
         </div>
+        <div class="col col-12">
+
+            <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                    <div class="progress-bar" role="progressbar" style="50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+            </div>
+        </div>
         <div class="col col-12 col-sm-4 mt-4">
             <div class="card">
                 <div class="card-body">
@@ -33,12 +42,26 @@
                             <label for="image" class="my-2">Image (optional)</label>
                             <select
                                 name="image"
-                                class="custom-select form-control <?=$formErrors && isset($formErrors['image']) ? 'is-invalid' : ''; ?>"
+                                class="
+                                    custom-select
+                                    form-control
+                                    <?=$formErrors && isset($formErrors['image']) ? 'is-invalid' : ''; ?>
+                                "
                                 id="image"
                             >
                                 <option></option>
                                 <?php foreach(\App\FormFieldValidator\Image::getOptions() as $option) : ?>
                                     <option
+                                        <?php if (in_array($option, [
+                                            'LoadingPunks NFT',
+                                            'LoadingPunks Pixel Count',
+                                            'PipingPunks NFT',
+                                            'PipingPunks Moving',
+                                            'RipplePunks',
+                                            'RipplePunks QR',
+                                        ])): ?>
+                                            class="option-crypto-punk"
+                                        <?php endif; ?>
                                         value="<?=flatten_string($option); ?>"
                                         <?=$formValidatedValues && isset($formValidatedValues['image']) && ($formValidatedValues['image'] === flatten_string($option)) ? 'selected' : ''; ?>
                                     >
@@ -60,11 +83,14 @@
                             <?=parse_form_errors('post_id', $formErrors); ?>
                         </div>
                         <div class="form-group my-3">
-                            <label for="project_name" class="my-2">NFT ID (optional)</label>
+                            <label for="nft_id" class="my-2">NFT ID (optional)</label>
                             <input
                                 type="text"
                                 name="nft_id"
-                                class="form-control <?=$formErrors && isset($formErrors['nft_id']) ? 'is-invalid' : ''; ?>"
+                                class="
+                                    form-control
+                                    <?=$formErrors && isset($formErrors['nft_id']) ? 'is-invalid' : ''; ?>
+                                "
                                 value="<?=$formValidatedValues && isset($formValidatedValues['nft_id']) ? $formValidatedValues['nft_id'] : ''; ?>"
                                 id="nft_id"
                             />
@@ -74,12 +100,17 @@
                             <label for="project_name" class="my-2">Type (optional)</label>
                             <select
                                 name="type"
-                                class="hide custom-select form-control <?=$formErrors && isset($formErrors['type']) ? 'is-invalid' : ''; ?>"
+                                class="
+                                    custom-select
+                                    form-control
+                                    <?=$formErrors && isset($formErrors['type']) ? 'is-invalid' : ''; ?>
+                                "
                                 id="type"
                             >
                                 <option></option>
-                                <?php foreach(\App\FormFieldValidator\Type::getTypes() as $type) : ?>
+                                <?php foreach(\App\FormFieldValidator\Type::getTypesCryptoPunks() as $type) : ?>
                                     <option
+                                        class="type-crypto-punk hide"
                                         value="<?=$type; ?>"
                                         <?=$formValidatedValues && isset($formValidatedValues['type']) && ($formValidatedValues['type'] === $type) ? 'selected' : ''; ?>
                                     >
@@ -139,3 +170,21 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('image').addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const typeOptions = document.querySelectorAll('select#type option.type-crypto-punk');
+
+        if (selectedOption.classList.contains('option-crypto-punk')) {
+            typeOptions.forEach(option => {
+                option.classList.remove('hide');
+                option.removeAttribute('disabled')
+            });
+        } else {
+            typeOptions.forEach(option => {
+                option.classList.add('hide');
+                option.setAttribute('disabled', 'disabled')
+            });
+        }
+    });
+</script>

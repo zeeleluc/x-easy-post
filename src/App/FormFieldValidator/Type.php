@@ -9,7 +9,7 @@ class Type extends FormFieldValidator
     {
         if ($this->value) {
             $validOption = false;
-            foreach (self::getTypes() as $type) {
+            foreach (self::getAllTypes() as $type) {
                 if ($type === $this->value) {
                     $validOption = true;
                     break;
@@ -22,7 +22,7 @@ class Type extends FormFieldValidator
         }
     }
 
-    public static function getTypes(): array
+    public static function getAllTypes(): array
     {
         $allTypes = [];
         foreach (array_keys(get_cryptopunks_types_and_ids()) as $type) {
@@ -30,5 +30,10 @@ class Type extends FormFieldValidator
         }
 
         return $allTypes;
+    }
+
+    public static function getTypesCryptoPunks(): array
+    {
+        return array_keys(get_cryptopunks_types_and_ids());
     }
 }

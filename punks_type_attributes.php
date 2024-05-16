@@ -15,7 +15,7 @@ function get_random_cryptopunk_id_for_type(string $type):? int
 
 function get_cryptopunks_types_and_ids(): array
 {
-    return [
+    $types = [
         'Attribute:Green Eye Shadow' => [
             0,
             71,
@@ -27867,5 +27867,9 @@ function get_cryptopunks_types_and_ids(): array
             7804,
         ],
     ];
+
+    ksort($types);
+
+    return $types;
 }
 

@@ -258,3 +258,15 @@ if (!function_exists('darken_color')) {
         return sprintf("#%02x%02x%02x", $r, $g, $b);
     }
 }
+
+if (!function_exists('pick_color')) {
+    function pick_color(string $image, int $x, int $y): string
+    {
+        $im = imagecreatefrompng($image);
+
+        $rgb = imagecolorat($im, $x, $y);
+        $colors = imagecolorsforindex($im, $rgb);
+
+        return sprintf("#%02x%02x%02x", $colors['red'], $colors['green'], $colors['blue']);
+    }
+}

@@ -1,3 +1,6 @@
 tr.scheduled {
     color: #999999;
 }
+.hide {
+    display: none;
+}
