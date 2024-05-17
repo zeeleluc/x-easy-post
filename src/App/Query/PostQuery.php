@@ -97,12 +97,12 @@ class PostQuery extends Query
      * @return array|Post[]
      * @throws \Exception
      */
-    public function getLastPosts(): array
+    public function getLastPosts(Carbon $date): array
     {
         $posts = [];
         $results = $this->db
             ->orderBy('created_at')
-            ->where('created_at', now()->subDay()->format('Y-m-d H:i:s'), '>')
+            ->where('created_at', $date->format('Y-m-d H:i:s'), '>')
             ->get($this->table);
 
         foreach ($results as $result) {

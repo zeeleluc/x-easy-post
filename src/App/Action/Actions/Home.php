@@ -9,6 +9,7 @@ use App\FormFieldValidator\RegularString;
 use App\FormFieldValidator\Type;
 use App\Models\Post;
 use App\Query\PostQuery;
+use App\Service\GatherShillingProgress;
 use App\Service\ResolveImage;
 use App\Service\XPost;
 use App\Variable;
@@ -36,7 +37,8 @@ class Home extends BaseFormAction
     {
         parent::performGet();
 
-        $this->setVariable(new Variable('lastPosts', (new PostQuery())->getLastPosts()));
+        $this->setVariable(new Variable('shilledPerProject', (new GatherShillingProgress())->perProject()));
+        $this->setVariable(new Variable('lastPosts', (new PostQuery())->getLastPosts(now()->subDay())));
         $this->setVariable(new Variable('countPostsInLastPeriod', (new PostQuery())->getCountPostsInLastPeriod()));
 
         $countScheduledPosts = (new PostQuery())->getCountScheduledPosts();

@@ -4,3 +4,31 @@ tr.scheduled {
 .hide {
     display: none;
 }
+
+.progress {
+    height: 30px;
+}
+
+.bg-looneyluca {
+    background-color: #FB6C07;
+}
+
+.bg-ripplepunks {
+    background-color: #C5E5F7;
+}
+
+.bg-loadingpunks {
+    background-color: #DDDDDD;
+}
+
+.bg-pipingpunks {
+    background-color: #1C1C1C;
+}
+
+.bg-solpepens {
+    background-color: #9B43FF;
+}
+
+.bg-basealiens {
+    background-color: #3250FC;
+}

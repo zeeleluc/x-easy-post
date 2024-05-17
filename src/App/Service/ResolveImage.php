@@ -1,8 +1,6 @@
 <?php
 namespace App\Service;
 
-use Couchbase\ValueRecorder;
-
 class ResolveImage
 {
     private ?int $id;

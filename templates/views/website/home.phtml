@@ -1,27 +1,32 @@
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col col-12">
-            <h1>
+            <p>
                 <?=$countPostsInLastPeriod; ?>
                 post<?=$countPostsInLastPeriod > 1 ? 's' : ''; ?>
-                in the last 24 hours
-            </h1>
-            <strong>
-                There <?=$countScheduledPosts > 1 ? 'are' : 'is'; ?> <?=$countScheduledPosts; ?> scheduled post<?=$countScheduledPosts > 1 ? 's' : ''; ?>
-            </strong>
-            <?php if ($countScheduledPosts >= 1): ?>
-                <small>
-                    (Last post scheduled for <?=$lastPostScheduledForDate->format('d/m H:00'); ?>)
-                </small>
-            <?php endif ?>
+                in the last 24 hours, also
+                <strong>
+                    there <?=$countScheduledPosts > 1 ? 'are' : 'is'; ?> <?=$countScheduledPosts; ?> scheduled post<?=$countScheduledPosts > 1 ? 's' : ''; ?>
+                </strong>
+                <?php if ($countScheduledPosts >= 1): ?>
+                    <small>
+                        (until <?=$lastPostScheduledForDate->format('d/m H:00'); ?>)
+                    </small>
+                <?php endif ?>
+            </p>
         </div>
         <div class="col col-12">
-
             <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                    </div>
-                    <div class="progress-bar" role="progressbar" style="50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                    </div>
+                <?php foreach ($shilledPerProject as $project => $totalShilledPercentage): ?>
+                    <div
+                        class="progress-bar bg-<?=strtolower($project); ?>"
+                        role="progressbar"
+                        style="width: <?=$totalShilledPercentage; ?>%"
+                        aria-valuenow="<?=$totalShilledPercentage; ?>>"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                    ></div>
+                <?php endforeach; ?>
             </div>
         </div>
         <div class="col col-12 col-sm-4 mt-4">
