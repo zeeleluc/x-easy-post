@@ -193,6 +193,7 @@ class Post extends BaseModel
             $readableResult = $result['data']['id'];
         }
 
+        $this->result = $result;
         $this->readableResult = $readableResult;
         $this->success = $success;
         if ($success) {
