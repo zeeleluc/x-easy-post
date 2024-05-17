@@ -24,7 +24,10 @@ class GatherShillingProgress
             return [];
         }
 
-        return $this->calculateShilledPercentages($this->sumPerProject($posts));
+        $results = $this->calculateShilledPercentages($this->sumPerProject($posts));
+        ksort($results);
+
+        return $results;
     }
     
     private function getProjects(): array
