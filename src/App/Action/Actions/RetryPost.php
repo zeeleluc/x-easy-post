@@ -5,7 +5,7 @@ use App\Action\BaseAction;
 use App\Models\Post;
 use App\Query\PostQuery;
 
-class DeleteScheduledPost extends BaseAction
+class RetryPost extends BaseAction
 {
     public function __construct()
     {
@@ -21,9 +21,18 @@ class DeleteScheduledPost extends BaseAction
             abort('Error');
         }
 
-        $post->delete();
+        $post = (new Post())->fromArray($post);
+        if (isset($post->success) && $post->success) {
+            abort('Error');
+        }
 
-        success('', 'Deleted scheduled post #' . $post->id);
+        $result = $post->postOnX();
+
+        if ($result['success']) {
+            success('', 'Success: ' . $result['message']);
+        } else {
+            abort('Failed: ' . $result['message']);
+        }
     }
 
     public function run()

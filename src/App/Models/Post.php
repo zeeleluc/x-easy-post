@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Query\PostQuery;
+use App\Service\XPost;
 use ArrayHelpers\Arr;
 use Carbon\Carbon;
 
@@ -144,5 +145,64 @@ class Post extends BaseModel
     public function getQueryObject()
     {
         return new PostQuery();
+    }
+
+    public function postOnX(): array
+    {
+        if (isset($this->success) && $this->success) {
+            return [
+                'success' => false,
+                'Already posted succesfully',
+            ];
+        }
+
+        $xPost = new XPost();
+        if ($this->text) {
+            if (!in_array($this->imageType, [
+                'text_four_words_luc_diana',
+                'text_centered_base_aliens',
+                'text_centered_looney_luca',
+                'text_centered_ripple_punks',
+            ])) {
+                $xPost->setText($this->text);
+            }
+        }
+        if ($this->image) {
+            $path = ROOT . '/tmp/' . uniqid();
+            $image = file_get_contents($this->image);
+            file_put_contents($path, $image);
+            chmod($path, 0777);
+
+            $xPost->setImage($path);
+        }
+        if ($this->postId) {
+            $result = $xPost->reply($this->postId);
+        } else {
+            $result = $xPost->post();
+        }
+
+        $success = true;
+        if (array_key_exists('status', $result)) {
+            $success = false;
+            $readableResult = $result['status'] . ': ' . $result['detail'];
+        } elseif (array_key_exists('errors', $result)) {
+            $success = false;
+            $readableResult = $result['title'] . ': ' . $result['detail'];
+
+        } else {
+            $readableResult = $result['data']['id'];
+        }
+
+        $this->readableResult = $readableResult;
+        $this->success = $success;
+        if ($success) {
+            $this->postedAt = now();
+        }
+        $this->save();
+
+        return [
+            'success' => $success,
+            'message' => $readableResult,
+        ];
     }
 }

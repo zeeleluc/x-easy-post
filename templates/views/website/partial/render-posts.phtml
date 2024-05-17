@@ -27,14 +27,17 @@
                 </td>
                 <td style="min-width: 200px;" class="text-end">
                     <?=$post->postedAt ?: 'Scheduled'; ?>
-                    <?php if (!$post->postedAt): ?>
-                        <br />
-                        <small>
-                            <a href="/delete-scheduled-post/<?=$post->id; ?>">
-                                (delete)
+                    <br />
+                    <small>
+                        <a href="/delete-scheduled-post/<?=$post->id; ?>">
+                            (delete)
+                        </a>
+                        <?php if (isset($post->success) && !$post->success): ?>
+                            <a href="/retry-post/<?=$post->id; ?>">
+                                (retry)
                             </a>
-                        </small>
-                    <?php endif; ?>
+                        <?php endif; ?>
+                    </small>
                 </td>
             </tr>
         <?php endforeach; ?>

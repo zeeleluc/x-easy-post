@@ -11,7 +11,6 @@ use App\Models\Post;
 use App\Query\PostQuery;
 use App\Service\GatherShillingProgress;
 use App\Service\ResolveImage;
-use App\Service\XPost;
 use App\Variable;
 
 class Home extends BaseFormAction
@@ -104,56 +103,25 @@ class Home extends BaseFormAction
     
     private function doReply(string $imageType, string $text, string $postId, ResolveImage $resolvedImage = null): void
     {
-        // reply
-        $xPost = new XPost();
-        if ($resolvedImage) {
-            if (!in_array($imageType, [
-                'text_four_words_luc_diana',
-                'text_centered_base_aliens',
-                'text_centered_looney_luca',
-                'text_centered_ripple_punks',
-            ])) {
-                $xPost->setText($text);
-            }
-            $xPost->setImage($resolvedImage->urlTMP);
-        } else {
-            $xPost->setText($text);
-        }
-        $result = $xPost->reply($postId);
-        $xPost->clear();
-        
-        $success = true;
-        if (array_key_exists('status', $result)) {
-            $success = false;
-            $readableResult = $result['status'] . ': ' . $result['detail'];
-        } elseif (array_key_exists('errors', $result)) {
-            $success = false;
-            $readableResult = $result['title'] . ': ' . $result['detail'];
-
-        } else {
-            $readableResult = $result['data']['id'];
-        }
-
         // store reply post results
         $post = new Post();
         if ($postId) {
             $post->postId = $postId;
         }
-        $post->success = $success;
+        $post->success = null;
         $post->text = $text;
         $post->image = $resolvedImage->urlCDN;
         $post->imageType = $imageType;
-        $post->readableResult = $readableResult;
-        $post->result = $result;
-        if ($success) {
-            $post->postedAt = now();
-        }
+        $post->readableResult = null;
+        $post->result = null;
         $post->save();
 
-        if ($success) {
-            success('', 'Success: ' . $text);
+        $result = $post->postOnX();
+
+        if ($result['success']) {
+            success('', 'Success: ' . $result['message']);
         } else {
-            abort('Not success: ' . $text);
+            abort('Failed: ' . $result['message']);
         }
     }
 

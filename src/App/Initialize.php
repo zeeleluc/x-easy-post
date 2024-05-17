@@ -71,6 +71,10 @@ class Initialize extends BaseObject
             return new Action\Actions\DeleteScheduledPost();
         }
 
+        if ($get['action'] === 'retry-post') {
+            return new Action\Actions\RetryPost();
+        }
+
         throw new \Exception('Page not found.');
     }
 
