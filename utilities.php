@@ -2,6 +2,7 @@
 include "uuid_loading_punks.php";
 include "id_background_hex_looney_luca.php";
 include "punks_type_attributes.php";
+include "looneyluca_type_attributes.php";
 
 if (!function_exists('is_cli')) {
     function is_cli() {

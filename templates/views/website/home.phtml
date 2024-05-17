@@ -56,6 +56,10 @@
                                             'RipplePunks QR',
                                         ])): ?>
                                             class="option-crypto-punk"
+                                        <?php elseif (in_array($option, [
+                                            'Looney Luca',
+                                        ])): ?>
+                                            class="option-looneyluca"
                                         <?php endif; ?>
                                         value="<?=flatten_string($option); ?>"
                                         <?=$formValidatedValues && isset($formValidatedValues['image']) && ($formValidatedValues['image'] === flatten_string($option)) ? 'selected' : ''; ?>
@@ -106,6 +110,15 @@
                                 <?php foreach(\App\FormFieldValidator\Type::getTypesCryptoPunks() as $type) : ?>
                                     <option
                                         class="type-crypto-punk hide"
+                                        value="<?=$type; ?>"
+                                        <?=$formValidatedValues && isset($formValidatedValues['type']) && ($formValidatedValues['type'] === $type) ? 'selected' : ''; ?>
+                                    >
+                                        <?=$type; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                                <?php foreach(\App\FormFieldValidator\Type::getTypesLooneyLuca() as $type) : ?>
+                                    <option
+                                        class="type-looneyluca hide"
                                         value="<?=$type; ?>"
                                         <?=$formValidatedValues && isset($formValidatedValues['type']) && ($formValidatedValues['type'] === $type) ? 'selected' : ''; ?>
                                     >

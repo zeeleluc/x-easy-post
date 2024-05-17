@@ -43,7 +43,11 @@ class ResolveImage
     private function getLooneyLuca(): array
     {
         if (!$this->id) {
-            $this->id = get_random_number(1, 10000);
+            if ($this->type) {
+                $this->id = get_random_looneyluca_id_for_type($this->type);
+            } else {
+                $this->id = get_random_number(1, 10000);
+            }
         }
 
         return download_remote_url_and_return_temp_path('looney-luca-ether', $this->id . '.png');

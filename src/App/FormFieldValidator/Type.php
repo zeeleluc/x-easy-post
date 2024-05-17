@@ -25,7 +25,12 @@ class Type extends FormFieldValidator
     public static function getAllTypes(): array
     {
         $allTypes = [];
+
         foreach (array_keys(get_cryptopunks_types_and_ids()) as $type) {
+            $allTypes[] = $type;
+        }
+
+        foreach (array_keys(get_looneyluca_types_and_ids()) as $type) {
             $allTypes[] = $type;
         }
 
@@ -35,5 +40,10 @@ class Type extends FormFieldValidator
     public static function getTypesCryptoPunks(): array
     {
         return array_keys(get_cryptopunks_types_and_ids());
+    }
+
+    public static function getTypesLooneyLuca(): array
+    {
+        return array_keys(get_looneyluca_types_and_ids());
     }
 }
