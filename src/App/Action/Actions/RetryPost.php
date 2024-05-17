@@ -31,7 +31,7 @@ class RetryPost extends BaseAction
         if ($result['success']) {
             success('', 'Success: ' . $result['message']);
         } else {
-            abort('Failed: ' . $result['message']);
+            abort('', 'Failed: ' . $result['message']);
         }
     }
 

@@ -32,10 +32,14 @@
                         <a href="/delete-scheduled-post/<?=$post->id; ?>">
                             (delete)
                         </a>
-                        <?php if (isset($post->success) && !$post->success): ?>
+                        <?php if (!$post->postedAt): ?>
                             <br />
                             <a href="/retry-post/<?=$post->id; ?>">
-                                (retry)
+                                <?php if (isset($post->success) && !$post->success): ?>
+                                    (retry)
+                                <?php else: ?>
+                                    (post now)
+                                <?php endif; ?>
                             </a>
                         <?php endif; ?>
                     </small>

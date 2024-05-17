@@ -152,7 +152,7 @@ class Post extends BaseModel
         if (isset($this->success) && $this->success) {
             return [
                 'success' => false,
-                'Already posted succesfully',
+                'Already posted successfully',
             ];
         }
 
