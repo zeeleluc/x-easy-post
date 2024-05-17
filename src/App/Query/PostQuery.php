@@ -124,7 +124,7 @@ SELECT *
         WHERE post_id IS NOT NULL
           AND posted_at IS NOT NULL
             AND created_at > '{$date->format('Y-m-d H:i:s')}'
-                ORDER BY created_at;
+                ORDER BY created_at DESC;
 SQL;
 
         $results = $this->db->rawQuery($sql);
@@ -150,7 +150,7 @@ SELECT *
         WHERE post_id IS NULL
           AND posted_at IS NOT NULL
             AND created_at > '{$date->format('Y-m-d H:i:s')}'
-                ORDER BY created_at;
+                ORDER BY created_at DESC;
 SQL;
 
         $results = $this->db->rawQuery($sql);
