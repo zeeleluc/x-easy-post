@@ -18,7 +18,7 @@ class Home extends BaseFormAction
     public function __construct()
     {
         if (!$this->getSession()->getItem('loggedIn')) {
-            abort('login');
+            abort('', 'login');
         }
 
         parent::__construct('');
@@ -127,7 +127,7 @@ class Home extends BaseFormAction
         if ($result['success']) {
             success('', 'Success: ' . $result['message']);
         } else {
-            abort('Failed: ' . $result['message']);
+            abort('', 'Failed: ' . $result['message']);
         }
     }
 

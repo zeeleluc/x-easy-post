@@ -13,12 +13,12 @@ class DeleteScheduledPost extends BaseAction
 
         $id = (int) $this->getRequest()->getParam('id');
         if (!$id) {
-            abort('Error');
+            abort('', 'Error');
         }
 
         $post = (new PostQuery())->getPostById($id);
         if (!$post) {
-            abort('Error');
+            abort('', 'Error');
         }
 
         $post = (new Post())->fromArray($post);

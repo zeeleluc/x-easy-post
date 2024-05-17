@@ -13,17 +13,17 @@ class RetryPost extends BaseAction
 
         $id = (int) $this->getRequest()->getParam('id');
         if (!$id) {
-            abort('Error');
+            abort('', 'Error');
         }
 
         $post = (new PostQuery())->getPostById($id);
         if (!$post) {
-            abort('Error');
+            abort('', 'Error');
         }
 
         $post = (new Post())->fromArray($post);
         if (isset($post->success) && $post->success) {
-            abort('Error');
+            abort('', 'Error');
         }
 
         $result = $post->postOnX();
