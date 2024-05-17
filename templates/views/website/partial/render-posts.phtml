@@ -33,6 +33,7 @@
                             (delete)
                         </a>
                         <?php if (isset($post->success) && !$post->success): ?>
+                            <br />
                             <a href="/retry-post/<?=$post->id; ?>">
                                 (retry)
                             </a>
