@@ -38,7 +38,11 @@ class Home extends BaseFormAction
         parent::performGet();
 
         $this->setVariable(new Variable('shilledPerProject', (new GatherShillingProgress())->perProject()));
-        $this->setVariable(new Variable('lastPosts', (new PostQuery())->getLastPosts(now()->subDay())));
+
+        $this->setVariable(new Variable('lastPostsReplies', (new PostQuery())->getLastPostsReplies(now()->subWeek())));
+        $this->setVariable(new Variable('lastPostsPosted', (new PostQuery())->getLastPostsPosted(now()->subWeek())));
+        $this->setVariable(new Variable('lastPostsScheduled', (new PostQuery())->getLastPostsScheduled(now()->subWeek())));
+
         $this->setVariable(new Variable('countPostsInLastPeriod', (new PostQuery())->getCountPostsInLastPeriod()));
 
         $countScheduledPosts = (new PostQuery())->getCountScheduledPosts();

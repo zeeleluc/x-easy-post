@@ -112,6 +112,83 @@ class PostQuery extends Query
         return $posts;
     }
 
+    /**
+     * @return array|Post[]
+     * @throws \Exception
+     */
+    public function getLastPostsReplies(Carbon $date): array
+    {
+        $sql = <<<SQL
+SELECT *
+    FROM {$this->table}
+        WHERE post_id IS NOT NULL
+          AND posted_at IS NOT NULL
+            AND created_at > '{$date->format('Y-m-d H:i:s')}'
+                ORDER BY created_at;
+SQL;
+
+        $results = $this->db->rawQuery($sql);
+
+        $posts = [];
+
+        foreach ($results as $result) {
+            $posts[] = (new Post())->fromArray($result);
+        }
+
+        return $posts;
+    }
+
+    /**
+     * @return array|Post[]
+     * @throws \Exception
+     */
+    public function getLastPostsPosted(Carbon $date): array
+    {
+        $sql = <<<SQL
+SELECT *
+    FROM {$this->table}
+        WHERE post_id IS NULL
+          AND posted_at IS NOT NULL
+            AND created_at > '{$date->format('Y-m-d H:i:s')}'
+                ORDER BY created_at;
+SQL;
+
+        $results = $this->db->rawQuery($sql);
+
+        $posts = [];
+
+        foreach ($results as $result) {
+            $posts[] = (new Post())->fromArray($result);
+        }
+
+        return $posts;
+    }
+
+    /**
+     * @return array|Post[]
+     * @throws \Exception
+     */
+    public function getLastPostsScheduled(Carbon $date): array
+    {
+        $sql = <<<SQL
+SELECT *
+    FROM {$this->table}
+        WHERE posted_at IS NULL
+          AND post_id IS NULL
+            ORDER BY created_at DESC;
+SQL;
+
+        $results = $this->db->rawQuery($sql);
+
+        $posts = [];
+
+        foreach ($results as $result) {
+            $posts[] = (new Post())->fromArray($result);
+        }
+
+        return $posts;
+    }
+
     public function getCountPostsInLastPeriod(): int
     {
         return count($this->db

@@ -131,65 +131,39 @@
             </div>
         </div>
         <div class="col col-12 col-sm-8 mt-4">
-            <div class="table-responsive">
-                <table class="table">
-                    <?php foreach ($lastPosts as $post): /* @var $post \App\Models\Post */ ?>
-                        <tr class="<?=!isset($post->success) ? 'scheduled' : ''; ?>" title="<?=json_encode($post->result); ?>">
-                            <td><?=$post->postId ? 'R' : 'P'; ?></td>
-                            <?php if (isset($post->success)): ?>
-                                <td><?=$post->success ? '<a target="_blank" href="https://x.com/HasMints/status/' . $post->readableResult . '">Y</a>' : 'N'; ?></td>
-                            <?php else: ?>
-                                <td>-</td>
-                            <?php endif; ?>
-                            <td class="w-100">
-                                <?php if (isset($post->text)): ?>
-                                    <?=nl2br($post->text); ?>
-                                <?php endif; ?>
-                                <?php if (isset($post->image)): ?>
-                                    <?php if (isset($post->text)): ?>
-                                        <br />
-                                    <?php endif; ?>
-                                    <a target="_blank" href="<?=$post->image; ?>">
-                                        <img class="w-50" src="<?=$post->image; ?>" />
-                                    </a>
-                                <?php endif; ?>
-                                <?php if (isset($post->success) && !$post->success): ?>
-                                    <?=$post->readableResult; ?>
-                                <?php endif; ?>
-                            </td>
-                            <td style="min-width: 200px;" class="text-end">
-                                <?=$post->postedAt ?: 'Scheduled'; ?>
-                                <?php if (!$post->postedAt): ?>
-                                    <br />
-                                    <small>
-                                        <a href="/delete-scheduled-post/<?=$post->id; ?>">
-                                            (delete)
-                                        </a>
-                                    </small>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </table>
+            <ul class="nav nav-tabs" id="tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="replies-tab" data-bs-toggle="tab" data-bs-target="#replies" type="button" role="tab" aria-controls="replies" aria-selected="true">
+                        Replies (<?=count($lastPostsReplies); ?>)
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="posts-tab" data-bs-toggle="tab" data-bs-target="#posts" type="button" role="tab" aria-controls="posts" aria-selected="true">
+                        Posts (<?=count($lastPostsPosted); ?>)
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="scheduled-tab" data-bs-toggle="tab" data-bs-target="#scheduled" type="button" role="tab" aria-controls="scheduled" aria-selected="false">
+                        Scheduled (<?=count($lastPostsScheduled); ?>)
+                    </button>
+                </li>
+            </ul>
+            <div class="tab-content" id="tab-contents">
+                <div class="tab-pane fade show active" id="replies" role="tabpanel" aria-labelledby="replies-tab">
+                    <?php $posts = $lastPostsReplies; ?>
+                    <?php include ROOT . "/templates/views/website/partial/render-posts.phtml"; ?>
+                </div>
+                <div class="tab-pane fade" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                    <?php $posts = $lastPostsPosted; ?>
+                    <?php include ROOT . "/templates/views/website/partial/render-posts.phtml"; ?>
+                </div>
+                <div class="tab-pane fade" id="scheduled" role="tabpanel" aria-labelledby="scheduled-tab">
+                    <?php $posts = $lastPostsScheduled; ?>
+                    <?php include ROOT . "/templates/views/website/partial/render-posts.phtml"; ?>
+                </div>
             </div>
+
+
         </div>
     </div>
 </div>
-<script>
-    document.getElementById('image').addEventListener('change', function() {
-        const selectedOption = this.options[this.selectedIndex];
-        const typeOptions = document.querySelectorAll('select#type option.type-crypto-punk');
-
-        if (selectedOption.classList.contains('option-crypto-punk')) {
-            typeOptions.forEach(option => {
-                option.classList.remove('hide');
-                option.removeAttribute('disabled')
-            });
-        } else {
-            typeOptions.forEach(option => {
-                option.classList.add('hide');
-                option.setAttribute('disabled', 'disabled')
-            });
-        }
-    });
-</script>
