@@ -48,7 +48,10 @@ class Post extends BaseModel
         if ($postId = Arr::get($values, 'post_id')) {
             $post->postId = $postId;
         }
-        if ($success = Arr::get($values, 'success')) {
+        $success = Arr::get($values, 'success');
+        if (is_null($success)) {
+            $post->success = null;
+        } else {
             $post->success = (bool) $success;
         }
         if ($text = Arr::get($values, 'text')) {

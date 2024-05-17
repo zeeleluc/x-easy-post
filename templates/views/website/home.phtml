@@ -147,6 +147,11 @@
                         Scheduled (<?=count($lastPostsScheduled); ?>)
                     </button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="failed-tab" data-bs-toggle="tab" data-bs-target="#failed" type="button" role="tab" aria-controls="failed" aria-selected="false">
+                        Failed (<?=count($lastPostsFailed); ?>)
+                    </button>
+                </li>
             </ul>
             <div class="tab-content" id="tab-contents">
                 <div class="tab-pane fade show active" id="replies" role="tabpanel" aria-labelledby="replies-tab">
@@ -159,6 +164,10 @@
                 </div>
                 <div class="tab-pane fade" id="scheduled" role="tabpanel" aria-labelledby="scheduled-tab">
                     <?php $posts = $lastPostsScheduled; ?>
+                    <?php include ROOT . "/templates/views/website/partial/render-posts.phtml"; ?>
+                </div>
+                <div class="tab-pane fade" id="failed" role="tabpanel" aria-labelledby="failed-tab">
+                    <?php $posts = $lastPostsFailed; ?>
                     <?php include ROOT . "/templates/views/website/partial/render-posts.phtml"; ?>
                 </div>
             </div>

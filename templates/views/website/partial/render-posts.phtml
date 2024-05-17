@@ -21,7 +21,8 @@
                         </a>
                     <?php endif; ?>
                     <?php if (isset($post->success) && !$post->success): ?>
-                        <?=$post->readableResult; ?>
+                        <br />
+                        <strong class="text-danger"><?=$post->readableResult; ?></strong>
                     <?php endif; ?>
                 </td>
                 <td style="min-width: 200px;" class="text-end">

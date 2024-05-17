@@ -123,6 +123,7 @@ SELECT *
     FROM {$this->table}
         WHERE post_id IS NOT NULL
           AND posted_at IS NOT NULL
+          AND success = '1'
             AND created_at > '{$date->format('Y-m-d H:i:s')}'
                 ORDER BY created_at DESC;
 SQL;
@@ -149,6 +150,7 @@ SELECT *
     FROM {$this->table}
         WHERE post_id IS NULL
           AND posted_at IS NOT NULL
+          AND success = '1'
             AND created_at > '{$date->format('Y-m-d H:i:s')}'
                 ORDER BY created_at DESC;
 SQL;
@@ -175,6 +177,30 @@ SELECT *
     FROM {$this->table}
         WHERE posted_at IS NULL
           AND post_id IS NULL
+            ORDER BY created_at DESC;
+SQL;
+
+        $results = $this->db->rawQuery($sql);
+
+        $posts = [];
+
+        foreach ($results as $result) {
+            $posts[] = (new Post())->fromArray($result);
+        }
+
+        return $posts;
+    }
+
+    /**
+     * @return array|Post[]
+     * @throws \Exception
+     */
+    public function getLastPostsFailed(Carbon $date): array
+    {
+        $sql = <<<SQL
+SELECT *
+    FROM {$this->table}
+        WHERE success = '0'
             ORDER BY created_at DESC;
 SQL;
 
