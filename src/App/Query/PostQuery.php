@@ -17,7 +17,7 @@ class PostQuery extends Query
         foreach ($values as $key => $value) {
             if ($value instanceof Carbon) {
                 $values[$key] = $value->format('Y-m-d H:i:s');
-            } else {
+            } elseif ($key === 'text') {
                 $values[$key] = htmlspecialchars($value);
             }
         }

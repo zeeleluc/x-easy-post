@@ -13,6 +13,10 @@ class NextPost extends BaseAction
     public function __construct()
     {
         $this->postQuery = new PostQuery();
+    }
+
+    public function run()
+    {
         $post = $this->postQuery->getNextScheduledPost();
 
         if ($post) {
@@ -51,13 +55,10 @@ class NextPost extends BaseAction
 
             $post->readableResult = $readableResult;
             $post->success = $success;
-            $post->postedAt = now();
+            if ($success) {
+                $post->postedAt = now();
+            }
             $post->save();
         }
-    }
-
-    public function run()
-    {
-
     }
 }
