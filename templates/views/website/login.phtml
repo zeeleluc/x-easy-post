@@ -1,0 +1,43 @@
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col col-12 text-center">
+            <h1>
+                Login
+            </h1>
+        </div>
+        <div class="col col-12 col-sm-4 mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <form id="login" method="post" action="login">
+                        <div class="form-group my-3">
+                            <label for="username" class="my-2">Username</label>
+                            <input
+                                type="text"
+                                name="username"
+                                class="form-control <?=$formErrors && isset($formErrors['username']) ? 'is-invalid' : ''; ?>"
+                                value="<?=$formValidatedValues && isset($formValidatedValues['username']) ? $formValidatedValues['username'] : ''; ?>"
+                                id="username"
+                            />
+                            <?=parse_form_errors('username', $formErrors); ?>
+                        </div>
+                        <div class="form-group my-3">
+                            <label for="password" class="my-2">Password</label>
+                            <input
+                                type="password"
+                                name="password"
+                                class="
+                                    form-control
+                                    <?=$formErrors && isset($formErrors['password']) ? 'is-invalid' : ''; ?>
+                                "
+                                value="<?=$formValidatedValues && isset($formValidatedValues['password']) ? $formValidatedValues['password'] : ''; ?>"
+                                id="password"
+                            />
+                            <?=parse_form_errors('password', $formErrors); ?>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

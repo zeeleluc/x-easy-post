@@ -54,8 +54,8 @@ if (!function_exists('env')) {
 }
 
 if (!function_exists('abort')) {
-    function abort(string $message = null) {
-        redirect('', $message, 'danger');
+    function abort(string $url = '', string $message = null) {
+        redirect($url, $message, 'danger');
     }
 }
 

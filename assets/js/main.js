@@ -24,3 +24,13 @@ document.getElementById('image').addEventListener('change', function() {
         });
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Show the alert
+    setTimeout(function() {
+        let alertContainer = document.querySelector('.alert-container');
+        if (alertContainer) {
+            alertContainer.remove();
+        }
+    }, 3500);
+});

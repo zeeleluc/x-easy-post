@@ -75,6 +75,14 @@ class Initialize extends BaseObject
             return new Action\Actions\RetryPost();
         }
 
+        if ($get['action'] === 'login') {
+            return new Action\Actions\Login();
+        }
+
+        if ($get['action'] === 'logout') {
+            return new Action\Actions\Logout();
+        }
+
         throw new \Exception('Page not found.');
     }
 

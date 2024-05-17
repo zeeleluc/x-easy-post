@@ -26,6 +26,7 @@ abstract class BaseAction extends BaseObject
             $this->setVariable(new Variable('htmlTitle', $htmlTitle));
             $this->template = new Template();
 
+            $this->setVariable(new Variable('isLoggedIn', $this->getSession()->getItem('loggedIn')));
             $this->setVariable(new Variable('alert', $this->getSession()->getItem('alert')));
         }
     }

@@ -17,6 +17,10 @@ class Home extends BaseFormAction
 {
     public function __construct()
     {
+        if (!$this->getSession()->getItem('loggedIn')) {
+            abort('login');
+        }
+
         parent::__construct('');
 
         $this->setLayout('default');

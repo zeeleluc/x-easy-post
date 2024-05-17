@@ -16,13 +16,16 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="<?=env('URL'); ?>">X Easy Post</a>
+            <?php if ($isLoggedIn): ?>
+                <a class="navbar-item" href="<?=env('URL'); ?>/logout">Logout</a>
+            <?php endif; ?>
         </div>
     </nav>
 
     <main>
 
         <?php if ($alert): ?>
-            <div class="container">
+            <div class="container alert-container">
                 <div class="alert alert-<?=$alert['type']; ?> mt-5 text-center" role="alert">
                     <?=$alert['message']; ?>
                 </div>
@@ -33,7 +36,7 @@
     </main>
 
     <footer class="py-4">
-        <p>Built by <a target="_blank" href="https://hasmints.com/">HasMints</a>.</p>
+        <p class="text-center">Built by <a target="_blank" href="https://hasmints.com/">HasMints</a>.</p>
     </footer>
 
     <script type="text/javascript" src="<?=env('URL'); ?>/assets/js/bootstrap.bundle.min.js"></script>

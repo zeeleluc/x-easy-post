@@ -1,6 +1,44 @@
+.navbar {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+.navbar-brand {
+    color: #ffffff;
+}
+
+.navbar-item {
+    color: #ffffff;
+}
+
+body {
+    background-color: #888888;
+    color: #ffffff;
+}
+
+a {
+    color: #ffffff;
+}
+
+button.nav-link {
+    color: #ffffff;
+}
+
+.card {
+    background-color: #888888;
+    border: none;
+    padding: 0;
+}
+
+.card-body {
+    margin: 0;
+    padding: 0;
+}
+
 tr.scheduled {
     color: #999999;
 }
+
 .hide {
     display: none;
 }

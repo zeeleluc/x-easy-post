@@ -21,6 +21,7 @@ class DeleteScheduledPost extends BaseAction
             abort('Error');
         }
 
+        $post = (new Post())->fromArray($post);
         $post->delete();
 
         success('', 'Deleted scheduled post #' . $post->id);
