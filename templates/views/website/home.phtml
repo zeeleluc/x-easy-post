@@ -2,17 +2,7 @@
     <div class="row justify-content-center">
         <div class="col col-12">
             <p>
-                <?=$countPostsInLastPeriod; ?>
-                post<?=$countPostsInLastPeriod > 1 ? 's' : ''; ?>
-                in the last 24 hours, also
-                <strong>
-                    there <?=$countScheduledPosts > 1 ? 'are' : 'is'; ?> <?=$countScheduledPosts; ?> scheduled post<?=$countScheduledPosts > 1 ? 's' : ''; ?>
-                </strong>
-                <?php if ($countScheduledPosts >= 1): ?>
-                    <small>
-                        (until <?=$lastPostScheduledForDate->format('d/m H:00'); ?>)
-                    </small>
-                <?php endif ?>
+                Actual Posts on X last 24hrs: <?=$actualPostsLast24Hours; ?>
             </p>
         </div>
         <div class="col col-12">
