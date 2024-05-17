@@ -120,7 +120,7 @@ class Home extends BaseFormAction
         $post->imageType = $imageType;
         $post->readableResult = null;
         $post->result = null;
-        $post->save();
+        $post = $post->save();
 
         $result = $post->postOnX();
 
