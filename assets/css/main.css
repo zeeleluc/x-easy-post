@@ -1,3 +1,23 @@
+
+@font-face {
+    font-family: 'lektonregular';
+    src: url('../fonts/lekton-regular-webfont.eot');
+    src: url('../fonts/lekton-regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/lekton-regular-webfont.woff2') format('woff2'),
+    url('../fonts/lekton-regular-webfont.woff') format('woff'),
+    url('../fonts/lekton-regular-webfont.ttf') format('truetype'),
+    url('../fonts/lekton-regular-webfont.svg#lektonregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body {
+    font-family: 'lektonregular', sans-serif;
+    background-color: #111111;
+    color: #ffffff;
+}
+
 .navbar {
     background-color: #333333;
     color: #ffffff;
@@ -11,11 +31,6 @@
     color: #ffffff;
 }
 
-body {
-    background-color: #888888;
-    color: #ffffff;
-}
-
 a {
     color: #ffffff;
 }
@@ -24,15 +39,38 @@ button.nav-link {
     color: #ffffff;
 }
 
+.row-posts .card {
+    text-align: center;
+}
+
 .card {
-    background-color: #888888;
+    background-color: #333333;
     border: none;
-    padding: 0;
+    padding: 15px 10px;
+    margin: 20px 0;
 }
 
 .card-body {
     margin: 0;
     padding: 0;
+}
+
+.card-body img {
+    margin: 10px 0;
+}
+
+form textarea.form-control,
+form input.form-control,
+form select.form-control,
+form select.form-control option,
+
+form textarea.form-control:focus,
+form input.form-control:focus,
+form select.form-control:focus,
+form select.form-control option:focus {
+    background-color: #666666;
+    color: #dddddd;
+    border: none;
 }
 
 tr.scheduled {

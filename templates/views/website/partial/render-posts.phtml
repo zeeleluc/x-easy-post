@@ -1,49 +1,61 @@
-<div class="table-responsive">
-    <table class="table">
-        <?php foreach ($posts as $post): /* @var $post \App\Models\Post */ ?>
-            <tr class="<?=!isset($post->success) ? 'scheduled' : ''; ?>" title="<?=json_encode($post->result); ?>">
-                <td><?=$post->postId ? 'R' : 'P'; ?></td>
-                <?php if (isset($post->success)): ?>
-                    <td><?=$post->success ? '<a target="_blank" href="https://x.com/HasMints/status/' . $post->readableResult . '">Y</a>' : 'N'; ?></td>
-                <?php else: ?>
-                    <td>-</td>
-                <?php endif; ?>
-                <td class="w-50">
-                    <?php if (isset($post->text)): ?>
-                        <?=nl2br($post->text); ?>
+<div class="row row-posts">
+    <?php foreach ($posts as $post): /* @var $post \App\Models\Post */ ?>
+        <div class="col col-12 col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <strong>
+                        <?php if ($post->postId): ?>
+                            Reply
+                        <?php else: ?>
+                            Direct Post
+                        <?php endif; ?>
+                    </strong>
+                    <br />
+
+                    <?php if ($post->postedAt): ?>
+                        <a target="_blank" href="https://x.com/HasMints/status/<?=$post->readableResult; ?>">
+                            <?=$post->postedAt; ?>
+                        </a>
+                    <?php else: ?>
+                        <?php if (isset($post->success)): ?>
+                            <?php if (!$post->success): ?>
+                                Failed
+                                <br />
+                                <strong class="text-danger"><?=$post->readableResult; ?></strong>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            Scheduled
+                        <?php endif; ?>
                     <?php endif; ?>
-                    <?php if (isset($post->success) && !$post->success): ?>
-                        <br />
-                        <strong class="text-danger"><?=$post->readableResult; ?></strong>
-                    <?php endif; ?>
-                </td>
-                <td class="w-50">
+
+                </div>
+                <div class="card-body">
                     <?php if ($post->image): ?>
                         <a target="_blank" href="<?=$post->image; ?>">
                             <img class="w-100" src="<?=$post->image; ?>" />
                         </a>
                     <?php endif; ?>
-                </td>
-                <td style="min-width: 200px;" class="text-end">
-                    <?=$post->postedAt ?: 'Scheduled'; ?>
-                    <br />
-                    <small>
-                        <a href="/delete-scheduled-post/<?=$post->id; ?>">
-                            (delete)
+                </div>
+                <div class="card-body">
+                    <?php if (isset($post->text)): ?>
+                        <?=nl2br($post->text); ?>
+                    <?php endif; ?>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-primary" href="/delete-scheduled-post/<?=$post->id; ?>">
+                        Delete
+                    </a>
+                    <?php if (!$post->postedAt): ?>
+                        <a class="btn btn-primary" href="/retry-post/<?=$post->id; ?>">
+                            <?php if (isset($post->success) && !$post->success): ?>
+                                Retry
+                            <?php else: ?>
+                                Post now
+                            <?php endif; ?>
                         </a>
-                        <?php if (!$post->postedAt): ?>
-                            <br />
-                            <a href="/retry-post/<?=$post->id; ?>">
-                                <?php if (isset($post->success) && !$post->success): ?>
-                                    (retry)
-                                <?php else: ?>
-                                    (post now)
-                                <?php endif; ?>
-                            </a>
-                        <?php endif; ?>
-                    </small>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
 </div>
