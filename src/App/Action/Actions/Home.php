@@ -90,7 +90,7 @@ class Home extends BaseFormAction
         ])->do();
 
         if ($postId) {
-            $this->doReply($imageType, $text, $postId, $resolvedImage);
+            $this->scheduleReply($imageType, $text, $postId, $resolvedImage);
         } else {
             $this->schedulePost($imageType, $text, $resolvedImage);
         }
@@ -107,28 +107,19 @@ class Home extends BaseFormAction
         success('', 'Scheduled');
     }
     
-    private function doReply(string $imageType, string $text, string $postId, ResolveImage $resolvedImage = null): void
+    private function scheduleReply(string $imageType, string $text, string $postId, ResolveImage $resolvedImage = null): void
     {
-        // store reply post results
         $post = new Post();
-        if ($postId) {
-            $post->postId = $postId;
-        }
+        $post->postId = $postId;
         $post->success = null;
         $post->text = $text;
         $post->image = $resolvedImage->urlCDN;
         $post->imageType = $imageType;
         $post->readableResult = null;
         $post->result = null;
-        $post = $post->save();
+        $post->save();
 
-        $result = $post->postOnX();
-
-        if ($result['success']) {
-            success('', 'Success: ' . $result['message']);
-        } else {
-            abort('', 'Failed: ' . $result['message']);
-        }
+        success('', 'Reply scheduled');
     }
 
     public function run()
