@@ -105,7 +105,7 @@ class Home extends BaseFormAction
         success('', 'Scheduled');
     }
     
-    private function scheduleReply(string $imageType, string $imageAttributeType, string $text, string $postId, ResolveImage $resolvedImage = null): void
+    private function scheduleReply(string $imageType, ?string $imageAttributeType, string $text, string $postId, ResolveImage $resolvedImage = null): void
     {
         $post = new Post();
         $post->postId = $postId;
