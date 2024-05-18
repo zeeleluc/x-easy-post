@@ -15,7 +15,7 @@
 <body>
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="<?=env('URL'); ?>">X Easy Post</a>
+            <a class="navbar-brand" href="<?=env('URL'); ?>">X Easy Post (<?=$actualPostsLast24Hours; ?>)</a>
             <?php if ($isLoggedIn): ?>
                 <a class="navbar-item" href="<?=env('URL'); ?>/logout">Logout</a>
             <?php endif; ?>

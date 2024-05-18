@@ -2,6 +2,7 @@
 namespace App\Action;
 
 use App\Object\BaseObject;
+use App\Query\PostQuery;
 use App\Template\Template;
 use App\Variable;
 
@@ -26,6 +27,7 @@ abstract class BaseAction extends BaseObject
             $this->setVariable(new Variable('htmlTitle', $htmlTitle));
             $this->template = new Template();
 
+            $this->setVariable(new Variable('actualPostsLast24Hours', count((new PostQuery())->getActualPostsOnX(now()->subDay()))));
             $this->setVariable(new Variable('isLoggedIn', $this->getSession()->getItem('loggedIn')));
             $this->setVariable(new Variable('alert', $this->getSession()->getItem('alert')));
         }

@@ -41,13 +41,14 @@ button.nav-link {
 
 .row-posts .card {
     text-align: center;
+    margin: 20px 0;
 }
 
 .card {
     background-color: #333333;
     border: none;
     padding: 15px 10px;
-    margin: 20px 0;
+    margin: 0;
 }
 
 .card-body {
@@ -82,7 +83,7 @@ tr.scheduled {
 }
 
 .progress {
-    height: 30px;
+    height: 50px;
 }
 
 .bg-looneyluca {

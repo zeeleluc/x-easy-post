@@ -1,10 +1,5 @@
-<div class="container my-5">
+<div class="container mt-4 mb-2">
     <div class="row justify-content-center">
-        <div class="col col-12">
-            <p>
-                Actual Posts on X last 24hrs: <?=$actualPostsLast24Hours; ?>
-            </p>
-        </div>
         <div class="col col-12">
             <div class="progress">
                 <?php foreach ($shilledPerProject as $project => $totalShilledPercentage): ?>
@@ -23,7 +18,7 @@
             <div class="card">
                 <div class="card-body">
                     <form id="register" method="post" action="">
-                        <div class="form-group my-3">
+                        <div class="form-group my-1">
                             <label for="project_name" class="my-2">Text *</label>
                             <textarea
                                 name="text"
@@ -33,7 +28,7 @@
                             ><?=$formValidatedValues && isset($formValidatedValues['text']) ? $formValidatedValues['text'] : ''; ?></textarea>
                             <?=parse_form_errors('text', $formErrors); ?>
                         </div>
-                        <div class="form-group my-3">
+                        <div class="form-group my-1">
                             <label for="image" class="my-2">Image (optional)</label>
                             <select
                                 name="image"
@@ -70,7 +65,7 @@
                             </select>
                             <?=parse_form_errors('image', $formErrors); ?>
                         </div>
-                        <div class="form-group my-3">
+                        <div class="form-group my-1">
                             <label for="email" class="my-2">Post ID or URL (optional)</label>
                             <input
                                 type="text"
@@ -81,7 +76,7 @@
                             />
                             <?=parse_form_errors('post_id', $formErrors); ?>
                         </div>
-                        <div class="form-group my-3">
+                        <div class="form-group my-1">
                             <label for="nft_id" class="my-2">NFT ID (optional)</label>
                             <input
                                 type="text"
@@ -95,7 +90,7 @@
                             />
                             <?=parse_form_errors('nft_id', $formErrors); ?>
                         </div>
-                        <div class="form-group my-3">
+                        <div class="form-group my-1">
                             <label for="project_name" class="my-2">Type (optional)</label>
                             <select
                                 name="type"
