@@ -29,7 +29,7 @@ class RetryPost extends BaseAction
         $result = $post->postOnX();
 
         if ($result['success']) {
-            success('', 'Success: ' . $result['message']);
+            success('#posts', 'Success: ' . $result['message']);
         } else {
             abort('', 'Failed: ' . $result['message']);
         }

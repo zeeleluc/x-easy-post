@@ -51,9 +51,14 @@ button.nav-link {
     margin: 0;
 }
 
+.card-header {
+    border: none;
+}
+
 .card-body {
     margin: 0;
     padding: 0;
+    border: none;
 }
 
 .card-body img {

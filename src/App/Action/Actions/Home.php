@@ -116,7 +116,7 @@ class Home extends BaseFormAction
         $post->result = null;
         $post->save();
 
-        success('', 'Reply scheduled');
+        success('#scheduled', 'Reply scheduled');
     }
 
     public function run()

@@ -34,3 +34,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 3500);
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    var hash = window.location.hash;
+    if (hash) {
+        var tabTrigger = document.querySelector('button[data-bs-target="' + hash + '"]');
+        if (tabTrigger) {
+            var tab = new bootstrap.Tab(tabTrigger);
+            tab.show();
+        }
+    }
+
+    document.querySelectorAll('button[data-bs-toggle="tab"]').forEach(function(tabTrigger) {
+        tabTrigger.addEventListener('shown.bs.tab', function(e) {
+            history.pushState(null, null, e.target.getAttribute('data-bs-target'));
+        });
+    });
+});
+
