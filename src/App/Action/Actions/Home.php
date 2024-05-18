@@ -87,24 +87,25 @@ class Home extends BaseFormAction
         ])->do();
 
         if ($postId) {
-            $this->scheduleReply($imageType, $text, $postId, $resolvedImage);
+            $this->scheduleReply($imageType, $type, $text, $postId, $resolvedImage);
         } else {
-            $this->schedulePost($imageType, $text, $resolvedImage);
+            $this->schedulePost($imageType, $type, $text, $resolvedImage);
         }
     }
     
-    private function schedulePost(string $imageType, string $text, ResolveImage $resolvedImage = null)
+    private function schedulePost(string $imageType, string $imageAttributeType, string $text, ResolveImage $resolvedImage = null)
     {
         $post = new Post();
         $post->text = $text;
         $post->image = $resolvedImage?->urlCDN;
         $post->imageType = $imageType;
+        $post->imageAttributeType = $imageAttributeType;
         $post->save();
 
         success('', 'Scheduled');
     }
     
-    private function scheduleReply(string $imageType, string $text, string $postId, ResolveImage $resolvedImage = null): void
+    private function scheduleReply(string $imageType, string $imageAttributeType, string $text, string $postId, ResolveImage $resolvedImage = null): void
     {
         $post = new Post();
         $post->postId = $postId;
@@ -112,6 +113,7 @@ class Home extends BaseFormAction
         $post->text = $text;
         $post->image = $resolvedImage->urlCDN;
         $post->imageType = $imageType;
+        $post->imageAttributeType = $imageAttributeType;
         $post->readableResult = null;
         $post->result = null;
         $post->save();

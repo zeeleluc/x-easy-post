@@ -22,6 +22,8 @@ class Post extends BaseModel
 
     public ?string $imageType = null;
 
+    public ?string $imageAttributeType = null;
+
     public ?string $readableResult = null;
 
     public ?array $result = null;
@@ -64,6 +66,9 @@ class Post extends BaseModel
         if ($imageType = Arr::get($values, 'image_type')) {
             $post->imageType = $imageType;
         }
+        if ($imageAttributeType = Arr::get($values, 'image_attribute_type')) {
+            $post->imageAttributeType = $imageAttributeType;
+        }
         if ($readableResult = Arr::get($values, 'readable_result')) {
             $post->readableResult = $readableResult;
         }
@@ -99,6 +104,9 @@ class Post extends BaseModel
         }
         if ($this->imageType) {
             $array['image_type'] = $this->imageType;
+        }
+        if ($this->imageAttributeType) {
+            $array['image_attribute_type'] = $this->imageAttributeType;
         }
         if ($this->readableResult) {
             $array['readable_result'] = $this->readableResult;

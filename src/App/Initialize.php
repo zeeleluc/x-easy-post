@@ -75,6 +75,10 @@ class Initialize extends BaseObject
             return new Action\Actions\RetryPost();
         }
 
+        if ($get['action'] === 'redo-image') {
+            return new Action\Actions\RedoImage();
+        }
+
         if ($get['action'] === 'login') {
             return new Action\Actions\Login();
         }

@@ -13,5 +13,6 @@ RewriteEngine On
 RewriteRule \.(css|jpe?g|gif|png|js|ico)$ - [L]
 RewriteRule ^(delete-scheduled-post)/([0-9]+)?$ index.php?action=$1&id=$2 [NC,L,QSA]
 RewriteRule ^(retry-post)/([0-9]+)?$ index.php?action=$1&id=$2 [NC,L,QSA]
+RewriteRule ^(redo-image)/([0-9]+)?$ index.php?action=$1&id=$2 [NC,L,QSA]
 RewriteRule ^(login)?$ index.php?action=$1 [NC,L,QSA]
 RewriteRule ^(logout)?$ index.php?action=$1 [NC,L,QSA]
