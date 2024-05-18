@@ -170,7 +170,6 @@ SQL;
 SELECT *
     FROM {$this->table}
         WHERE posted_at IS NULL
-          AND post_id IS NULL
             ORDER BY created_at DESC;
 SQL;
 
