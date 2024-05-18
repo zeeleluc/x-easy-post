@@ -93,7 +93,7 @@ class Home extends BaseFormAction
         }
     }
     
-    private function schedulePost(string $imageType, string $imageAttributeType, string $text, ResolveImage $resolvedImage = null)
+    private function schedulePost(string $imageType, ?string $imageAttributeType, string $text, ResolveImage $resolvedImage = null)
     {
         $post = new Post();
         $post->text = $text;
