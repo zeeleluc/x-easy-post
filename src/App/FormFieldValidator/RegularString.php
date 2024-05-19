@@ -7,7 +7,7 @@ class RegularString extends FormFieldValidator
 
     public function validate(): void
     {
-        if (!is_string($this->value) || $this->value === '') {
+        if (!is_string($this->value)) {
             $this->setMessage('Text missing');
         }
     }
