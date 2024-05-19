@@ -48,7 +48,7 @@ class XPost
     public function post(): array
     {
         $parameters = [
-            'text' => $this->text,
+            'text' => html_entity_decode($this->text),
         ];
 
         $this->uploadAndAttachMediaIds($parameters);
@@ -63,7 +63,7 @@ class XPost
     public function reply(string $inReplyTo): array
     {
         $parameters = [
-            'text' => $this->text,
+            'text' => html_entity_decode($this->text),
             'reply' => ['in_reply_to_tweet_id' => $inReplyTo],
         ];
 
