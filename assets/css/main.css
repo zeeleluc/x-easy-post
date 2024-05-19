@@ -65,6 +65,10 @@ button.nav-link {
     margin: 10px 0;
 }
 
+.nav-tabs .nav-link {
+    padding: 7px 8px;
+}
+
 form textarea.form-control,
 form input.form-control,
 form select.form-control,
