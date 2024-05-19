@@ -18,6 +18,8 @@ class Post extends BaseModel
 
     public ?string $text = null;
 
+    public ?string $textImage = null;
+
     public ?string $image = null;
 
     public ?string $imageType = null;
@@ -59,6 +61,9 @@ class Post extends BaseModel
         }
         if ($text = Arr::get($values, 'text')) {
             $post->text = $text;
+        }
+        if ($textImage = Arr::get($values, 'text_image')) {
+            $post->textImage = $textImage;
         }
         if ($image = Arr::get($values, 'image')) {
             $post->image = $image;
@@ -102,6 +107,9 @@ class Post extends BaseModel
         if ($this->text) {
             $array['text'] = $this->text;
         }
+        if ($this->textImage) {
+            $array['text_image'] = $this->textImage;
+        }
         if ($this->imageType) {
             $array['image_type'] = $this->imageType;
         }
@@ -134,15 +142,20 @@ class Post extends BaseModel
         }
 
         if ($this->id) {
-            return $this->getQueryObject()->updatePost($this->toArray());
+            $this->update();
         } else {
-            return $this->getQueryObject()->createNewPost($this->toArray());
+            $this->create();
         }
+    }
+
+    public function create()
+    {
+        return $this->getQueryObject()->createNewPost($this->toArray());
     }
 
     public function update()
     {
-        // TODO: Implement update() method.
+        return $this->getQueryObject()->updatePost($this->toArray());
     }
 
     public function delete()
@@ -166,14 +179,7 @@ class Post extends BaseModel
 
         $xPost = new XPost();
         if ($this->text) {
-            if (!in_array($this->imageType, [
-                'text_four_words_luc_diana',
-                'text_centered_base_aliens',
-                'text_centered_looney_luca',
-                'text_centered_ripple_punks',
-            ])) {
-                $xPost->setText($this->text);
-            }
+            $xPost->setText($this->text);
         }
         if ($this->image) {
             $path = ROOT . '/tmp/' . uniqid();

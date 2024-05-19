@@ -3,6 +3,7 @@ namespace App\Action\Actions;
 
 use App\Action\BaseFormAction;
 use App\FormFieldValidator\Image;
+use App\FormFieldValidator\ImageText;
 use App\FormFieldValidator\NFTID;
 use App\FormFieldValidator\PostID;
 use App\FormFieldValidator\RegularString;
@@ -67,6 +68,7 @@ class Home extends BaseFormAction
         $this->validateFormValues([
             new PostID('post_id', $postId),
             new RegularString('text', $this->getRequest()->getPostParam('text')),
+            new ImageText('text_image', $this->getRequest()->getPostParam('text_image')),
             new NFTID('nft_id', $this->getRequest()->getPostParam('nft_id')),
             new Image('image', $this->getRequest()->getPostParam('image')),
             new Type('type', $this->getRequest()->getPostParam('type')),
@@ -77,26 +79,33 @@ class Home extends BaseFormAction
     {
         $postId = $this->validatedFormValues['post_id'] ?: null;
         $text = $this->validatedFormValues['text'];
+        $textImage = $this->validatedFormValues['text_image'] ?: null;
         $imageType = $this->validatedFormValues['image'];
         $nftId = $this->validatedFormValues['nft_id'] ?: null;
         $type = $this->validatedFormValues['type'] ?: null;
         $resolvedImage = ResolveImage::make($imageType, [
             'nft_id' => $nftId,
             'type' => $type,
-            'text' => $text,
+            'text' => $textImage,
         ])->do();
 
         if ($postId) {
-            $this->scheduleReply($imageType, $type, $text, $postId, $resolvedImage);
+            $this->scheduleReply($imageType, $type, $text, $textImage, $postId, $resolvedImage);
         } else {
-            $this->schedulePost($imageType, $type, $text, $resolvedImage);
+            $this->schedulePost($imageType, $type, $text, $textImage, $resolvedImage);
         }
     }
     
-    private function schedulePost(string $imageType, ?string $imageAttributeType, string $text, ResolveImage $resolvedImage = null)
-    {
+    private function schedulePost(
+        string $imageType,
+        ?string $imageAttributeType,
+        string $text,
+        string $textImage,
+        ResolveImage $resolvedImage = null
+    ): void {
         $post = new Post();
         $post->text = $text;
+        $post->textImage = $textImage;
         $post->image = $resolvedImage?->urlCDN;
         $post->imageType = $imageType;
         $post->imageAttributeType = $imageAttributeType;
@@ -105,12 +114,19 @@ class Home extends BaseFormAction
         success('#scheduled', 'Scheduled');
     }
     
-    private function scheduleReply(string $imageType, ?string $imageAttributeType, string $text, string $postId, ResolveImage $resolvedImage = null): void
-    {
+    private function scheduleReply(
+        string $imageType,
+        ?string $imageAttributeType,
+        string $text,
+        string $textImage,
+        string $postId,
+        ResolveImage $resolvedImage = null
+    ): void {
         $post = new Post();
         $post->postId = $postId;
         $post->success = null;
         $post->text = $text;
+        $post->textImage = $textImage;
         $post->image = $resolvedImage->urlCDN;
         $post->imageType = $imageType;
         $post->imageAttributeType = $imageAttributeType;
