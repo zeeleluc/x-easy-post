@@ -63,6 +63,13 @@ class Home extends BaseFormAction
         if (filter_var($postId, FILTER_VALIDATE_URL)) {
             $parts = explode('/', $postId);
             $postId = end($parts);
+
+            preg_match('/^\d+/', $postId, $matches);
+            if (!empty($matches)) {
+                $postId = $matches[0];
+            } else {
+                $postId = null;
+            }
         }
 
         $this->validateFormValues([
