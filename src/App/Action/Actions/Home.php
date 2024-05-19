@@ -102,7 +102,7 @@ class Home extends BaseFormAction
         $post->imageAttributeType = $imageAttributeType;
         $post->save();
 
-        success('', 'Scheduled');
+        success('#scheduled', 'Scheduled');
     }
     
     private function scheduleReply(string $imageType, ?string $imageAttributeType, string $text, string $postId, ResolveImage $resolvedImage = null): void

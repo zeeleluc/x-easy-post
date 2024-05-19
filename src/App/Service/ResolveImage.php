@@ -201,4 +201,52 @@ class ResolveImage
 
         return $textImage->render();
     }
+
+    public function getSimpleTextBlackBGWhiteText(): array
+    {
+        $textImage = new TextSimpleBlackBGWhiteText();
+        $textImage->setText($this->text);
+
+        return $textImage->render();
+    }
+
+    public function getSimpleTextWhiteBGBlackText(): array
+    {
+        $textImage = new TextSimpleWhiteBGBlackText();
+        $textImage->setText($this->text);
+
+        return $textImage->render();
+    }
+
+    public function getSimpleTextBaseAliensBlue(): array
+    {
+        $textImage = new TextSimpleBaseAliensBlue();
+        $textImage->setText($this->text);
+
+        return $textImage->render();
+    }
+
+    public function getSimpleTextLooneyLucaOrange(): array
+    {
+        $textImage = new TextSimpleLooneyLucaOrange();
+        $textImage->setText($this->text);
+
+        return $textImage->render();
+    }
+
+    public function getSimpleTextSOLpepensPurple(): array
+    {
+        $textImage = new TextSimpleSOLpepensPurple();
+        $textImage->setText($this->text);
+
+        return $textImage->render();
+    }
+
+    public function getSimpleTextRipplePunksBlue(): array
+    {
+        $textImage = new TextSimpleRipplePunksBlue();
+        $textImage->setText($this->text);
+
+        return $textImage->render();
+    }
 }
