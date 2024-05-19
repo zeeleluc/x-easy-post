@@ -79,12 +79,15 @@ document.addEventListener('DOMContentLoaded', function() {
             xhr.send();
         }
 
-        // Form element focus handling
-        const form = document.querySelector('form#posts');
+        // Form element focus and change handling
+        const form = document.querySelector('form#posts-form');
         if (form) {
             const formElements = form.querySelectorAll('textarea, select, input');
             formElements.forEach(element => {
                 element.addEventListener('focus', function() {
+                    checkLoginStatus();
+                });
+                element.addEventListener('change', function() {
                     checkLoginStatus();
                 });
             });
