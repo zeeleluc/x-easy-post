@@ -87,6 +87,10 @@ class Initialize extends BaseObject
             return new Action\Actions\Logout();
         }
 
+        if ($get['action'] === 'check-login') {
+            return new Action\Actions\CheckLogin();
+        }
+
         throw new \Exception('Page not found.');
     }
 
