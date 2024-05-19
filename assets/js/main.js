@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Form element focus handling
-        const form = document.querySelector('form');
+        const form = document.querySelector('form#posts');
         if (form) {
             const formElements = form.querySelectorAll('textarea, select, input');
             formElements.forEach(element => {
