@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const selectedOption = this.options[this.selectedIndex];
                 const typeOptionsCryptoPunks = document.querySelectorAll('select#type option.type-crypto-punk');
                 const typeOptionsLooneyLuca = document.querySelectorAll('select#type option.type-looneyluca');
+                const typeOptionsBaseAliens = document.querySelectorAll('select#type option.type-basealiens');
 
                 if (selectedOption.classList.contains('option-crypto-punk')) {
                     typeOptionsCryptoPunks.forEach(option => {
@@ -14,6 +15,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         option.removeAttribute('disabled');
                     });
                     typeOptionsLooneyLuca.forEach(option => {
+                        option.classList.add('hide');
+                        option.setAttribute('disabled', 'disabled');
+                    });
+                    typeOptionsBaseAliens.forEach(option => {
                         option.classList.add('hide');
                         option.setAttribute('disabled', 'disabled');
                     });
@@ -26,12 +31,33 @@ document.addEventListener('DOMContentLoaded', function() {
                         option.classList.add('hide');
                         option.setAttribute('disabled', 'disabled');
                     });
+                    typeOptionsBaseAliens.forEach(option => {
+                        option.classList.add('hide');
+                        option.setAttribute('disabled', 'disabled');
+                    });
+                } else if (selectedOption.classList.contains('option-basealiens')) {
+                    typeOptionsBaseAliens.forEach(option => {
+                        option.classList.remove('hide');
+                        option.removeAttribute('disabled');
+                    });
+                    typeOptionsLooneyLuca.forEach(option => {
+                        option.classList.add('hide');
+                        option.setAttribute('disabled', 'disabled');
+                    });
+                    typeOptionsCryptoPunks.forEach(option => {
+                        option.classList.add('hide');
+                        option.setAttribute('disabled', 'disabled');
+                    });
                 } else {
                     typeOptionsCryptoPunks.forEach(option => {
                         option.classList.add('hide');
                         option.setAttribute('disabled', 'disabled');
                     });
                     typeOptionsLooneyLuca.forEach(option => {
+                        option.classList.add('hide');
+                        option.setAttribute('disabled', 'disabled');
+                    });
+                    typeOptionsBaseAliens.forEach(option => {
                         option.classList.add('hide');
                         option.setAttribute('disabled', 'disabled');
                     });

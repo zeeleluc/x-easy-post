@@ -69,6 +69,11 @@
                                             'Looney Luca',
                                         ])): ?>
                                             class="option-looneyluca"
+                                        <?php elseif (in_array($option, [
+                                            'BaseAliens',
+                                            'BaseAliens Moving',
+                                        ])): ?>
+                                            class="option-basealiens"
                                         <?php endif; ?>
                                         value="<?=flatten_string($option); ?>"
                                         <?=$formValidatedValues && isset($formValidatedValues['image']) && ($formValidatedValues['image'] === flatten_string($option)) ? 'selected' : ''; ?>
@@ -128,6 +133,15 @@
                                 <?php foreach(\App\FormFieldValidator\Type::getTypesLooneyLuca() as $type) : ?>
                                     <option
                                         class="type-looneyluca hide"
+                                        value="<?=$type; ?>"
+                                        <?=$formValidatedValues && isset($formValidatedValues['type']) && ($formValidatedValues['type'] === $type) ? 'selected' : ''; ?>
+                                    >
+                                        <?=$type; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                                <?php foreach(\App\FormFieldValidator\Type::getTypesBaseAliens() as $type) : ?>
+                                    <option
+                                        class="type-basealiens hide"
                                         value="<?=$type; ?>"
                                         <?=$formValidatedValues && isset($formValidatedValues['type']) && ($formValidatedValues['type'] === $type) ? 'selected' : ''; ?>
                                     >

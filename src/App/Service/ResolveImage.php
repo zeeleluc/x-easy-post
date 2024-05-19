@@ -143,7 +143,11 @@ class ResolveImage
     public function getBaseAliens(): array
     {
         if (!$this->id) {
-            $this->id = get_random_number(1, 4444);
+            if ($this->type) {
+                $this->id = get_random_basealien_id_for_type($this->type);
+            } else {
+                $this->id = get_random_number(1, 4444);
+            }
         }
 
         return download_remote_url_and_return_temp_path('base-punks-png', $this->id . '.png');
@@ -152,7 +156,11 @@ class ResolveImage
     public function getBaseAliensMoving(): array
     {
         if (!$this->id) {
-            $this->id = get_random_number(1, 4444);
+            if ($this->type) {
+                $this->id = get_random_basealien_id_for_type($this->type);
+            } else {
+                $this->id = get_random_number(1, 4444);
+            }
         }
 
         return download_remote_url_and_return_temp_path('base-punks-gif', $this->id . '.gif');

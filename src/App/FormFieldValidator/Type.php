@@ -34,6 +34,10 @@ class Type extends FormFieldValidator
             $allTypes[] = $type;
         }
 
+        foreach (array_keys(get_basealiens_types_and_ids()) as $type) {
+            $allTypes[] = $type;
+        }
+
         return $allTypes;
     }
 
@@ -45,5 +49,10 @@ class Type extends FormFieldValidator
     public static function getTypesLooneyLuca(): array
     {
         return array_keys(get_looneyluca_types_and_ids());
+    }
+
+    public static function getTypesBaseAliens(): array
+    {
+        return array_keys(get_basealiens_types_and_ids());
     }
 }
