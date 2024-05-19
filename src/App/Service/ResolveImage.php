@@ -257,4 +257,12 @@ class ResolveImage
 
         return $textImage->render();
     }
+
+    public function getTextAdRichLists(): array
+    {
+        $textImage = new TextAdRichLists();
+        $textImage->setText($this->text);
+
+        return $textImage->render();
+    }
 }

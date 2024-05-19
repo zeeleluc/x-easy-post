@@ -46,6 +46,7 @@ class Image extends FormFieldValidator
             'Simple Text LooneyLuca Orange',
             'Simple Text SOLpepens Purple',
             'Simple Text RipplePunks Blue',
+            'Text Ad RichLists',
         ];
     }
 }

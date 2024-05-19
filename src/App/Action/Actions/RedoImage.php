@@ -33,7 +33,7 @@ class RedoImage extends BaseAction
         $resolveImage = ResolveImage::make($post->imageType, [
             'nft_id' => null,
             'type' => $post->imageAttributeType ?: null,
-            'text' => $post->text,
+            'text' => $post->textImage,
         ])->do();
 
         $post->image = $resolveImage->urlCDN;

@@ -69,6 +69,14 @@ class BaseTextImage
     /**
      * @throws \ImagickException
      */
+    public function getMoneyFaceEmoji(int $resize = 100): \Imagick
+    {
+        return $this->getImage(realpath('assets/images/money-face-emoji.png'), $resize);
+    }
+
+    /**
+     * @throws \ImagickException
+     */
     private function getImage(string $path, float $resize = 100): \Imagick
     {
         $sizes = getimagesize($path);
