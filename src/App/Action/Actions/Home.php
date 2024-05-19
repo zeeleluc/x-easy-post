@@ -99,8 +99,8 @@ class Home extends BaseFormAction
     private function schedulePost(
         string $imageType,
         ?string $imageAttributeType,
-        string $text,
-        string $textImage,
+        ?string $text,
+        ?string $textImage,
         ResolveImage $resolvedImage = null
     ): void {
         $post = new Post();
@@ -117,8 +117,8 @@ class Home extends BaseFormAction
     private function scheduleReply(
         string $imageType,
         ?string $imageAttributeType,
-        string $text,
-        string $textImage,
+        ?string $text,
+        ?string $textImage,
         string $postId,
         ResolveImage $resolvedImage = null
     ): void {
