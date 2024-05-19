@@ -249,4 +249,12 @@ class ResolveImage
 
         return $textImage->render();
     }
+
+    public function getSimpleTextHasMintsBlue(): array
+    {
+        $textImage = new TextSimpleHasMintsBlue();
+        $textImage->setText($this->text);
+
+        return $textImage->render();
+    }
 }

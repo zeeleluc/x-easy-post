@@ -39,6 +39,7 @@ class Image extends FormFieldValidator
             'Text Centered BaseAliens',
             'Text Centered LooneyLuca',
             'Text Centered RipplePunks',
+            'Simple Text HasMints Blue',
             'Simple Text Black BG White Text',
             'Simple Text White BG Black Text',
             'Simple Text Base Aliens Blue',
