@@ -24,7 +24,7 @@ class DeleteScheduledPost extends BaseAction
         $post = (new Post())->fromArray($post);
         $post->delete();
 
-        success('', 'Deleted scheduled post #' . $post->id);
+        success('#scheduled', 'Deleted scheduled post #' . $post->id);
     }
 
     public function run()
