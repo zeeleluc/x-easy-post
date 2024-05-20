@@ -48,6 +48,7 @@ class Image extends FormFieldValidator
             'Simple Text RipplePunks Blue',
             'Text Ad RichLists',
             'Property Highlight BaseAliens',
+            'Property Highlight BaseAliens Without Text',
         ];
     }
 }

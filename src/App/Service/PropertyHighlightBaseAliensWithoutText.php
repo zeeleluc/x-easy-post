@@ -1,7 +1,7 @@
 <?php
 namespace App\Service;
 
-class PropertyHighlightBaseAliens extends BaseTextImage
+class PropertyHighlightBaseAliensWithoutText extends BaseTextImage
 {
 
     private string $type = '';
@@ -10,7 +10,7 @@ class PropertyHighlightBaseAliens extends BaseTextImage
     {
     }
 
-    public static function make(): PropertyHighlightBaseAliens
+    public static function make(): PropertyHighlightBaseAliensWithoutText
     {
         return new self();
     }
@@ -46,20 +46,6 @@ class PropertyHighlightBaseAliens extends BaseTextImage
             }
             $y += 100;
         }
-
-        $draw = new \ImagickDraw();
-        $color = new \ImagickPixel('#3250FC');
-        $draw->setFillColor($color);
-        $draw->rectangle(0, 350, 800, 450);
-        $image->drawImage($draw);
-
-        $draw = new \ImagickDraw();
-        $draw->setTextAlignment(\Imagick::ALIGN_CENTER);
-        $draw->setFont(ROOT . "/assets/fonts/space_age-webfont.ttf");
-        $draw->setFontSize(50);
-        $draw->setFillColor(new \ImagickPixel('#ffffff'));
-        $draw->annotation(400, 415, str_replace('Attribute:', '', $this->type));
-        $image->drawImage($draw);
 
         $image->writeImage($urlTMP);
 
