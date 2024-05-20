@@ -42,20 +42,20 @@
                     <?php endif; ?>
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-primary mb-1" href="/delete-scheduled-post/<?=$post->id; ?>">
-                        Delete
-                    </a>
                     <?php if (!$post->postedAt): ?>
+                        <a class="btn btn-primary mb-1" href="/delete-scheduled-post/<?=$post->id; ?>">
+                            Delete
+                        </a>
                         <?php if (isset($post->success) && !$post->success): ?>
                             <a class="btn btn-primary mb-1" href="/retry-post/<?=$post->id; ?>">
                                 Retry
                             </a>
                         <?php endif; ?>
-                    <?php endif; ?>
-                    <?php if ($post->image): ?>
-                        <a class="btn btn-primary mb-1" href="/redo-image/<?=$post->id; ?>">
-                            Redo Image
-                        </a>
+                        <?php if ($post->image): ?>
+                            <a class="btn btn-primary mb-1" href="/redo-image/<?=$post->id; ?>">
+                                Redo Image
+                            </a>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
             </div>
