@@ -273,4 +273,12 @@ class ResolveImage
 
         return $textImage->render();
     }
+
+    public function getPropertyHighlightBaseAliens(): array
+    {
+        $textImage = new PropertyHighlightBaseAliens();
+        $textImage->setType($this->type);
+
+        return $textImage->render();
+    }
 }

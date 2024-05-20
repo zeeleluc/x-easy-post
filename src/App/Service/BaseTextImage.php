@@ -3,6 +3,23 @@ namespace App\Service;
 
 class BaseTextImage
 {
+    public function getBasePunkTransparent(int $id = null, float $resize = 100): \Imagick
+    {
+        if (!$id) {
+            $ids = range(1, 4444);
+            shuffle($ids);
+            $id = $ids[0];
+        }
+
+        $tmpPath = $this->getTempImageFromCDN(
+            'base-punks-transparent',
+            $id . '.png',
+            'basealien-transparent.png'
+        );
+
+        return $this->getImage(realpath($tmpPath), $resize);
+    }
+
     public function getRipplePunkFixedSize(float $resize = 100): \Imagick
     {
         $ids = range(0, 9999);

@@ -47,6 +47,7 @@ class Image extends FormFieldValidator
             'Simple Text SOLpepens Purple',
             'Simple Text RipplePunks Blue',
             'Text Ad RichLists',
+            'Property Highlight BaseAliens',
         ];
     }
 }
