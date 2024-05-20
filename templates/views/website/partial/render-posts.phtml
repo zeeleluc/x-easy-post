@@ -1,4 +1,5 @@
 <div class="row row-posts">
+    <?php $scheduledPostsAhead = $countScheduledPosts; ?>
     <?php foreach ($posts as $post): /* @var $post \App\Models\Post */ ?>
         <div class="col col-12 col-lg-4">
             <div class="card">
@@ -24,7 +25,8 @@
                                 <strong class="text-danger"><?=$post->readableResult; ?></strong>
                             <?php endif; ?>
                         <?php else: ?>
-                            Scheduled
+                            Scheduled<br />
+                            <?=now()->addHours($scheduledPostsAhead)->format('Y-m-d H:i'); ?>
                         <?php endif; ?>
                     <?php endif; ?>
 
@@ -60,5 +62,6 @@
                 </div>
             </div>
         </div>
+        <?php $scheduledPostsAhead--; ?>
     <?php endforeach; ?>
 </div>
