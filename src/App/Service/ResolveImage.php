@@ -289,4 +289,12 @@ class ResolveImage
 
         return $textImage->render();
     }
+
+    public function getPropertyHighlightBaseAliensWithoutTextAndMany(): array
+    {
+        $textImage = new PropertyHighlightBaseAliensWithoutTextAndMany();
+        $textImage->setType($this->type);
+
+        return $textImage->render();
+    }
 }

@@ -49,6 +49,7 @@ class Image extends FormFieldValidator
             'Text Ad RichLists',
             'Property Highlight BaseAliens',
             'Property Highlight BaseAliens Without Text',
+            'Property Highlight BaseAliens Without Text And Many',
         ];
     }
 }
