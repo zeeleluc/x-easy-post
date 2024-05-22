@@ -35,17 +35,32 @@ class TextImageCenteredRipplePunks extends BaseTextImage
         $image->newImage(800, 800, '#C2E4F7');
         $image->setImageFormat("png");
 
-        $this->pasteRipplePunk($image, 0 * 160, 0);
-        $this->pasteRipplePunk($image, 1 * 160, 0);
-        $this->pasteRipplePunk($image, 2 * 160, 0);
-        $this->pasteRipplePunk($image, 3 * 160, 0);
-        $this->pasteRipplePunk($image, 4 * 160, 0);
+        $color = $this->getColor();
+        $colors = [
+            adjust_brightness($color, 0.1),
+            adjust_brightness($color, 0.2),
+            adjust_brightness($color, 0.3),
+            adjust_brightness($color, 0.4),
+            adjust_brightness($color, 0.5),
+            adjust_brightness($color, 0.6),
+            adjust_brightness($color, 0.7),
+            adjust_brightness($color, 0.8),
+            adjust_brightness($color, 0.9),
+            $color,
+            darken_color($color, 10),
+        ];
 
-        $this->pasteRipplePunk($image, 0 * 160, 800 - 160);
-        $this->pasteRipplePunk($image, 1 * 160, 800 - 160);
-        $this->pasteRipplePunk($image, 2 * 160, 800 - 160);
-        $this->pasteRipplePunk($image, 3 * 160, 800 - 160);
-        $this->pasteRipplePunk($image, 4 * 160, 800 - 160);
+        $this->pasteRipplePunk($image, $colors[0], 0 * 160, 0);
+        $this->pasteRipplePunk($image, $colors[1], 1 * 160, 0);
+        $this->pasteRipplePunk($image, $colors[2], 2 * 160, 0);
+        $this->pasteRipplePunk($image, $colors[3], 3 * 160, 0);
+        $this->pasteRipplePunk($image, $colors[4], 4 * 160, 0);
+
+        $this->pasteRipplePunk($image, $colors[5], 0 * 160, 800 - 160);
+        $this->pasteRipplePunk($image, $colors[6], 1 * 160, 800 - 160);
+        $this->pasteRipplePunk($image, $colors[7], 2 * 160, 800 - 160);
+        $this->pasteRipplePunk($image, $colors[8], 3 * 160, 800 - 160);
+        $this->pasteRipplePunk($image, $colors[9], 4 * 160, 800 - 160);
 
         if ($this->text) {
             $image->drawImage($this->createText($this->text, 120));
@@ -59,11 +74,12 @@ class TextImageCenteredRipplePunks extends BaseTextImage
         ];
     }
 
-    private function pasteRipplePunk(\Imagick &$image, int $x, int $y)
+    private function pasteRipplePunk(\Imagick &$image, string $color, int $x, int $y)
     {
+        var_dump($color);
         // background square
         $draw = new \ImagickDraw();
-        $color = new \ImagickPixel($this->getColor());
+        $color = new \ImagickPixel($color);
         $draw->setFillColor($color);
         $draw->rectangle($x, $y + 160, $x + 160, $y);
         $image->drawImage($draw);
@@ -75,25 +91,8 @@ class TextImageCenteredRipplePunks extends BaseTextImage
     private function getColor(): string
     {
         $colors = [
-            '#FDF0C1',
-            '#FFE0A9',
-            '#FFCC9C',
-            '#FFB69C',
-            '#BFDBEB',
-            '#91B3DA',
-            '#D6A7CD',
-            '#FDF0C1',
-            '#C4B88B',
-            '#FCF1CA',
-            '#F2FEDC',
-            '#4797C9',
-            '#00B3D5',
-            '#00CCCA',
-            '#4CE1AD',
-            '#A5F18A',
-            '#F9F871',
-            '#DB7065',
-            '#639E4F',
+            '#1990E3',
+            '#34A0E0',
         ];
         shuffle($colors);
 
