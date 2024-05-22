@@ -41,6 +41,7 @@ class GatherShillingProgress
                 flatten_string('RipplePunks'),
                 flatten_string('RipplePunks QR'),
                 flatten_string('Text Centered RipplePunks'),
+                flatten_string('Property Highlight RipplePunks Without Text And Many'),
             ],
             'PipingPunks' => [
                 flatten_string('PipingPunks NFT'),
@@ -54,6 +55,9 @@ class GatherShillingProgress
                 flatten_string('BaseAliens'),
                 flatten_string('BaseAliens Moving'),
                 flatten_string('Text Centered BaseAliens'),
+                flatten_string('Property Highlight BaseAliens'),
+                flatten_string('Property Highlight BaseAliens Without Text'),
+                flatten_string('Property Highlight BaseAliens Without Text And Many'),
             ],
             'SOLpepens' => [
                 flatten_string('SOLpepens'),
@@ -61,6 +65,9 @@ class GatherShillingProgress
             'LooneyLuca' => [
                 flatten_string('Looney Luca'),
                 flatten_string('Text Centered LooneyLuca'),
+            ],
+            'RichLists' => [
+                flatten_string('Text Ad RichLists'),
             ],
         ];
     }
