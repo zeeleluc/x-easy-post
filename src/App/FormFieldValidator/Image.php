@@ -50,6 +50,7 @@ class Image extends FormFieldValidator
             'Property Highlight BaseAliens',
             'Property Highlight BaseAliens Without Text',
             'Property Highlight BaseAliens Without Text And Many',
+            'Property Highlight RipplePunks Without Text And Many',
         ];
     }
 }

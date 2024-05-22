@@ -297,4 +297,12 @@ class ResolveImage
 
         return $textImage->render();
     }
+
+    public function getPropertyHighlightRipplePunksWithoutTextAndMany(): array
+    {
+        $textImage = new PropertyHighlightRipplePunksWithoutTextAndMany();
+        $textImage->setType($this->type);
+
+        return $textImage->render();
+    }
 }
