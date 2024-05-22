@@ -14,8 +14,13 @@ class RipplePunks extends BaseAction
         $this->setLayout('default');
         $this->setView('website/ripplepunks');
 
+        $id = (int) $this->getRequest()->getParam('id');
+        if ($id < 0 || $id > 9999) {
+            abort();
+        }
+
         $image = new PropertyHighlightRipplePunksWithoutTextAndMany();
-        $image->setId(15);
+        $image->setId($id);
         $images = $image->render();
 
         $this->setVariable(new Variable('url', $images['urlCDN']));
