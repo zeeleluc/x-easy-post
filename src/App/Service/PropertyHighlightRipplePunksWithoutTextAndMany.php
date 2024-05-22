@@ -41,30 +41,30 @@ class PropertyHighlightRipplePunksWithoutTextAndMany extends BaseTextImage
             for ($column = 0; $column < 16; ++$column) {
                 if (!$this->isSmallPunkOutOfRange($row, $column)) {
                     $id = get_random_cryptopunk_id_for_type($this->type);
-                    $baseAlienSmall = $this->getRipplePunkFixedSize($id, 91.4);
-                    $image->compositeImage($baseAlienSmall, \Imagick::COMPOSITE_ATOP, $x, $y);
+                    $smallPunk = $this->getRipplePunkFixedSize($id, 91.4);
+                    $image->compositeImage($smallPunk, \Imagick::COMPOSITE_ATOP, $x, $y);
                 }
                 $x += 50;
             }
             $y += 50;
         }
 
-        $baseAlienLarge = $this->getRipplePunkFixedSize($id, 39.2);
-        $image->compositeImage($baseAlienLarge, \Imagick::COMPOSITE_ATOP, 325, 325);
+        $largePunk = $this->getRipplePunkFixedSize($id, 39.2);
+        $image->compositeImage($largePunk, \Imagick::COMPOSITE_ATOP, 325, 325);
 
         $draw = new \ImagickDraw();
         $draw->setTextAlignment(\Imagick::ALIGN_CENTER);
         $draw->setFont(ROOT . "/assets/fonts/JoystixMonospace-Regular.ttf");
-        $draw->setFontSize(60);
-        $draw->setFillColor(new \ImagickPixel('#17287F'));
+        $draw->setFontSize(50);
+        $draw->setFillColor(new \ImagickPixel('#090909'));
         $draw->annotation(500, 70, '10,000 RIPPLEPUNKS');
         $image->drawImage($draw);
 
         $draw = new \ImagickDraw();
         $draw->setTextAlignment(\Imagick::ALIGN_CENTER);
         $draw->setFont(ROOT . "/assets/fonts/JoystixMonospace-Regular.ttf");
-        $draw->setFontSize(60);
-        $draw->setFillColor(new \ImagickPixel('#17287F'));
+        $draw->setFontSize(50);
+        $draw->setFillColor(new \ImagickPixel('#090909'));
         $draw->annotation(500, 965, 'PUNKS ON THE XRPL');
         $image->drawImage($draw);
 

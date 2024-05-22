@@ -85,7 +85,7 @@ class TextImageCenteredRipplePunks extends BaseTextImage
         $image->drawImage($draw);
 
         $resize = 72.2; // will result in 160px width
-        $image->compositeImage($this->getRipplePunkFixedSize($resize), \Imagick::COMPOSITE_ATOP, $x, $y);
+        $image->compositeImage($this->getRipplePunkFixedSize(null, $resize), \Imagick::COMPOSITE_ATOP, $x, $y);
     }
 
     private function getColor(): string

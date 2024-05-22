@@ -20,14 +20,17 @@ class BaseTextImage
         return $this->getImage(realpath($tmpPath), $resize);
     }
 
-    public function getRipplePunkFixedSize(float $resize = 100): \Imagick
+    public function getRipplePunkFixedSize(int $id = null, float $resize = 100): \Imagick
     {
-        $ids = range(0, 9999);
-        shuffle($ids);
+        if (!$id) {
+            $ids = range(0, 9999);
+            shuffle($ids);
+            $id = $ids[0];
+        }
 
         $tmpPath = $this->getTempImageFromCDN(
             'ripplepunks-transparent',
-            $ids[0] . '.png',
+            $id . '.png',
             'ripplepunk.png'
         );
 
