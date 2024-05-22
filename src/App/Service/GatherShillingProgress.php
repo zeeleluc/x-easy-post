@@ -17,9 +17,13 @@ class GatherShillingProgress
     /**
      * @throws \Exception
      */
-    public function perProject(): array
+    public function perProject(bool $scheduled = false): array
     {
-        $posts = $this->postQuery->getLastPosts(now()->subWeek());
+        if ($scheduled) {
+            $posts = $this->postQuery->getLastPostsScheduled();
+        } else {
+            $posts = $this->postQuery->getLastPosts(now()->subWeek());
+        }
         if (!$posts) {
             return [];
         }

@@ -164,7 +164,7 @@ SQL;
      * @return array|Post[]
      * @throws \Exception
      */
-    public function getLastPostsScheduled(Carbon $date): array
+    public function getLastPostsScheduled(): array
     {
         $sql = <<<SQL
 SELECT *

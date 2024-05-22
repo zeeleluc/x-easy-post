@@ -1,19 +1,5 @@
 <div class="container mt-4 mb-2">
     <div class="row justify-content-center">
-        <div class="col col-12">
-            <div class="progress">
-                <?php foreach ($shilledPerProject as $project => $totalShilledPercentage): ?>
-                    <div
-                        class="progress-bar bg-<?=strtolower($project); ?>"
-                        role="progressbar"
-                        style="width: <?=$totalShilledPercentage; ?>%"
-                        aria-valuenow="<?=$totalShilledPercentage; ?>>"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                    ></div>
-                <?php endforeach; ?>
-            </div>
-        </div>
         <div class="col col-12 col-sm-4 mt-4">
             <div class="card">
                 <div class="card-body">
@@ -181,10 +167,38 @@
             </ul>
             <div class="tab-content" id="tab-contents">
                 <div class="tab-pane fade active show" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+
+                    <div class="progress mt-3">
+                        <?php foreach ($shilledPerProject as $project => $totalShilledPercentage): ?>
+                            <div
+                                class="progress-bar bg-<?=strtolower($project); ?>"
+                                role="progressbar"
+                                style="width: <?=$totalShilledPercentage; ?>%"
+                                aria-valuenow="<?=$totalShilledPercentage; ?>>"
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                            ></div>
+                        <?php endforeach; ?>
+                    </div>
+
                     <?php $posts = $lastPostsPosted; ?>
                     <?php include ROOT . "/templates/views/website/partial/render-posts.phtml"; ?>
                 </div>
                 <div class="tab-pane fade" id="scheduled" role="tabpanel" aria-labelledby="scheduled-tab">
+
+                    <div class="progress mt-3">
+                        <?php foreach ($shilledScheduledPerProject as $project => $totalShilledPercentage): ?>
+                            <div
+                                class="progress-bar bg-<?=strtolower($project); ?>"
+                                role="progressbar"
+                                style="width: <?=$totalShilledPercentage; ?>%"
+                                aria-valuenow="<?=$totalShilledPercentage; ?>>"
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                            ></div>
+                        <?php endforeach; ?>
+                    </div>
+
                     <?php $posts = $lastPostsScheduled; ?>
                     <?php include ROOT . "/templates/views/website/partial/render-posts.phtml"; ?>
                 </div>
