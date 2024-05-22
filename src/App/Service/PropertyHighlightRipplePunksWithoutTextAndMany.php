@@ -4,6 +4,8 @@ namespace App\Service;
 class PropertyHighlightRipplePunksWithoutTextAndMany extends BaseTextImage
 {
 
+    private ?int $id = null;
+
     private string $type = '';
 
     public function __construct()
@@ -13,6 +15,13 @@ class PropertyHighlightRipplePunksWithoutTextAndMany extends BaseTextImage
     public static function make(): PropertyHighlightRipplePunksWithoutTextAndMany
     {
         return new self();
+    }
+
+    public function setId(int $id): static
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function setType(string $type): static
@@ -40,8 +49,12 @@ class PropertyHighlightRipplePunksWithoutTextAndMany extends BaseTextImage
             $x = 100;
             for ($column = 0; $column < 16; ++$column) {
                 if (!$this->isSmallPunkOutOfRange($row, $column)) {
-                    $id = get_random_cryptopunk_id_for_type($this->type);
-                    $smallPunk = $this->getRipplePunkFixedSize($id, 91.4);
+                    if ($this->type) {
+                        $id = get_random_cryptopunk_id_for_type($this->type);
+                        $smallPunk = $this->getRipplePunkFixedSize($id, 91.4);
+                    } else {
+                        $smallPunk = $this->getRipplePunkFixedSize(null, 91.4);
+                    }
                     $image->compositeImage($smallPunk, \Imagick::COMPOSITE_ATOP, $x, $y);
                 }
                 $x += 50;
@@ -49,6 +62,11 @@ class PropertyHighlightRipplePunksWithoutTextAndMany extends BaseTextImage
             $y += 50;
         }
 
+        if (!$this->id) {
+            $id = get_random_cryptopunk_id_for_type($this->type);
+        } else {
+            $id = $this->id;
+        }
         $largePunk = $this->getRipplePunkFixedSize($id, 39.2);
         $image->compositeImage($largePunk, \Imagick::COMPOSITE_ATOP, 325, 325);
 

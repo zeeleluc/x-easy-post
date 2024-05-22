@@ -49,6 +49,7 @@ class PropertyHighlightBaseAliensWithoutTextAndMany extends BaseTextImage
             $y += 50;
         }
 
+        $id = get_random_basealien_id_for_type($this->type);
         $baseAlienLarge = $this->getBasePunkTransparent($id, 39.2);
         $image->compositeImage($baseAlienLarge, \Imagick::COMPOSITE_ATOP, 325, 325);
 

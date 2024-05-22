@@ -91,6 +91,10 @@ class Initialize extends BaseObject
             return new Action\Actions\CheckLogin();
         }
 
+        if ($get['action'] === 'ripplepunks') {
+            return new Action\Actions\RipplePunks();
+        }
+
         throw new \Exception('Page not found.');
     }
 
