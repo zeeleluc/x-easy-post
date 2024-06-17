@@ -44,8 +44,7 @@ class Cli extends BaseAction
         }
 
         if ($this->action === 'create-auth-identifier') {
-            $authIdentifier = AuthIdentifierService::new();
-            AuthIdentifierService::slack($authIdentifier);
+            AuthIdentifierService::new();
         }
 
 
