@@ -6,6 +6,7 @@ use App\Action\Action as AbstractAction;
 use App\Action\BaseAction;
 use App\Object\BaseObject;
 use App\Object\ObjectManager;
+use App\Query\AuthIdentifierQuery;
 use App\Query\PostQuery;
 
 class Initialize extends BaseObject
@@ -16,6 +17,7 @@ class Initialize extends BaseObject
         ObjectManager::set(new Session());
         ObjectManager::set(new AbstractAction());
         ObjectManager::set(new PostQuery());
+        ObjectManager::set(new AuthIdentifierQuery());
     }
 
     public function action(): Initialize
@@ -77,6 +79,10 @@ class Initialize extends BaseObject
 
         if ($get['action'] === 'redo-image') {
             return new Action\Actions\RedoImage();
+        }
+
+        if ($get['action'] === 'magic-login') {
+            return new Action\Actions\MagicLogin();
         }
 
         if ($get['action'] === 'login') {

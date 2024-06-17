@@ -2,10 +2,8 @@
 namespace App\Object;
 
 use App\Action\Action;
-use App\Auth;
-use App\Query\BlockchainTokenQuery;
-use App\Query\CollectionQuery;
-use App\Query\UserQuery;
+use App\Query\AuthIdentifierQuery;
+use App\Query\PostQuery;
 use App\Request;
 use App\Session;
 
@@ -31,10 +29,8 @@ class ObjectManager
         Action|
         Session|
         Request|
-        BlockchainTokenQuery|
-        Auth|
-        CollectionQuery|
-        UserQuery
+        PostQuery|
+        AuthIdentifierQuery
     {
         if (false === array_key_exists($objectName, self::getAll())) {
             throw new \Exception(sprintf('Object \'%s\' not found.', $objectName));

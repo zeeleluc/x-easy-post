@@ -2,9 +2,8 @@
 namespace App\Object;
 
 use App\Action\Action;
-use App\Query\BlockchainTokenQuery;
-use App\Query\CollectionQuery;
-use App\Query\UserQuery;
+use App\Query\AuthIdentifierQuery;
+use App\Query\PostQuery;
 use App\Request;
 use App\Session;
 
@@ -24,19 +23,14 @@ abstract class BaseObject
         return $this->objectManager;
     }
 
-    public function getBlockchainTokenQuery(): BlockchainTokenQuery
+    public function getPostQuery(): PostQuery
     {
-        return ObjectManager::getOne('App\Query\BlockchainTokenQuery');
+        return ObjectManager::getOne('App\Query\PostQuery');
     }
 
-    public function getCollectionQuery(): CollectionQuery
+    public function getAuthIdentifierQuery(): AuthIdentifierQuery
     {
-        return ObjectManager::getOne('App\Query\CollectionQuery');
-    }
-
-    public function getUserQuery(): UserQuery
-    {
-        return ObjectManager::getOne('App\Query\UserQuery');
+        return ObjectManager::getOne('App\Query\AuthIdentifierQuery');
     }
 
     public function getRequest(): Request

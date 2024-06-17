@@ -5,6 +5,8 @@ use App\Action\Actions\Cli\CheckPosts;
 use App\Action\Actions\Cli\Migrate;
 use App\Action\Actions\Cli\NextPost;
 use App\Action\BaseAction;
+use App\Models\AuthIdentifier;
+use App\Service\AuthIdentifierService;
 
 class Cli extends BaseAction
 {
@@ -39,6 +41,11 @@ class Cli extends BaseAction
 
         if ($this->action === 'check-posts') {
             (new CheckPosts())->run();
+        }
+
+        if ($this->action === 'create-auth-identifier') {
+            $authIdentifier = AuthIdentifierService::new();
+            AuthIdentifierService::slack($authIdentifier);
         }
 
 

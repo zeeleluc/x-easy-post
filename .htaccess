@@ -16,5 +16,8 @@ RewriteRule ^(retry-post)/([0-9]+)?$ index.php?action=$1&id=$2 [NC,L,QSA]
 RewriteRule ^(redo-image)/([0-9]+)?$ index.php?action=$1&id=$2 [NC,L,QSA]
 RewriteRule ^(check-login)?$ index.php?action=$1 [NC,L,QSA]
 RewriteRule ^(login)?$ index.php?action=$1 [NC,L,QSA]
+RewriteRule ^(magic-login)/([0-9A-Z]+)/([0-9A-Z]+)?$ index.php?action=$1&server_key=$2&auth_identifier=$3 [NC,L,QSA]
 RewriteRule ^(logout)?$ index.php?action=$1 [NC,L,QSA]
+
+#
 RewriteRule ^(ripplepunks)/([0-9]+)?$ index.php?action=$1&id=$2 [NC,L,QSA]
