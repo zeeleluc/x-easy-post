@@ -26,9 +26,7 @@
                             <?php endif; ?>
                         <?php else: ?>
                             Scheduled<br />
-                            <s>
-                                <?=now()->addHours($scheduledPostsAhead)->format('Y-m-d H:00'); ?>
-                            </s>
+                            <?=now()->addHours($scheduledPostsAhead)->format('Y-m-d H:00'); ?>
                         <?php endif; ?>
                     <?php endif; ?>
 
