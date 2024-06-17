@@ -14,7 +14,7 @@ class AuthIdentifierService
         $authIdentifier = new AuthIdentifier();
 
         return $authIdentifier->initNew([
-            'auth_identifier' => generate_token(1000),
+            'auth_identifier' => generate_token(100),
             'created_at' => now()
         ]);
     }
