@@ -16,6 +16,9 @@ class CheckPosts extends BaseAction
         $this->postQuery = new PostQuery();
     }
 
+    /**
+     * @throws \Exception
+     */
     public function run()
     {
         $post = $this->postQuery->getNextScheduledPost();

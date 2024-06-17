@@ -31,8 +31,8 @@ class MagicLogin extends BaseAction
             abort();
         }
 
-        $authIdentifier->delete();
-        (new AuthIdentifierQuery())->deleteAllAuthIdentifiers();
+//        $authIdentifier->delete();
+//        (new AuthIdentifierQuery())->deleteAllAuthIdentifiers();
 
         session_regenerate_id(true);
         $this->getSession()->setSession('loggedIn', true);
