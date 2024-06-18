@@ -2,6 +2,7 @@
 namespace App\Action\Actions;
 
 use App\Action\Actions\Cli\CheckPosts;
+use App\Action\Actions\Cli\ClearOldMagicTokens;
 use App\Action\Actions\Cli\Migrate;
 use App\Action\Actions\Cli\NextPost;
 use App\Action\BaseAction;
@@ -45,6 +46,10 @@ class Cli extends BaseAction
 
         if ($this->action === 'create-auth-identifier') {
             AuthIdentifierService::new();
+        }
+
+        if ($this->action === 'clear-old-magic-tokens') {
+            (new ClearOldMagicTokens())->run();
         }
 
 

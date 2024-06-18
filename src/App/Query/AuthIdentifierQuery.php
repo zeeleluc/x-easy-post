@@ -85,4 +85,20 @@ class AuthIdentifierQuery extends Query
             ->where('id', $id)
             ->getOne($this->table);
     }
+
+    /**
+     * @throws \Exception
+     */
+    public function deleteOldTokens(): void
+    {
+        $date = now()->subHour();
+
+        $sql = <<<SQL
+DELETE
+    FROM {$this->table}
+        WHERE created_at < '{$date->format('Y-m-d H:i:s')}';
+SQL;
+
+        $this->db->rawQuery($sql);
+    }
 }
