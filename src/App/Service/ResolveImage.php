@@ -354,4 +354,64 @@ class ResolveImage
 
         return $textImage->render();
     }
+
+    public function getPuzzleBaseAliensBlue(): array
+    {
+        $textImage = new PuzzleBaseAliensBlue();
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
+
+        return $textImage->render();
+    }
+
+    public function getPuzzleBlackBGWhiteText(): array
+    {
+        $textImage = new PuzzleBlackBGWhiteText();
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
+
+        return $textImage->render();
+    }
+
+    public function getPuzzleLooneyLucaOrange(): array
+    {
+        $textImage = new PuzzleLooneyLucaOrange();
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
+
+        return $textImage->render();
+    }
+
+    public function getPuzzleRipplePunksBlue(): array
+    {
+        $textImage = new PuzzleRipplePunksBlue();
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
+
+        return $textImage->render();
+    }
+
+    public function getPuzzleSOLpepensPurple(): array
+    {
+        $textImage = new PuzzleSOLpepensPurple();
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
+
+        return $textImage->render();
+    }
+
+    public function getPuzzleWhiteBGBlackText(): array
+    {
+        $textImage = new PuzzleWhiteBGBlackText();
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
+
+        return $textImage->render();
+    }
 }
