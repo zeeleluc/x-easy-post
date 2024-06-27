@@ -318,4 +318,17 @@ class ResolveImage
 
         return $textImage->render();
     }
+
+    public function getOpepenBaseAliens(): array
+    {
+        $textImage = new OpepenBaseAliens();
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
+        if ($this->type) {
+            $textImage->setType($this->type);
+        }
+
+        return $textImage->render();
+    }
 }
