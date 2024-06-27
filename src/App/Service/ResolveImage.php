@@ -344,4 +344,14 @@ class ResolveImage
 
         return $textImage->render();
     }
+
+    public function getPuzzleHasMintsBlue(): array
+    {
+        $textImage = new PuzzleHasMintsBlue();
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
+
+        return $textImage->render();
+    }
 }

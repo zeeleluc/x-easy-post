@@ -38,6 +38,7 @@ class Image extends FormFieldValidator
             'OpepenRipplePunks',
             'OpepenBaseAliens',
             'OpepenLooneyLuca',
+            'PuzzleHasMintsBlue',
             'Text Four Words Luc Diana',
             'Text Centered BaseAliens',
             'Text Centered LooneyLuca',

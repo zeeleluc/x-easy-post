@@ -272,3 +272,12 @@ if (!function_exists('pick_color')) {
         return sprintf("#%02x%02x%02x", $colors['red'], $colors['green'], $colors['blue']);
     }
 }
+
+if (!function_exists('rarity_change')) {
+    function rarity_change(int $change = 1)
+    {
+        $change = $change < 0 ? 1 : $change;
+
+        return rand(0, $change) === 0;
+    }
+}
