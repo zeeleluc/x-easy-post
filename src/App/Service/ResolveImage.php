@@ -331,4 +331,17 @@ class ResolveImage
 
         return $textImage->render();
     }
+
+    public function getOpepenLooneyLuca(): array
+    {
+        $textImage = new OpepenLooneyLuca();
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
+        if ($this->type) {
+            $textImage->setType($this->type);
+        }
+
+        return $textImage->render();
+    }
 }
