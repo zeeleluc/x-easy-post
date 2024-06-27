@@ -35,6 +35,7 @@ class Image extends FormFieldValidator
             'BaseAliens',
             'BaseAliens Moving',
             'SOLpepens',
+            'OpepenRipplePunks',
             'Text Four Words Luc Diana',
             'Text Centered BaseAliens',
             'Text Centered LooneyLuca',

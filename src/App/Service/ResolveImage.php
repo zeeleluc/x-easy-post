@@ -305,4 +305,17 @@ class ResolveImage
 
         return $textImage->render();
     }
+
+    public function getOpepenRipplePunks(): array
+    {
+        $textImage = new OpepenRipplePunks();
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
+        if ($this->type) {
+            $textImage->setType($this->type);
+        }
+
+        return $textImage->render();
+    }
 }
