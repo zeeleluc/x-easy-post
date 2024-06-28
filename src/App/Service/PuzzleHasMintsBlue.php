@@ -8,5 +8,6 @@ class PuzzleHasMintsBlue extends BasePuzzle
     {
         $this->backgroundColor = '#C0DBEC';
         $this->textColor = '#013D62';
+        $this->textColorFaded = '#9bbccc';
     }
 }

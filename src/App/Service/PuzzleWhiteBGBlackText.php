@@ -8,5 +8,6 @@ class PuzzleWhiteBGBlackText extends BasePuzzle
     {
         $this->backgroundColor = '#efefef';
         $this->textColor = '#111111';
+        $this->textColorFaded = '#cccccc';
     }
 }

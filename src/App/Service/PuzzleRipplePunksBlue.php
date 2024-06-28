@@ -8,5 +8,6 @@ class PuzzleRipplePunksBlue extends BasePuzzle
     {
         $this->backgroundColor = '#C5E5F7';
         $this->textColor = '#111111';
+        $this->textColorFaded = '#a4cade';
     }
 }

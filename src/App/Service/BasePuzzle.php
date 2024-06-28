@@ -8,6 +8,8 @@ class BasePuzzle
 
     protected string $textColor;
 
+    protected string $textColorFaded;
+
     protected string $text = '';
 
     private array $reservedCoordinates = [];
@@ -89,8 +91,7 @@ class BasePuzzle
                     $image->drawImage($this->addLetter($reservedCoordinateLetter, $ix, $iy, $this->textColor));
                 } else {
                     $letter = $this->getRandomLetter();
-                    $color = adjust_brightness($this->textColor, 0.5);
-                    $image->drawImage($this->addLetter($letter, $ix, $iy, $color));
+                    $image->drawImage($this->addLetter($letter, $ix, $iy, $this->textColorFaded));
                 }
             }
         }

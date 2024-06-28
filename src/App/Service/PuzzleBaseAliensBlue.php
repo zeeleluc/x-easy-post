@@ -8,5 +8,6 @@ class PuzzleBaseAliensBlue extends BasePuzzle
     {
         $this->backgroundColor = '#3250FC';
         $this->textColor = '#efefef';
+        $this->textColorFaded = '#327cfc';
     }
 }

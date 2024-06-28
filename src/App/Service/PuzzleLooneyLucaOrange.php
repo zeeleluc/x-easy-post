@@ -8,5 +8,6 @@ class PuzzleLooneyLucaOrange extends BasePuzzle
     {
         $this->backgroundColor = '#FB6C07';
         $this->textColor = '#efefef';
+        $this->textColorFaded = '#f68903';
     }
 }

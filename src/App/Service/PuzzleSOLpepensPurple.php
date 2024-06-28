@@ -8,5 +8,6 @@ class PuzzleSOLpepensPurple extends BasePuzzle
     {
         $this->backgroundColor = '#9B43FF';
         $this->textColor = '#efefef';
+        $this->textColorFaded = '#b16afc';
     }
 }
