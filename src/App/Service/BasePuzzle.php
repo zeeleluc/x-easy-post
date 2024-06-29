@@ -23,9 +23,11 @@ class BasePuzzle
 
     private function isReservedCoordinate(int $x, int $y): ?string
     {
-        foreach ($this->reservedCoordinates as $reservedCoordinate) {
-            if ($reservedCoordinate['x'] === $x && $reservedCoordinate['y'] === $y) {
-                return $reservedCoordinate['letter'];
+        foreach ($this->reservedCoordinates as $wordData) {
+            foreach ($wordData['word'] as $letterData) {
+                if ($letterData['x'] === $x && $letterData['y'] === $y) {
+                    return $letterData['letter'];
+                }
             }
         }
         return null;
@@ -109,23 +111,25 @@ class BasePuzzle
     {
         $wordLength = strlen($word);
 
-        foreach ($this->reservedCoordinates as $coord) {
-            $letter = $coord['letter'];
-            $x = $coord['x'];
-            $y = $coord['y'];
+        foreach ($this->reservedCoordinates as $wordData) {
+            foreach ($wordData['word'] as $letterData) {
+                $letter = $letterData['letter'];
+                $x = $letterData['x'];
+                $y = $letterData['y'];
 
-            for ($i = 0; $i < $wordLength; $i++) {
-                if ($word[$i] === $letter) {
-                    $hStartX = $x - $i;
-                    $hStartY = $y;
-                    if ($this->canPlaceHorizontally($hStartX, $hStartY, $word) && $this->isSingleLetterCross($hStartX, $hStartY, $word, 'horizontal')) {
-                        return ['x' => $hStartX, 'y' => $hStartY, 'direction' => 'horizontal'];
-                    }
+                for ($i = 0; $i < $wordLength; $i++) {
+                    if ($word[$i] === $letter) {
+                        $hStartX = $x - $i;
+                        $hStartY = $y;
+                        if ($this->canPlaceHorizontally($hStartX, $hStartY, $word) && $this->isSingleLetterCross($hStartX, $hStartY, $word, 'horizontal')) {
+                            return ['x' => $hStartX, 'y' => $hStartY, 'direction' => 'horizontal'];
+                        }
 
-                    $vStartX = $x;
-                    $vStartY = $y - $i;
-                    if ($this->canPlaceVertically($vStartX, $vStartY, $word) && $this->isSingleLetterCross($vStartX, $vStartY, $word, 'vertical')) {
-                        return ['x' => $vStartX, 'y' => $vStartY, 'direction' => 'vertical'];
+                        $vStartX = $x;
+                        $vStartY = $y - $i;
+                        if ($this->canPlaceVertically($vStartX, $vStartY, $word) && $this->isSingleLetterCross($vStartX, $vStartY, $word, 'vertical')) {
+                            return ['x' => $vStartX, 'y' => $vStartY, 'direction' => 'vertical'];
+                        }
                     }
                 }
             }
@@ -203,6 +207,9 @@ class BasePuzzle
         }
     }
 
+    /**
+     * @throws \ImagickException
+     */
     public function render(): array
     {
         $filename = uniqid() . '.png';
@@ -268,14 +275,15 @@ class BasePuzzle
         if (!$this->canPlaceHorizontally($rowX, $rowY, $word)) {
             return false;
         }
-        foreach (str_split($word) as $letter) {
-            $this->reservedCoordinates[] = [
-                'x' => $rowX,
+        $wordData = ['position' => 'horizontal', 'word' => []];
+        for ($i = 0; $i < $wordLength; $i++) {
+            $wordData['word'][] = [
+                'x' => $rowX + $i,
                 'y' => $rowY,
-                'letter' => $letter,
+                'letter' => $word[$i],
             ];
-            $rowX++;
         }
+        $this->reservedCoordinates[] = $wordData;
         return true;
     }
 
@@ -285,14 +293,15 @@ class BasePuzzle
         if (!$this->canPlaceVertically($rowX, $rowY, $word)) {
             return false;
         }
-        foreach (str_split($word) as $letter) {
-            $this->reservedCoordinates[] = [
+        $wordData = ['position' => 'vertical', 'word' => []];
+        for ($i = 0; $i < $wordLength; $i++) {
+            $wordData['word'][] = [
                 'x' => $rowX,
-                'y' => $rowY,
-                'letter' => $letter,
+                'y' => $rowY + $i,
+                'letter' => $word[$i],
             ];
-            $rowY++;
         }
+        $this->reservedCoordinates[] = $wordData;
         return true;
     }
 }
