@@ -44,10 +44,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             // Event listener for buttons with the name "project"
+            const handleButtonClick = () => {
+                fetchAndUpdateContent();
+            };
+
             form.querySelectorAll('button[name="project"]').forEach(button => {
-                button.addEventListener('click', () => {
-                    fetchAndUpdateContent();
-                });
+                button.addEventListener('click', handleButtonClick);
+                button.addEventListener('touchend', handleButtonClick); // Add touchend event for iPhone
             });
         }
 
