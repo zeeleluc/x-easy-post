@@ -21,6 +21,7 @@ use App\Service\Images\LoadingPunks\HowManyPixels;
 use App\Service\Images\LoadingPunks\Regular as RegularLoadingPunks;
 use App\Service\Images\LooneyLuca\OpepenLooneyLuca;
 use App\Service\Images\LooneyLuca\PuzzleLooneyLucaOrange;
+use App\Service\Images\LooneyLuca\Regular as LooneyLucaRegular;
 use App\Service\Images\LooneyLuca\TextImageCenteredLooneyLuca;
 use App\Service\Images\LooneyLuca\TextSimpleLooneyLucaOrange;
 use App\Service\Images\PipingPunks\MovingPipingPunk;
@@ -83,13 +84,13 @@ class ResolveImage
         return null;
     }
 
-    private function getLooneyLuca(): array
+    private function getLooneyLucaRegular(): array
     {
         if (!$this->id) {
             if ($this->type) {
-                $this->id = get_random_looneyluca_id_for_type($this->type);
+                $this->id = (new LooneyLucaRegular())->getRandomIdForOption($this->type);
             } else {
-                $this->id = get_random_number(1, 10000);
+                $this->id = (new LooneyLucaRegular())->getRandomId();
             }
         }
 
@@ -269,10 +270,12 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getTextImageCenteredLooneyLuca(): array
+    public function getLooneyLucaTextImageCenteredLooneyLuca(): array
     {
         $textImage = new TextImageCenteredLooneyLuca();
-        $textImage->setText($this->text);
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
 
         return $textImage->render();
     }
@@ -280,7 +283,9 @@ class ResolveImage
     public function getRipplePunksTextImageCenteredRipplePunks(): array
     {
         $textImage = new TextImageCenteredRipplePunks();
-        $textImage->setText($this->text);
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
 
         return $textImage->render();
     }
@@ -288,7 +293,9 @@ class ResolveImage
     public function getHasMintsTextSimpleBlackBGWhiteText(): array
     {
         $textImage = new TextSimpleBlackBGWhiteText();
-        $textImage->setText($this->text);
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
 
         return $textImage->render();
     }
@@ -296,7 +303,9 @@ class ResolveImage
     public function getHasMintsTextSimpleWhiteBGBlackText(): array
     {
         $textImage = new TextSimpleWhiteBGBlackText();
-        $textImage->setText($this->text);
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
 
         return $textImage->render();
     }
@@ -304,7 +313,9 @@ class ResolveImage
     public function getBaseAliensTextSimpleBaseAliensBlue(): array
     {
         $textImage = new TextSimpleBaseAliensBlue();
-        $textImage->setText($this->text);
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
 
         return $textImage->render();
     }
@@ -312,7 +323,9 @@ class ResolveImage
     public function getLooneyLucaTextSimpleLooneyLucaOrange(): array
     {
         $textImage = new TextSimpleLooneyLucaOrange();
-        $textImage->setText($this->text);
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
 
         return $textImage->render();
     }
@@ -320,7 +333,9 @@ class ResolveImage
     public function getRipplePunksTextSimpleRipplePunksBlue(): array
     {
         $textImage = new TextSimpleRipplePunksBlue();
-        $textImage->setText($this->text);
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
 
         return $textImage->render();
     }
@@ -328,7 +343,9 @@ class ResolveImage
     public function getHasMintsTextSimpleHasMintsBlue(): array
     {
         $textImage = new TextSimpleHasMintsBlue();
-        $textImage->setText($this->text);
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
 
         return $textImage->render();
     }
@@ -336,7 +353,9 @@ class ResolveImage
     public function getRichListsTextAdRichLists(): array
     {
         $textImage = new TextAdRichLists();
-        $textImage->setText($this->text);
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
 
         return $textImage->render();
     }
@@ -380,7 +399,9 @@ class ResolveImage
     public function getRipplePunksPropertyHighlightRipplePunksWithoutTextAndMany(): array
     {
         $textImage = new PropertyHighlightRipplePunksWithoutTextAndMany();
-        $textImage->setType($this->type);
+        if ($this->type) {
+            $textImage->setType($this->type);
+        }
 
         return $textImage->render();
     }

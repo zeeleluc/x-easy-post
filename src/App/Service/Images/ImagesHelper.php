@@ -19,7 +19,7 @@ class ImagesHelper
 
     public static function getImageClassByProjectAndSlug(string $project, string $imageSlug): ?BaseImage
     {
-        $project = convert_snakecase_to_camelcase($project, true);
+        $project = convert_snakecase_to_project_name($project);
 
         foreach (self::getImagesClassesForProject($project) as $class) { /* @var $class BaseImage */
             if ($class::getSlug() === $imageSlug) {
