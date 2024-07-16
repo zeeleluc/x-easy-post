@@ -25,7 +25,7 @@ class Projects
 
     public static function getAll()
     {
-        return [
+        $projects = [
             flatten_string(self::HAS_MINTS) => self::HAS_MINTS,
             flatten_string(self::RIPPLE_PUNKS) => self::RIPPLE_PUNKS,
             flatten_string(self::PIPING_PUNKS) => self::PIPING_PUNKS,
@@ -37,5 +37,9 @@ class Projects
             flatten_string(self::RICH_LISTS) => self::RICH_LISTS,
 //            flatten_string(self::XRPEPENS) => self::XRPEPENS,
         ];
+
+        asort($projects);
+
+        return $projects;
     }
 }

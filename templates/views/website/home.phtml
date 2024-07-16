@@ -4,6 +4,7 @@
             <div class="card">
                 <div class="card-body">
                     <form id="posts-form" method="post" action="">
+
                         <?php include ('templates/views/website/partial/form-elements/text.phtml'); ?>
                         <?php include ('templates/views/website/partial/form-elements/projects.phtml'); ?>
                         <?php include ('templates/views/website/partial/form-elements/post-id.phtml'); ?>
@@ -40,7 +41,7 @@
                     <div class="progress mt-3">
                         <?php foreach ($shilledPerProject as $project => $totalShilledPercentage): ?>
                             <div
-                                class="progress-bar bg-<?=strtolower($project); ?>"
+                                class="progress-bar bg-<?=flatten_string($project); ?>"
                                 role="progressbar"
                                 style="width: <?=$totalShilledPercentage; ?>%"
                                 aria-valuenow="<?=$totalShilledPercentage; ?>>"
@@ -58,7 +59,7 @@
                     <div class="progress mt-3">
                         <?php foreach ($shilledScheduledPerProject as $project => $totalShilledPercentage): ?>
                             <div
-                                class="progress-bar bg-<?=strtolower($project); ?>"
+                                class="progress-bar bg-<?=flatten_string($project); ?>"
                                 role="progressbar"
                                 style="width: <?=$totalShilledPercentage; ?>%"
                                 aria-valuenow="<?=$totalShilledPercentage; ?>>"

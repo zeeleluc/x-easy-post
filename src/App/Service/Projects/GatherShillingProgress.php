@@ -3,6 +3,8 @@ namespace App\Service\Projects;
 
 use App\Models\Post;
 use App\Query\PostQuery;
+use App\Service\Images\BaseImage;
+use App\Service\Images\ImagesHelper;
 
 class GatherShillingProgress
 {
@@ -36,37 +38,15 @@ class GatherShillingProgress
     
     private function getProjects(): array
     {
-        return [
-            Projects::RIPPLE_PUNKS => [
-                flatten_string('RipplePunks'),
-                flatten_string('RipplePunks QR'),
-                flatten_string('Text Centered RipplePunks'),
-                flatten_string('Property Highlight RipplePunks Without Text And Many'),
-            ],
-            Projects::PIPING_PUNKS => [
-                flatten_string('PipingPunks NFT'),
-                flatten_string('PipingPunks Moving'),
-            ],
-            Projects::LOADING_PUNKS => [
-                flatten_string('LoadingPunks NFT'),
-                flatten_string('LoadingPunks Pixel Count'),
-            ],
-            Projects::BASE_ALIENS => [
-                flatten_string('BaseAliens'),
-                flatten_string('BaseAliens Moving'),
-                flatten_string('Text Centered BaseAliens'),
-                flatten_string('Property Highlight BaseAliens'),
-                flatten_string('Property Highlight BaseAliens Without Text'),
-                flatten_string('Property Highlight BaseAliens Without Text And Many'),
-            ],
-            Projects::LOONEY_LUCA => [
-                flatten_string('Looney Luca'),
-                flatten_string('Text Centered LooneyLuca'),
-            ],
-            Projects::RICH_LISTS => [
-                flatten_string('Text Ad RichLists'),
-            ],
-        ];
+        $projects = [];
+
+        foreach (Projects::getAll() as $project) {
+            foreach (ImagesHelper::getImagesClassesForProject($project) as $image) { /* @var $image BaseImage */
+                $projects[$project][] = $image::getSlug();
+            }
+        }
+
+        return $projects;
     }
 
     /**

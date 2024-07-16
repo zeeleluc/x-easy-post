@@ -1,6 +1,10 @@
-<?php foreach (\App\Service\Projects\Projects::getAll() as $projectSlug => $projectTitle): ?>
-    <input type="radio" class="btn-check" name="project" value="<?=$projectSlug ;?>" id="<?=$projectSlug ;?>" autocomplete="off">
-    <label class="btn btn-secondary my-1" for="<?=$projectSlug ;?>">
-        <?=$projectTitle; ?>
-    </label>
-<?php endforeach; ?>
+<label for="project" class="my-2">Project</label>
+
+<div class="form-group my-1">
+    <?php foreach (\App\Service\Projects\Projects::getAll() as $projectSlug => $projectTitle): ?>
+        <input type="radio" class="btn-check" name="project" value="<?=$projectSlug ;?>" id="<?=$projectSlug ;?>" autocomplete="off">
+        <label class="btn btn-secondary mb-2 bg-<?=$projectSlug; ?>" for="<?=$projectSlug ;?>">
+            <?=$projectTitle; ?>
+        </label>
+    <?php endforeach; ?>
+</div>

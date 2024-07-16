@@ -95,30 +95,97 @@ tr.scheduled {
     height: 30px;
 }
 
-.bg-looneyluca {
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+    color: unset;
+    background-color: unset;
+    border-color: unset;
+}
+
+.bg-looney_luca,
+.btn.bg-looney_luca:hover,
+.btn-check:checked+.btn.bg-looney_luca,
+.btn.bg-looney_luca.active,
+.btn.bg-looney_luca.show,
+.btn.bg-looney_luca:first-child:active,
+:not(.btn-check)+.btn.bg-looney_luca:active {
     background-color: #FB6C07;
+    border-color: #FB6C07;
 }
 
-.bg-ripplepunks {
+.bg-ripple_punks,
+.btn.bg-ripple_punks:hover,
+.btn-check:checked+.btn.bg-ripple_punks,
+.btn.bg-ripple_punks.active,
+.btn.bg-ripple_punks.show,
+.btn.bg-ripple_punks:first-child:active,
+:not(.btn-check)+.btn.bg-ripple_punks:active {
     background-color: #C5E5F7;
+    border-color: #C5E5F7;
+    color: #333333;
 }
 
-.bg-loadingpunks {
+.bg-loading_punks,
+.btn.bg-loading_punks:hover,
+.btn-check:checked+.btn.bg-loading_punks,
+.btn.bg-loading_punks.active,
+.btn.bg-loading_punks.show,
+.btn.bg-loading_punks:first-child:active,
+:not(.btn-check)+.btn.bg-loading_punks:active {
     background-color: #DDDDDD;
+    border-color: #DDDDDD;
+    color: #333333;
 }
 
-.bg-pipingpunks {
+.bg-piping_punks,
+.btn.bg-piping_punks:hover,
+.btn-check:checked+.btn.bg-piping_punks,
+.btn.bg-piping_punks.active,
+.btn.bg-piping_punks.show,
+.btn.bg-piping_punks:first-child:active,
+:not(.btn-check)+.btn.bg-piping_punks:active {
     background-color: #1C1C1C;
+    border-color: #1C1C1C;
 }
 
-.bg-solpepens {
-    background-color: #9B43FF;
-}
-
-.bg-basealiens {
+.bg-base_aliens,
+.btn.bg-base_aliens:hover,
+.btn-check:checked+.btn.bg-base_aliens,
+.btn.bg-base_aliens.active,
+.btn.bg-base_aliens.show,
+.btn.bg-base_aliens:first-child:active,
+:not(.btn-check)+.btn.bg-base_aliens:active {
     background-color: #3250FC;
+    border-color: #3250FC;
 }
 
-.bg-richlists {
+.bg-rich_lists,
+.btn.bg-rich_lists:hover,
+.btn-check:checked+.btn.bg-rich_lists,
+.btn.bg-rich_lists.active,
+.btn.bg-rich_lists.show,
+.btn.bg-rich_lists:first-child:active,
+:not(.btn-check)+.btn.bg-rich_lists:active {
     background-color: #ffc107;
+    border-color: #ffc107;
+    color: #464600;
+}
+
+.bg-has_mints,
+.btn.bg-has_mints:hover,
+.btn-check:checked+.btn.bg-has_mints,
+.btn.bg-has_mints.active,
+.btn.bg-has_mints.show,
+.btn.bg-has_mints:first-child:active,
+:not(.btn-check)+.btn.bg-has_mints:active {
+    background-color: #C2DCEC;
+    border-color: #C2DCEC;
+    color: #333333;
+}
+
+.btn-check:checked+.btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active {
+    border-radius: 5px;
+    box-shadow: 0 0 0 4px rgba(255,255,255,0.3);
 }
