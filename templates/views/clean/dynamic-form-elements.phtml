@@ -1,0 +1,21 @@
+<?php
+/**
+ * @var $formHelper \App\Service\Form\FormHelper
+ */
+?>
+
+<?php if ($formHelper->hasImage): ?>
+    <?php include ('templates/views/website/partial/form-elements/image.phtml'); ?>
+<?php endif; ?>
+
+<?php if ($formHelper->hasImageText): ?>
+    <?php include ('templates/views/website/partial/form-elements/text-image.phtml'); ?>
+<?php endif; ?>
+
+<?php if ($formHelper->nftIdRange): ?>
+    <?php include ('templates/views/website/partial/form-elements/nft-id.phtml'); ?>
+<?php endif; ?>
+
+<?php if ($formHelper->options): ?>
+    <?php include ('templates/views/website/partial/form-elements/type.phtml'); ?>
+<?php endif; ?>

@@ -1,0 +1,34 @@
+<?php
+/**
+ * @var $formHelper \App\Service\Form\FormHelper
+ */
+?>
+
+<div class="form-group my-1">
+    <label for="type" class="my-2">Type</label>
+    <select
+        name="type"
+        class="custom-select form-control
+            <?=$formErrors && isset($formErrors['type']) ? 'is-invalid' : ''; ?>
+        "
+        id="type"
+    >
+        <option></option>
+        <?php foreach($formHelper->options as $option) : ?>
+            <option value="<?=$option; ?>"
+                <?php if ($formValidatedValues): ?>
+                    <?php if (isset($formValidatedValues['type']) && ($formValidatedValues['type'] === $option)): ?>
+                        selected
+                    <?php endif; ?>
+                <?php elseif ($formHelper->selectedOption): ?>
+                    <?php if ($formHelper->selectedOption === $option): ?>
+                        selected
+                    <?php endif; ?>
+                <?php endif; ?>
+            >
+                <?=$option; ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <?=parse_form_errors('type', $formErrors); ?>
+</div>

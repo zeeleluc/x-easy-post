@@ -28,6 +28,15 @@ class Request
         return $this->post;
     }
 
+    public function postJson(): array
+    {
+        header('Content-Type: application/json');
+        $input = file_get_contents('php://input');
+        $this->post = json_decode($input, true);
+
+        return $this->post;
+    }
+
     public function isCli(): bool
     {
         return is_cli();

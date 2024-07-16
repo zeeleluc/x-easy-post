@@ -1,6 +1,38 @@
 <?php
 namespace App\Service;
 
+use App\Service\Images\BaseAliens\Loading;
+use App\Service\Images\BaseAliens\OpepenBaseAliens;
+use App\Service\Images\BaseAliens\PropertyHighlightBaseAliens;
+use App\Service\Images\BaseAliens\PropertyHighlightBaseAliensWithoutText;
+use App\Service\Images\BaseAliens\PropertyHighlightBaseAliensWithoutTextAndMany;
+use App\Service\Images\BaseAliens\PuzzleBaseAliensBlue;
+use App\Service\Images\BaseAliens\Regular as BaseAlienRegular;
+use App\Service\Images\BaseAliens\TextImageCenteredBaseAliens;
+use App\Service\Images\BaseAliens\TextSimpleBaseAliensBlue;
+use App\Service\Images\HasMints\PuzzleBlackBGWhiteText;
+use App\Service\Images\HasMints\PuzzleHasMintsBlue;
+use App\Service\Images\HasMints\PuzzleWhiteBGBlackText;
+use App\Service\Images\HasMints\TextImageMaxFourSingleWordsLucDiana;
+use App\Service\Images\HasMints\TextSimpleBlackBGWhiteText;
+use App\Service\Images\HasMints\TextSimpleHasMintsBlue;
+use App\Service\Images\HasMints\TextSimpleWhiteBGBlackText;
+use App\Service\Images\LoadingPunks\HowManyPixels;
+use App\Service\Images\LoadingPunks\Regular as RegularLoadingPunks;
+use App\Service\Images\LooneyLuca\OpepenLooneyLuca;
+use App\Service\Images\LooneyLuca\PuzzleLooneyLucaOrange;
+use App\Service\Images\LooneyLuca\TextImageCenteredLooneyLuca;
+use App\Service\Images\LooneyLuca\TextSimpleLooneyLucaOrange;
+use App\Service\Images\PipingPunks\MovingPipingPunk;
+use App\Service\Images\RichLists\TextAdRichLists;
+use App\Service\Images\RipplePunks\OpepenRipplePunks;
+use App\Service\Images\RipplePunks\PropertyHighlightRipplePunksWithoutTextAndMany;
+use App\Service\Images\RipplePunks\PuzzleRipplePunksBlue;
+use App\Service\Images\RipplePunks\RegularQuartet;
+use App\Service\Images\RipplePunks\RipplePunksQuartetSet;
+use App\Service\Images\RipplePunks\TextImageCenteredRipplePunks;
+use App\Service\Images\RipplePunks\TextSimpleRipplePunksBlue;
+
 class ResolveImage
 {
     private ?int $id;
@@ -15,6 +47,7 @@ class ResolveImage
 
     public function __construct(
         private readonly string $imageTypeSlug,
+        private readonly string $project,
         private readonly ?array $options = []
     ) {
         $this->id = $this->options['nft_id'];
@@ -22,19 +55,29 @@ class ResolveImage
         $this->type = $this->options['type'];
     }
 
-    public static function make(string $imageTypeSlug, array $options = []): ResolveImage
+    public static function make(string $imageTypeSlug, string $project, array $options = []): ResolveImage
     {
-        return new self($imageTypeSlug, $options);
+        return new self($imageTypeSlug, $project, $options);
     }
 
     public function do():? ResolveImage
     {
-        $getterMethod = 'get' . convert_snakecase_to_camelcase($this->imageTypeSlug, true);
+        $getterMethod = 'get' . convert_snakecase_to_camelcase($this->project . ' ' . $this->imageTypeSlug, true);
+
         if (method_exists($this, $getterMethod)) {
             $images = $this->{$getterMethod}();
             $this->urlTMP = $images['urlTMP'];
             $this->urlCDN = $images['urlCDN'];
             return $this;
+        } else {
+            echo 'Missing ResolveImage::<strong>' . $getterMethod . '()</strong><br /><br />';
+
+            $getterMethod = 'get' . convert_snakecase_to_camelcase($this->imageTypeSlug, true);
+            echo 'Before <strong>' . $getterMethod . '()</strong><br />';
+
+            $getterMethod = 'get' . convert_snakecase_to_camelcase($this->project . ' ' . $this->imageTypeSlug, true);
+            echo 'After <strong>' . $getterMethod . '()</strong>';
+            exit;
         }
 
         return null;
@@ -53,52 +96,52 @@ class ResolveImage
         return download_remote_url_and_return_temp_path('looney-luca-ether', $this->id . '.png');
     }
 
-    public function getLoadingPunksNFT(): array
+    public function getLoadingPunksRegular(): array
     {
         if (!$this->id) {
             if ($this->type) {
-                $this->id = get_random_cryptopunk_id_for_type($this->type);
+                $this->id = (new RegularLoadingPunks())->getRandomIdForOption($this->type);
             } else {
-                $this->id = get_random_number(0, 9999);
+                $this->id = (new RegularLoadingPunks())->getRandomId();
             }
         }
 
         return download_remote_url_and_return_temp_path('loadingpunks', get_uuid_for_loading_punk($this->id) . '.gif');
     }
 
-    public function getLoadingPunksPixelCount(): array
+    public function getLoadingPunksHowManyPixels(): array
     {
         if (!$this->id) {
             if ($this->type) {
-                $this->id = get_random_cryptopunk_id_for_type($this->type);
+                $this->id = (new HowManyPixels())->getRandomIdForOption($this->type);
             } else {
-                $this->id = get_random_number(0, 9999);
+                $this->id = (new HowManyPixels())->getRandomId();
             }
         }
 
         return download_remote_url_and_return_temp_path('loadingpunks-pixel-counts', get_uuid_for_loading_punk($this->id) . '.png');
     }
 
-    public function getPipingPunksMoving(): array
+    public function getPipingPunksMovingPipingPunk(): array
     {
         if (!$this->id) {
             if ($this->type) {
-                $this->id = get_random_cryptopunk_id_for_type($this->type);
+                $this->id = (new MovingPipingPunk())->getRandomIdForOption($this->type);
             } else {
-                $this->id = get_random_number(0, 9999);
+                $this->id = (new MovingPipingPunk())->getRandomId();
             }
         }
 
         return download_remote_url_and_return_temp_path('pipingpunks-gif', $this->id . '.gif');
     }
 
-    public function getPipingPunksNFT(): array
+    public function getPipingPunksRegular(): array
     {
         if (!$this->id) {
             if ($this->type) {
-                $this->id = get_random_cryptopunk_id_for_type($this->type);
+                $this->id = (new MovingPipingPunk())->getRandomIdForOption($this->type);
             } else {
-                $this->id = get_random_number(0, 9999);
+                $this->id = (new MovingPipingPunk())->getRandomId();
             }
         }
 
@@ -114,7 +157,7 @@ class ResolveImage
         return download_remote_url_and_return_temp_path('solpepens', $this->id . '.png');
     }
 
-    public function getRipplePunks(): array
+    public function getRipplePunksRegular(): array
     {
         if (!$this->id) {
             if ($this->type) {
@@ -125,6 +168,38 @@ class ResolveImage
         }
 
         return download_remote_url_and_return_temp_path('ripplepunks', $this->id . '.png');
+    }
+
+    public function getRipplePunksRegularRewind(): array
+    {
+        if (!$this->id) {
+            if ($this->type) {
+                $this->id = get_random_cryptopunk_id_for_type($this->type);
+            } else {
+                $this->id = get_random_number(0, 9999);
+            }
+        }
+
+        return download_remote_url_and_return_temp_path('ripplepunks-rewind', $this->id . '.gif');
+    }
+
+
+    public function getRipplePunksRegularQuartet(): array
+    {
+        if (!$this->id) {
+            $this->id = (new RegularQuartet())->getRandomId();
+        }
+
+        return download_remote_url_and_return_temp_path('ripplepunks-quartet', $this->id . '.png');
+    }
+
+    public function getRipplePunksRipplePunksQuartetSet(): array
+    {
+        if (!$this->type) {
+            $this->type = (new RipplePunksQuartetSet())->getRandomOption();
+        }
+
+        return download_remote_url_and_return_temp_path('ripplepunks-quartet-sets', $this->type . '.png');
     }
 
     public function getRipplePunksQR(): array
@@ -140,33 +215,33 @@ class ResolveImage
         return download_remote_url_and_return_temp_path('ripplepunks-qr', $this->id . '.png');
     }
 
-    public function getBaseAliens(): array
+    public function getBaseAliensRegular(): array
     {
         if (!$this->id) {
             if ($this->type) {
-                $this->id = get_random_basealien_id_for_type($this->type);
+                $this->id = (new BaseAlienRegular())->getRandomIdForOption($this->type);
             } else {
-                $this->id = get_random_number(1, 4444);
+                $this->id = (new BaseAlienRegular())->getRandomId();
             }
         }
 
         return download_remote_url_and_return_temp_path('base-punks-png', $this->id . '.png');
     }
 
-    public function getBaseAliensMoving(): array
+    public function getBaseAliensLoading(): array
     {
         if (!$this->id) {
             if ($this->type) {
-                $this->id = get_random_basealien_id_for_type($this->type);
+                $this->id = (new Loading())->getRandomIdForOption($this->type);
             } else {
-                $this->id = get_random_number(1, 4444);
+                $this->id = (new Loading())->getRandomId();
             }
         }
 
         return download_remote_url_and_return_temp_path('base-punks-gif', $this->id . '.gif');
     }
 
-    public function getTextFourWordsLucDiana(): array
+    public function getHasMintsTextImageMaxFourSingleWordsLucDiana(): array
     {
         $textImage = new TextImageMaxFourSingleWordsLucDiana();
         $chunks = explode(' ', $this->text);
@@ -186,7 +261,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getTextCenteredBaseAliens(): array
+    public function getBaseAliensTextImageCenteredBaseAliens(): array
     {
         $textImage = new TextImageCenteredBaseAliens();
         $textImage->setText($this->text);
@@ -194,7 +269,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getTextCenteredLooneyLuca(): array
+    public function getTextImageCenteredLooneyLuca(): array
     {
         $textImage = new TextImageCenteredLooneyLuca();
         $textImage->setText($this->text);
@@ -202,7 +277,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getTextCenteredRipplePunks(): array
+    public function getRipplePunksTextImageCenteredRipplePunks(): array
     {
         $textImage = new TextImageCenteredRipplePunks();
         $textImage->setText($this->text);
@@ -210,7 +285,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getSimpleTextBlackBGWhiteText(): array
+    public function getHasMintsTextSimpleBlackBGWhiteText(): array
     {
         $textImage = new TextSimpleBlackBGWhiteText();
         $textImage->setText($this->text);
@@ -218,7 +293,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getSimpleTextWhiteBGBlackText(): array
+    public function getHasMintsTextSimpleWhiteBGBlackText(): array
     {
         $textImage = new TextSimpleWhiteBGBlackText();
         $textImage->setText($this->text);
@@ -226,7 +301,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getSimpleTextBaseAliensBlue(): array
+    public function getBaseAliensTextSimpleBaseAliensBlue(): array
     {
         $textImage = new TextSimpleBaseAliensBlue();
         $textImage->setText($this->text);
@@ -234,7 +309,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getSimpleTextLooneyLucaOrange(): array
+    public function getLooneyLucaTextSimpleLooneyLucaOrange(): array
     {
         $textImage = new TextSimpleLooneyLucaOrange();
         $textImage->setText($this->text);
@@ -242,15 +317,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getSimpleTextSOLpepensPurple(): array
-    {
-        $textImage = new TextSimpleSOLpepensPurple();
-        $textImage->setText($this->text);
-
-        return $textImage->render();
-    }
-
-    public function getSimpleTextRipplePunksBlue(): array
+    public function getRipplePunksTextSimpleRipplePunksBlue(): array
     {
         $textImage = new TextSimpleRipplePunksBlue();
         $textImage->setText($this->text);
@@ -258,7 +325,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getSimpleTextHasMintsBlue(): array
+    public function getHasMintsTextSimpleHasMintsBlue(): array
     {
         $textImage = new TextSimpleHasMintsBlue();
         $textImage->setText($this->text);
@@ -266,7 +333,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getTextAdRichLists(): array
+    public function getRichListsTextAdRichLists(): array
     {
         $textImage = new TextAdRichLists();
         $textImage->setText($this->text);
@@ -274,31 +341,43 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getPropertyHighlightBaseAliens(): array
+    public function getBaseAliensPropertyHighlightBaseAliens(): array
     {
         $textImage = new PropertyHighlightBaseAliens();
-        $textImage->setType($this->type);
+        if ($this->type) {
+            $textImage->setType($this->type);
+        } else {
+            $textImage->setType($textImage->getRandomOption());
+        }
 
         return $textImage->render();
     }
 
-    public function getPropertyHighlightBaseAliensWithoutText(): array
+    public function getBaseAliensPropertyHighlightBaseAliensWithoutText(): array
     {
         $textImage = new PropertyHighlightBaseAliensWithoutText();
-        $textImage->setType($this->type);
+        if ($this->type) {
+            $textImage->setType($this->type);
+        } else {
+            $textImage->setType($textImage->getRandomOption());
+        }
 
         return $textImage->render();
     }
 
-    public function getPropertyHighlightBaseAliensWithoutTextAndMany(): array
+    public function getBaseAliensPropertyHighlightBaseAliensWithoutTextAndMany(): array
     {
         $textImage = new PropertyHighlightBaseAliensWithoutTextAndMany();
-        $textImage->setType($this->type);
+        if ($this->type) {
+            $textImage->setType($this->type);
+        } else {
+            $textImage->setType($textImage->getRandomOption());
+        }
 
         return $textImage->render();
     }
 
-    public function getPropertyHighlightRipplePunksWithoutTextAndMany(): array
+    public function getRipplePunksPropertyHighlightRipplePunksWithoutTextAndMany(): array
     {
         $textImage = new PropertyHighlightRipplePunksWithoutTextAndMany();
         $textImage->setType($this->type);
@@ -306,7 +385,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getOpepenRipplePunks(): array
+    public function getRipplePunksOpepenRipplePunks(): array
     {
         $textImage = new OpepenRipplePunks();
         if ($this->text) {
@@ -319,7 +398,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getOpepenBaseAliens(): array
+    public function getBaseAliensOpepenBaseAliens(): array
     {
         $textImage = new OpepenBaseAliens();
         if ($this->text) {
@@ -332,7 +411,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getOpepenLooneyLuca(): array
+    public function getLooneyLucaOpepenLooneyLuca(): array
     {
         $textImage = new OpepenLooneyLuca();
         if ($this->text) {
@@ -345,7 +424,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getPuzzleHasMintsBlue(): array
+    public function getHasMintsPuzzleHasMintsBlue(): array
     {
         $textImage = new PuzzleHasMintsBlue();
         if ($this->text) {
@@ -355,7 +434,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getPuzzleBaseAliensBlue(): array
+    public function getBaseAliensPuzzleBaseAliensBlue(): array
     {
         $textImage = new PuzzleBaseAliensBlue();
         if ($this->text) {
@@ -365,7 +444,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getPuzzleBlackBGWhiteText(): array
+    public function getHasMintsPuzzleBlackBGWhiteText(): array
     {
         $textImage = new PuzzleBlackBGWhiteText();
         if ($this->text) {
@@ -375,7 +454,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getPuzzleLooneyLucaOrange(): array
+    public function getLooneyLucaPuzzleLooneyLucaOrange(): array
     {
         $textImage = new PuzzleLooneyLucaOrange();
         if ($this->text) {
@@ -385,7 +464,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getPuzzleRipplePunksBlue(): array
+    public function getRipplePunksPuzzleRipplePunksBlue(): array
     {
         $textImage = new PuzzleRipplePunksBlue();
         if ($this->text) {
@@ -395,17 +474,7 @@ class ResolveImage
         return $textImage->render();
     }
 
-    public function getPuzzleSOLpepensPurple(): array
-    {
-        $textImage = new PuzzleSOLpepensPurple();
-        if ($this->text) {
-            $textImage->setText($this->text);
-        }
-
-        return $textImage->render();
-    }
-
-    public function getPuzzleWhiteBGBlackText(): array
+    public function getHasMintsPuzzleWhiteBGBlackText(): array
     {
         $textImage = new PuzzleWhiteBGBlackText();
         if ($this->text) {

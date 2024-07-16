@@ -1,0 +1,10 @@
+<div class="form-group my-1">
+    <label for="project_name" class="my-2">Text</label>
+    <textarea
+        name="text"
+        class="form-control <?=$formErrors && isset($formErrors['text']) ? 'is-invalid' : ''; ?>"
+        id="text"
+        rows="5"
+    ><?=$formValidatedValues && isset($formValidatedValues['text']) ? $formValidatedValues['text'] : ''; ?></textarea>
+    <?=parse_form_errors('text', $formErrors); ?>
+</div>

@@ -1,0 +1,34 @@
+<?php
+/**
+ * @var $formHelper \App\Service\Form\FormHelper
+ */
+?>
+
+<div class="form-group my-1">
+    <label for="image" class="my-2">Image</label>
+    <select
+        name="image"
+        class="custom-select form-control
+            <?=$formErrors && isset($formErrors['image']) ? 'is-invalid' : ''; ?>
+        "
+        id="image"
+    >
+        <option></option>
+        <?php foreach($formHelper->imageOptions as $className => $imageName) : ?>
+            <option value="<?=flatten_string($className); ?>"
+                <?php if ($formValidatedValues): ?>
+                    <?php if (isset($formValidatedValues['image']) && ($formValidatedValues['image'] === flatten_string($option))): ?>
+                        selected
+                    <?php endif; ?>
+                <?php elseif ($formHelper->selectedImage): ?>
+                    <?php if ($formHelper->selectedImage === flatten_string($className)): ?>
+                        selected
+                    <?php endif; ?>
+                <?php endif; ?>
+            >
+                <?=$imageName; ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <?=parse_form_errors('image', $formErrors); ?>
+</div>

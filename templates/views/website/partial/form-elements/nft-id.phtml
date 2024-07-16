@@ -1,0 +1,23 @@
+<?php
+/**
+ * @var $formHelper \App\Service\Form\FormHelper
+ */
+?>
+
+<div class="form-group my-1">
+    <label for="nft_id" class="my-2">NFT ID</label>
+    <input
+        placeholder="<?=$formHelper->nftIdRange[0]; ?> - <?=$formHelper->nftIdRange[(count($formHelper->nftIdRange) - 1)]; ?>"
+        type="text"
+        name="nft_id"
+        class="form-control
+            <?=$formErrors && isset($formErrors['nft_id']) ? 'is-invalid' : ''; ?>
+        "
+        value="<?php if ($formValidatedValues && isset($formValidatedValues['nft_id'])): ?>
+<?=$formValidatedValues['nft_id']; ?>
+            <?php elseif ($formHelper->nftId): ?>
+<?=$formHelper->nftId; ?><?php endif; ?>"
+        id="nft_id"
+    />
+    <?=parse_form_errors('nft_id', $formErrors); ?>
+</div>

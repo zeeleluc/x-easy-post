@@ -101,6 +101,10 @@ class Initialize extends BaseObject
             return new Action\Actions\RipplePunks();
         }
 
+        if ($get['action'] === 'load-dynamic-form-elements') {
+            return new Action\Actions\LoadDynamicFormElements();
+        }
+
         throw new \Exception('Page not found.');
     }
 

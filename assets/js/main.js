@@ -1,77 +1,55 @@
 document.addEventListener('DOMContentLoaded', function() {
     try {
-        // Handle image selection change
-        const imageSelect = document.getElementById('image');
-        if (imageSelect) {
-            imageSelect.addEventListener('change', function() {
-                const selectedOption = this.options[this.selectedIndex];
-                const typeOptionsCryptoPunks = document.querySelectorAll('select#type option.type-crypto-punk');
-                const typeOptionsLooneyLuca = document.querySelectorAll('select#type option.type-looneyluca');
-                const typeOptionsBaseAliens = document.querySelectorAll('select#type option.type-basealiens');
 
-                if (selectedOption.classList.contains('option-crypto-punk')) {
-                    typeOptionsCryptoPunks.forEach(option => {
-                        option.classList.remove('hide');
-                        option.removeAttribute('disabled');
+        const form = document.getElementById('posts-form');
+        if (form) {
+            const dynamicFormElements = document.getElementById('dynamic-form-elements');
+            const body = document.body;
+            const url = body.getAttribute('data-url');
+
+            // Function to fetch and update the HTML content
+            const fetchAndUpdateContent = async () => {
+                try {
+                    // Collect all form input values
+                    const formData = new FormData(form);
+                    const formValues = {};
+                    formData.forEach((value, key) => {
+                        formValues[key] = value;
                     });
-                    typeOptionsLooneyLuca.forEach(option => {
-                        option.classList.add('hide');
-                        option.setAttribute('disabled', 'disabled');
+
+                    const response = await fetch(url + '/load-dynamic-form-elements', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formValues),
                     });
-                    typeOptionsBaseAliens.forEach(option => {
-                        option.classList.add('hide');
-                        option.setAttribute('disabled', 'disabled');
-                    });
-                } else if (selectedOption.classList.contains('option-looneyluca')) {
-                    typeOptionsLooneyLuca.forEach(option => {
-                        option.classList.remove('hide');
-                        option.removeAttribute('disabled');
-                    });
-                    typeOptionsCryptoPunks.forEach(option => {
-                        option.classList.add('hide');
-                        option.setAttribute('disabled', 'disabled');
-                    });
-                    typeOptionsBaseAliens.forEach(option => {
-                        option.classList.add('hide');
-                        option.setAttribute('disabled', 'disabled');
-                    });
-                } else if (selectedOption.classList.contains('option-basealiens')) {
-                    typeOptionsBaseAliens.forEach(option => {
-                        option.classList.remove('hide');
-                        option.removeAttribute('disabled');
-                    });
-                    typeOptionsLooneyLuca.forEach(option => {
-                        option.classList.add('hide');
-                        option.setAttribute('disabled', 'disabled');
-                    });
-                    typeOptionsCryptoPunks.forEach(option => {
-                        option.classList.add('hide');
-                        option.setAttribute('disabled', 'disabled');
-                    });
-                } else {
-                    typeOptionsCryptoPunks.forEach(option => {
-                        option.classList.add('hide');
-                        option.setAttribute('disabled', 'disabled');
-                    });
-                    typeOptionsLooneyLuca.forEach(option => {
-                        option.classList.add('hide');
-                        option.setAttribute('disabled', 'disabled');
-                    });
-                    typeOptionsBaseAliens.forEach(option => {
-                        option.classList.add('hide');
-                        option.setAttribute('disabled', 'disabled');
-                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+
+                    const html = await response.text();
+                    dynamicFormElements.innerHTML = html;
+                } catch (error) {
+                    console.error('Fetch error: ', error);
+                }
+            };
+
+            // Event listener for form elements
+            form.addEventListener('change', (event) => {
+                if (event.target.name === "project" || form.contains(event.target)) {
+                    fetchAndUpdateContent();
                 }
             });
-        }
 
-        // Show the alert and remove it after 3.5 seconds
-        setTimeout(function() {
-            let alertContainer = document.querySelector('.alert-container');
-            if (alertContainer) {
-                alertContainer.remove();
-            }
-        }, 3500);
+            // Event listener for buttons with the name "project"
+            form.querySelectorAll('button[name="project"]').forEach(button => {
+                button.addEventListener('click', () => {
+                    fetchAndUpdateContent();
+                });
+            });
+        }
 
         // Handle tab navigation via URL hash
         var hash = window.location.hash;
@@ -106,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Form element focus and change handling
-        const form = document.querySelector('form#posts-form');
         if (form) {
             const formElements = form.querySelectorAll('textarea, select, input');
             formElements.forEach(element => {

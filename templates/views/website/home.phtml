@@ -4,146 +4,12 @@
             <div class="card">
                 <div class="card-body">
                     <form id="posts-form" method="post" action="">
-                        <div class="form-group my-1">
-                            <label for="project_name" class="my-2">Text *</label>
-                            <textarea
-                                name="text"
-                                class="form-control <?=$formErrors && isset($formErrors['text']) ? 'is-invalid' : ''; ?>"
-                                id="text"
-                                rows="5"
-                            ><?=$formValidatedValues && isset($formValidatedValues['text']) ? $formValidatedValues['text'] : ''; ?></textarea>
-                            <?=parse_form_errors('text', $formErrors); ?>
-                        </div>
-                        <div class="form-group my-1">
-                            <label for="text_image" class="my-2">Image Text (optional)</label>
-                            <input
-                                type="text"
-                                name="text_image"
-                                class="
-                                    form-control
-                                    <?=$formErrors && isset($formErrors['nft_id']) ? 'is-invalid' : ''; ?>
-                                "
-                                value="<?=$formValidatedValues && isset($formValidatedValues['text_image']) ? $formValidatedValues['text_image'] : ''; ?>"
-                                id="text_image"
-                            />
-                            <?=parse_form_errors('text_image', $formErrors); ?>
-                        </div>
-                        <div class="form-group my-1">
-                            <label for="image" class="my-2">Image (optional)</label>
-                            <select
-                                name="image"
-                                class="
-                                    custom-select
-                                    form-control
-                                    <?=$formErrors && isset($formErrors['image']) ? 'is-invalid' : ''; ?>
-                                "
-                                id="image"
-                            >
-                                <option></option>
-                                <?php foreach(\App\FormFieldValidator\Image::getOptions() as $option) : ?>
-                                    <option
-                                        <?php if (in_array($option, [
-                                            'LoadingPunks NFT',
-                                            'LoadingPunks Pixel Count',
-                                            'PipingPunks NFT',
-                                            'PipingPunks Moving',
-                                            'OpepenRipplePunks',
-                                            'RipplePunks',
-                                            'RipplePunks QR',
-                                            'Property Highlight RipplePunks Without Text And Many',
-                                        ])): ?>
-                                            class="option-crypto-punk"
-                                        <?php elseif (in_array($option, [
-                                            'Looney Luca',
-                                            'Opepen Looney Luca',
-                                        ])): ?>
-                                            class="option-looneyluca"
-                                        <?php elseif (in_array($option, [
-                                            'BaseAliens',
-                                            'BaseAliens Moving',
-                                            'OpepenBaseAliens',
-                                            'Property Highlight BaseAliens',
-                                            'Property Highlight BaseAliens Without Text',
-                                            'Property Highlight BaseAliens Without Text And Many',
-                                        ])): ?>
-                                            class="option-basealiens"
-                                        <?php endif; ?>
-                                        value="<?=flatten_string($option); ?>"
-                                        <?=$formValidatedValues && isset($formValidatedValues['image']) && ($formValidatedValues['image'] === flatten_string($option)) ? 'selected' : ''; ?>
-                                    >
-                                        <?=$option; ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                            <?=parse_form_errors('image', $formErrors); ?>
-                        </div>
-                        <div class="form-group my-1">
-                            <label for="email" class="my-2">Post ID or URL (optional)</label>
-                            <input
-                                type="text"
-                                name="post_id"
-                                class="form-control <?=$formErrors && isset($formErrors['post_id']) ? 'is-invalid' : ''; ?>"
-                                value="<?=$formValidatedValues && isset($formValidatedValues['post_id']) ? $formValidatedValues['post_id'] : ''; ?>"
-                                id="post_id"
-                            />
-                            <?=parse_form_errors('post_id', $formErrors); ?>
-                        </div>
-                        <div class="form-group my-1">
-                            <label for="nft_id" class="my-2">NFT ID (optional)</label>
-                            <input
-                                type="text"
-                                name="nft_id"
-                                class="
-                                    form-control
-                                    <?=$formErrors && isset($formErrors['nft_id']) ? 'is-invalid' : ''; ?>
-                                "
-                                value="<?=$formValidatedValues && isset($formValidatedValues['nft_id']) ? $formValidatedValues['nft_id'] : ''; ?>"
-                                id="nft_id"
-                            />
-                            <?=parse_form_errors('nft_id', $formErrors); ?>
-                        </div>
-                        <div class="form-group my-1">
-                            <label for="project_name" class="my-2">Type (optional)</label>
-                            <select
-                                name="type"
-                                class="
-                                    custom-select
-                                    form-control
-                                    <?=$formErrors && isset($formErrors['type']) ? 'is-invalid' : ''; ?>
-                                "
-                                id="type"
-                            >
-                                <option></option>
-                                <?php foreach(\App\FormFieldValidator\Type::getTypesCryptoPunks() as $type) : ?>
-                                    <option
-                                        class="type-crypto-punk hide"
-                                        value="<?=$type; ?>"
-                                        <?=$formValidatedValues && isset($formValidatedValues['type']) && ($formValidatedValues['type'] === $type) ? 'selected' : ''; ?>
-                                    >
-                                        <?=$type; ?>
-                                    </option>
-                                <?php endforeach; ?>
-                                <?php foreach(\App\FormFieldValidator\Type::getTypesLooneyLuca() as $type) : ?>
-                                    <option
-                                        class="type-looneyluca hide"
-                                        value="<?=$type; ?>"
-                                        <?=$formValidatedValues && isset($formValidatedValues['type']) && ($formValidatedValues['type'] === $type) ? 'selected' : ''; ?>
-                                    >
-                                        <?=$type; ?>
-                                    </option>
-                                <?php endforeach; ?>
-                                <?php foreach(\App\FormFieldValidator\Type::getTypesBaseAliens() as $type) : ?>
-                                    <option
-                                        class="type-basealiens hide"
-                                        value="<?=$type; ?>"
-                                        <?=$formValidatedValues && isset($formValidatedValues['type']) && ($formValidatedValues['type'] === $type) ? 'selected' : ''; ?>
-                                    >
-                                        <?=$type; ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                            <?=parse_form_errors('type', $formErrors); ?>
-                        </div>
+                        <?php include ('templates/views/website/partial/form-elements/text.phtml'); ?>
+                        <?php include ('templates/views/website/partial/form-elements/projects.phtml'); ?>
+                        <?php include ('templates/views/website/partial/form-elements/post-id.phtml'); ?>
+
+                        <div id="dynamic-form-elements"></div>
+
                         <br />
                         <button type="submit" class="btn btn-primary">Schedule Post</button>
                     </form>
@@ -210,8 +76,6 @@
                     <?php include ROOT . "/templates/views/website/partial/render-posts.phtml"; ?>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>

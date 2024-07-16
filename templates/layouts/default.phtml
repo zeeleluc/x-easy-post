@@ -12,7 +12,7 @@
     <link href="<?=env('URL'); ?>/assets/css/main.css?t=<?=date('dmYHi'); ?>" rel="stylesheet">
 </head>
 
-<body>
+<body data-url="<?=env('URL'); ?>">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="<?=env('URL'); ?>">X Easy Post (<?=$actualPostsLast24Hours; ?>)</a>
@@ -24,13 +24,13 @@
 
     <main>
 
-        <?php if ($alert): ?>
-            <div class="container alert-container">
-                <div class="alert alert-<?=$alert['type']; ?> mt-5 text-center" role="alert">
-                    <?=$alert['message']; ?>
-                </div>
-            </div>
-        <?php endif; ?>
+<!--        --><?php //if ($alert): ?>
+<!--            <div class="container alert-container">-->
+<!--                <div class="alert alert---><?php //=$alert['type']; ?><!-- mt-5 text-center" role="alert">-->
+<!--                    --><?php //=$alert['message']; ?>
+<!--                </div>-->
+<!--            </div>-->
+<!--        --><?php //endif; ?>
 
         <?=$content; ?>
     </main>

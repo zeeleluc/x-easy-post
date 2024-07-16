@@ -2,13 +2,16 @@
 
 namespace App\FormFieldValidator;
 
+use App\Service\Images\BaseImage;
+
 abstract class FormFieldValidator
 {
     private array $messages = [];
 
     public function __construct(
         public readonly string $key,
-        public readonly string $value
+        public readonly string $value,
+        public readonly ?BaseImage $image = null
     ) {
     }
 

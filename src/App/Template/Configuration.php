@@ -17,8 +17,8 @@ abstract class Configuration extends BaseObject
     public function views()
     {
         return [
-            'terminal' => [
-                'html',
+            'clean' => [
+                'dynamic-form-elements',
             ],
             'website' => [
                 'home',

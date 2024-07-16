@@ -6,11 +6,13 @@ use App\FormFieldValidator\Image;
 use App\FormFieldValidator\ImageText;
 use App\FormFieldValidator\NFTID;
 use App\FormFieldValidator\PostID;
+use App\FormFieldValidator\Project;
 use App\FormFieldValidator\RegularString;
 use App\FormFieldValidator\Type;
 use App\Models\Post;
 use App\Query\PostQuery;
-use App\Service\GatherShillingProgress;
+use App\Service\Images\ImagesHelper;
+use App\Service\Projects\GatherShillingProgress;
 use App\Service\ResolveImage;
 use App\Variable;
 
@@ -73,29 +75,63 @@ class Home extends BaseFormAction
             }
         }
 
-        $this->validateFormValues([
-            new PostID('post_id', $postId),
-            new RegularString('text', $this->getRequest()->getPostParam('text')),
-            new ImageText('text_image', $this->getRequest()->getPostParam('text_image')),
-            new NFTID('nft_id', $this->getRequest()->getPostParam('nft_id')),
-            new Image('image', $this->getRequest()->getPostParam('image')),
-            new Type('type', $this->getRequest()->getPostParam('type')),
-        ]);
+        $validateFields = [];
+
+        if ($postId) {
+            $validateFields[] = new PostID('post_id', $postId);
+        }
+
+        if ($project = $this->getRequest()->getPostParam('project')) {
+
+            $validateFields[] = new Project('project', $project);
+
+            if ($image = $this->getRequest()->getPostParam('image')) {
+                $validateFields[] = new Image('image', $image);
+
+                if ($value = $this->getRequest()->getPostParam('text_image')) {
+                    $validateFields[] = new ImageText('text_image', $value);
+                }
+
+                if ($value = $this->getRequest()->getPostParam('nft_id')) {
+                    $validateFields[] = new NFTID('nft_id', $value);
+                }
+
+                if ($value = $this->getRequest()->getPostParam('type')) {
+                    $validateFields[] = new Type(
+                        'type',
+                        $value,
+                        ImagesHelper::getImageClassByProjectAndSlug($project, $image)
+                    );
+                }
+            }
+        }
+
+        if ($value = $this->getRequest()->getPostParam('text')) {
+            $validateFields[] = new RegularString('text', $value);
+        }
+
+        $this->validateFormValues($validateFields);
     }
 
     protected function handleForm(): void
     {
+        $project = $this->validatedFormValues['project'] ?: null;
+        $text = $this->validatedFormValues['text'] ?: null;
         $postId = $this->validatedFormValues['post_id'] ?: null;
-        $text = $this->validatedFormValues['text'];
         $textImage = $this->validatedFormValues['text_image'] ?: null;
-        $imageType = $this->validatedFormValues['image'];
+        $imageType = $this->validatedFormValues['image'] ?: null;
         $nftId = $this->validatedFormValues['nft_id'] ?: null;
         $type = $this->validatedFormValues['type'] ?: null;
-        $resolvedImage = ResolveImage::make($imageType, [
-            'nft_id' => $nftId,
-            'type' => $type,
-            'text' => $textImage,
-        ])->do();
+
+        if ($imageType) {
+            $resolvedImage = ResolveImage::make($imageType, $project,  [
+                'nft_id' => $nftId,
+                'type' => $type,
+                'text' => $textImage,
+            ])->do();
+        } else {
+            $resolvedImage = null;
+        }
 
         if ($postId) {
             $this->scheduleReply($imageType, $type, $text, $textImage, $postId, $resolvedImage);
@@ -105,7 +141,7 @@ class Home extends BaseFormAction
     }
     
     private function schedulePost(
-        string $imageType,
+        ?string $imageType,
         ?string $imageAttributeType,
         ?string $text,
         ?string $textImage,
@@ -123,7 +159,7 @@ class Home extends BaseFormAction
     }
     
     private function scheduleReply(
-        string $imageType,
+        ?string $imageType,
         ?string $imageAttributeType,
         ?string $text,
         ?string $textImage,

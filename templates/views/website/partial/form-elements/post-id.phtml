@@ -1,0 +1,17 @@
+<?php
+/**
+ * @var $formHelper \App\Service\Form\FormHelper
+ */
+?>
+
+<div class="form-group my-1">
+    <label for="post_id" class="my-2">Post ID or URL (optional)</label>
+    <input
+        type="text"
+        name="post_id"
+        class="form-control <?=$formErrors && isset($formErrors['post_id']) ? 'is-invalid' : ''; ?>"
+        value="<?=$formValidatedValues && isset($formValidatedValues['post_id']) ? $formValidatedValues['post_id'] : ''; ?>"
+        id="post_id"
+    />
+    <?=parse_form_errors('post_id', $formErrors); ?>
+</div>

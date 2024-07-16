@@ -1,0 +1,22 @@
+<?php
+/**
+ * @var $formHelper \App\Service\Form\FormHelper
+ */
+?>
+
+<div class="form-group my-1">
+    <label for="text_image" class="my-2">Image Text</label>
+    <input
+        type="text"
+        name="text_image"
+        class="form-control
+            <?=$formErrors && isset($formErrors['text_image']) ? 'is-invalid' : ''; ?>
+        "
+        value="<?php if ($formValidatedValues && isset($formValidatedValues['text_image'])): ?>
+<?=$formValidatedValues['text_image']; ?>
+            <?php elseif ($formHelper->imageText): ?>
+<?=$formHelper->imageText; ?><?php endif; ?>"
+        id="text_image"
+    />
+    <?=parse_form_errors('text_image', $formErrors); ?>
+</div>

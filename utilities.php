@@ -1,9 +1,6 @@
 <?php
 include "uuid_loading_punks.php";
 include "id_background_hex_looney_luca.php";
-include "punks_type_attributes.php";
-include "looneyluca_type_attributes.php";
-include "basealiens_type_attributes.php";
 
 if (!function_exists('is_cli')) {
     function is_cli() {
@@ -219,6 +216,19 @@ if (!function_exists('convert_snakecase_to_camelcase')) {
 
         if (!$capitalizeFirstCharacter) {
             $string[0] = strtolower($string[0]);
+        }
+
+        return $string;
+    }
+}
+
+if (!function_exists('convert_snakecase_to_project_name')) {
+    function convert_snakecase_to_project_name(string $string): string
+    {
+        $string = str_replace(' ', '', ucwords(str_replace('_', ' ', $string)));
+
+        if ($string === 'LooneyLuca') {
+            $string = 'Looney Luca';
         }
 
         return $string;

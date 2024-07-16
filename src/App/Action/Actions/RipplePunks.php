@@ -2,7 +2,7 @@
 namespace App\Action\Actions;
 
 use App\Action\BaseAction;
-use App\Service\PropertyHighlightRipplePunksWithoutTextAndMany;
+use App\Service\Images\RipplePunks\PropertyHighlightRipplePunksWithoutTextAndMany;
 use App\Variable;
 
 class RipplePunks extends BaseAction
