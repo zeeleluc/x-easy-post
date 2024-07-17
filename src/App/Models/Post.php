@@ -16,6 +16,7 @@ class Post extends BaseModel
 
     public ?bool $success = null;
 
+    public ?string $project = null;
     public ?string $text = null;
 
     public ?string $textImage = null;
@@ -59,6 +60,9 @@ class Post extends BaseModel
         } else {
             $post->success = (bool) $success;
         }
+        if ($project = Arr::get($values, 'project')) {
+            $post->project = $project;
+        }
         if ($text = Arr::get($values, 'text')) {
             $post->text = $text;
         }
@@ -100,6 +104,9 @@ class Post extends BaseModel
         }
         if (isset($this->success)) {
             $array['success'] = $this->success ? 1 : 0;
+        }
+        if ($this->project) {
+            $array['project'] = $this->project;
         }
         if ($this->image) {
             $array['image'] = $this->image;

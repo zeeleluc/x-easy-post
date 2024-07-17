@@ -134,13 +134,14 @@ class Home extends BaseFormAction
         }
 
         if ($postId) {
-            $this->scheduleReply($imageType, $type, $text, $textImage, $postId, $resolvedImage);
+            $this->scheduleReply($project, $imageType, $type, $text, $textImage, $postId, $resolvedImage);
         } else {
-            $this->schedulePost($imageType, $type, $text, $textImage, $resolvedImage);
+            $this->schedulePost($project, $imageType, $type, $text, $textImage, $resolvedImage);
         }
     }
     
     private function schedulePost(
+        ?string $project,
         ?string $imageType,
         ?string $imageAttributeType,
         ?string $text,
@@ -148,6 +149,7 @@ class Home extends BaseFormAction
         ResolveImage $resolvedImage = null
     ): void {
         $post = new Post();
+        $post->project = $project;
         $post->text = $text;
         $post->textImage = $textImage;
         $post->image = $resolvedImage?->urlCDN;
@@ -159,6 +161,7 @@ class Home extends BaseFormAction
     }
     
     private function scheduleReply(
+        ?string $project,
         ?string $imageType,
         ?string $imageAttributeType,
         ?string $text,
@@ -167,6 +170,7 @@ class Home extends BaseFormAction
         ResolveImage $resolvedImage = null
     ): void {
         $post = new Post();
+        $post->project = $project;
         $post->postId = $postId;
         $post->success = null;
         $post->text = $text;

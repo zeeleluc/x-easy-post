@@ -1,6 +1,5 @@
 <?php
 include "uuid_loading_punks.php";
-include "id_background_hex_looney_luca.php";
 
 if (!function_exists('is_cli')) {
     function is_cli() {

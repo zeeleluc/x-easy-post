@@ -30,7 +30,7 @@ class RedoImage extends BaseAction
             abort('', 'Error');
         }
 
-        $resolveImage = ResolveImage::make($post->imageType, [
+        $resolveImage = ResolveImage::make($post->imageType, $post->project, [
             'nft_id' => null,
             'type' => $post->imageAttributeType ?: null,
             'text' => $post->textImage,
