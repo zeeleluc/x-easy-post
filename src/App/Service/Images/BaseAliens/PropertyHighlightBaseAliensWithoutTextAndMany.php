@@ -18,6 +18,8 @@ class PropertyHighlightBaseAliensWithoutTextAndMany extends BaseTextImage
 
     protected string $name = 'Neat Properties Highlight With Mint Info';
 
+    private ?int $id = null;
+
     private string $type = '';
 
     public function __construct()
@@ -11519,6 +11521,13 @@ class PropertyHighlightBaseAliensWithoutTextAndMany extends BaseTextImage
             ],
         ];
         $this->options = array_keys($this->optionsPerId);
+    }
+
+    public function setId(int $id): static
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public static function make(): PropertyHighlightBaseAliensWithoutTextAndMany

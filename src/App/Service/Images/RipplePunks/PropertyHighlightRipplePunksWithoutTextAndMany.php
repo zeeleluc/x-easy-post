@@ -27918,7 +27918,7 @@ class PropertyHighlightRipplePunksWithoutTextAndMany extends BaseTextImage
             for ($column = 0; $column < 16; ++$column) {
                 if (!$this->isSmallPunkOutOfRange($row, $column)) {
                     if ($this->type) {
-                        $id = get_random_cryptopunk_id_for_type($this->type);
+                        $id = $this->getRandomIdForOption($this->type);
                         $smallPunk = $this->getRipplePunkFixedSize($id, 91.4);
                     } else {
                         $smallPunk = $this->getRipplePunkFixedSize(null, 91.4);
@@ -27931,7 +27931,7 @@ class PropertyHighlightRipplePunksWithoutTextAndMany extends BaseTextImage
         }
 
         if (!$this->id) {
-            $id = get_random_cryptopunk_id_for_type($this->type);
+            $id = $this->getRandomIdForOption($this->type);
         } else {
             $id = $this->id;
         }
