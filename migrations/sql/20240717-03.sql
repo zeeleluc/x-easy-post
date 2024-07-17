@@ -1,0 +1,2 @@
+ALTER TABLE images
+    ADD COLUMN image_type VARCHAR(255) NOT NULL AFTER project;

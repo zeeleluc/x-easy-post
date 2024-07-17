@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Guest;
 use App\Query\ImageQuery;
+use App\Service\Images\ImagesHelper;
 use App\UUID;
 use ArrayHelpers\Arr;
 use Carbon\Carbon;
@@ -15,6 +16,7 @@ class Image extends BaseModel
     public ?string $uuid = null;
     public ?string $createdBy = null;
     public ?string $project = null;
+    public ?string $imageType = null;
     public ?string $textImage = null;
     public ?string $nftId = null;
     public ?string $nftType = null;
@@ -50,6 +52,10 @@ class Image extends BaseModel
 
         if ($project = Arr::get($values, 'project')) {
             $image->project = $project;
+        }
+
+        if ($imageType = Arr::get($values, 'image_type')) {
+            $image->imageType = $imageType;
         }
 
         if ($textImage = Arr::get($values, 'text_image')) {
@@ -97,6 +103,10 @@ class Image extends BaseModel
 
         if ($this->project) {
             $array['project'] = $this->project;
+        }
+
+        if ($this->imageType) {
+            $array['image_type'] = $this->imageType;
         }
 
         if ($this->textImage) {
@@ -179,5 +189,28 @@ class Image extends BaseModel
     public function getUrl(): string
     {
         return env('URL_HYPEOMATIC') . '/image/' . $this->uuid;
+    }
+
+    public function getProjectName(): string
+    {
+        return convert_snakecase_to_project_name($this->project);
+    }
+
+    public function getTitle(): string
+    {
+        $title = '';
+
+        $image = ImagesHelper::getImageClassByProjectAndSlug($this->project, $this->imageType);
+        if ($image) {
+            $title .= $image::getName();
+        }
+
+        if ($nftId = $this->nftId) {
+            $title .= ' #' . $nftId;
+        } elseif ($nftType = $this->nftType) {
+            $title .= ' / ' . $nftType;
+        }
+
+        return $title;
     }
 }

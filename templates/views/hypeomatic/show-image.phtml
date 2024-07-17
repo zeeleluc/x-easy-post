@@ -7,18 +7,17 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
 
-        <h2><?=$image->textImage; ?></h2>
+        <h2><?=$image->getProjectName(); ?></h2>
+        <h3><?=$image->getTitle(); ?></h3>
 
         <div class="col col-lg-4">
             <div class="card">
-                <form id="posts-form" method="post" action="">
-                    <div class="card-body">
-                        <img class="img-fluid" src="<?=$image->url; ?>" />
-                    </div>
-                </form>
+                <div class="card-body">
+                    <img class="img-fluid" src="<?=$image->url; ?>" />
+                </div>
             </div>
             <?php if ($image->canRedo()): ?>
-                <button type="submit" class="btn btn-primary">Redo</button>
+<!--                <button type="submit" class="btn btn-primary">Redo</button>-->
             <?php endif; ?>
         </div>
     </div>

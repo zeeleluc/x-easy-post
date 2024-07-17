@@ -102,6 +102,8 @@ class Home extends BaseFormAction
         ])->do();
 
         $values = $this->validatedFormValues;
+        $values['image_type'] = $imageType;
+        $values['nft_type'] = $type;
         $values['url'] = $resolvedImage->urlCDN;
 
         if ($nftId) {

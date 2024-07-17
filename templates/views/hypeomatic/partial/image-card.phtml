@@ -5,14 +5,10 @@
 ?>
 
 <div class="card">
-    <div class="card-header">
-
-    </div>
     <div class="card-body">
-        <img class="img-fluid" href="<?=$image->getUrl(); ?>" src="<?=$image->url; ?>" />
-    </div>
-    <div class="card-footer">
-
+        <a href="<?=$image->getUrl(); ?>">
+            <img class="img-fluid" src="<?=$image->url; ?>" />
+        </a>
     </div>
 </div>
 
