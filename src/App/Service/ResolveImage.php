@@ -29,7 +29,10 @@ use App\Service\Images\RichLists\TextAdRichLists;
 use App\Service\Images\RipplePunks\OpepenRipplePunks;
 use App\Service\Images\RipplePunks\PropertyHighlightRipplePunksWithoutTextAndMany;
 use App\Service\Images\RipplePunks\PuzzleRipplePunksBlue;
+use App\Service\Images\RipplePunks\RegularQR;
 use App\Service\Images\RipplePunks\RegularQuartet;
+use App\Service\Images\RipplePunks\Regular as RipplePunksRegular;
+use App\Service\Images\RipplePunks\RegularRewind;
 use App\Service\Images\RipplePunks\RipplePunksQuartetSet;
 use App\Service\Images\RipplePunks\TextImageCenteredRipplePunks;
 use App\Service\Images\RipplePunks\TextSimpleRipplePunksBlue;
@@ -149,22 +152,13 @@ class ResolveImage
         return download_remote_url_and_return_temp_path('pipingpunks-png', $this->id . '.png');
     }
 
-    public function getSOLpepens(): array
-    {
-        if (!$this->id) {
-            $this->id = get_random_number(1, 10000);
-        }
-
-        return download_remote_url_and_return_temp_path('solpepens', $this->id . '.png');
-    }
-
     public function getRipplePunksRegular(): array
     {
         if (!$this->id) {
             if ($this->type) {
-                $this->id = get_random_cryptopunk_id_for_type($this->type);
+                $this->id = (new RipplePunksRegular())->getRandomIdForOption($this->type);
             } else {
-                $this->id = get_random_number(0, 9999);
+                $this->id = (new RipplePunksRegular())->getRandomId();
             }
         }
 
@@ -175,9 +169,9 @@ class ResolveImage
     {
         if (!$this->id) {
             if ($this->type) {
-                $this->id = get_random_cryptopunk_id_for_type($this->type);
+                $this->id = (new RegularRewind())->getRandomIdForOption($this->type);
             } else {
-                $this->id = get_random_number(0, 9999);
+                $this->id = (new RegularRewind())->getRandomId();
             }
         }
 
@@ -203,13 +197,13 @@ class ResolveImage
         return download_remote_url_and_return_temp_path('ripplepunks-quartet-sets', $this->type . '.png');
     }
 
-    public function getRipplePunksQR(): array
+    public function getRipplePunksRegularQR(): array
     {
         if (!$this->id) {
             if ($this->type) {
-                $this->id = get_random_cryptopunk_id_for_type($this->type);
+                $this->id = (new RegularQR())->getRandomIdForOption($this->type);
             } else {
-                $this->id = get_random_number(0, 9999);
+                $this->id = (new RegularQR())->getRandomId();
             }
         }
 
@@ -387,6 +381,9 @@ class ResolveImage
     public function getBaseAliensPropertyHighlightBaseAliensWithoutTextAndMany(): array
     {
         $textImage = new PropertyHighlightBaseAliensWithoutTextAndMany();
+        if ($this->id) {
+            $textImage->setId($this->id);
+        }
         if ($this->type) {
             $textImage->setType($this->type);
         } else {
@@ -399,8 +396,13 @@ class ResolveImage
     public function getRipplePunksPropertyHighlightRipplePunksWithoutTextAndMany(): array
     {
         $textImage = new PropertyHighlightRipplePunksWithoutTextAndMany();
+        if ($this->id) {
+            $textImage->setId($this->id);
+        }
         if ($this->type) {
             $textImage->setType($this->type);
+        } else {
+            $textImage->setType($textImage->getRandomOption());
         }
 
         return $textImage->render();

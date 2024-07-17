@@ -4,11 +4,13 @@ namespace App\Service\Images\BaseAliens;
 use App\Service\Bucket;
 use App\Service\Images\BaseTextImage;
 use App\Service\Projects\Projects;
+use App\Service\Traits\HasIdRange;
 use App\Service\Traits\HasOptions;
 use App\Service\Traits\HasOptionsPerId;
 
 class PropertyHighlightBaseAliensWithoutTextAndMany extends BaseTextImage
 {
+    use HasIdRange;
     use HasOptions;
     use HasOptionsPerId;
 
@@ -20,6 +22,7 @@ class PropertyHighlightBaseAliensWithoutTextAndMany extends BaseTextImage
 
     public function __construct()
     {
+        $this->idRange = range(1, 4444);
         $this->optionsPerId = [
             'Attribute:Cap' => [
                 1,
