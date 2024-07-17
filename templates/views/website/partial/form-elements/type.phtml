@@ -14,19 +14,19 @@
         id="type"
     >
         <option></option>
-        <?php foreach($formHelper->options as $option) : ?>
-            <option value="<?=$option; ?>"
+        <?php foreach($formHelper->options as $optionKey => $optionValue) : ?>
+            <option value="<?=$optionKey; ?>"
                 <?php if ($formValidatedValues): ?>
-                    <?php if (isset($formValidatedValues['type']) && ($formValidatedValues['type'] === $option)): ?>
+                    <?php if (isset($formValidatedValues['type']) && ($formValidatedValues['type'] === $optionKey)): ?>
                         selected
                     <?php endif; ?>
                 <?php elseif ($formHelper->selectedOption): ?>
-                    <?php if ($formHelper->selectedOption === $option): ?>
+                    <?php if ($formHelper->selectedOption === $optionKey): ?>
                         selected
                     <?php endif; ?>
                 <?php endif; ?>
             >
-                <?=$option; ?>
+                <?=$optionValue; ?>
             </option>
         <?php endforeach; ?>
     </select>

@@ -84,6 +84,16 @@ if (!function_exists('redirect')) {
     }
 }
 
+if (!function_exists('make_nft_type_neat')) {
+    function make_nft_type_neat(string $rawNftType)
+    {
+        $rawNftType = str_replace(':', ', ', $rawNftType);
+        $rawNftType = str_replace('Attribute, ', '', $rawNftType);
+
+        return $rawNftType;
+    }
+}
+
 if (!function_exists('generate_token')) {
     function generate_token(int $length = 24) {
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';

@@ -56,7 +56,17 @@ class BaseImage
     {
         $calledClass = get_called_class();
 
-        return (new $calledClass())->options;
+        $options = (new $calledClass())->options;
+
+        $options = array_combine($options, $options);
+
+        foreach ($options as $optionKey => $optionValue) {
+            $options[$optionKey] = make_nft_type_neat($optionValue);
+        }
+
+        ksort ($options);
+
+        return $options;
     }
 
     public static function getOptionsPerId():? array

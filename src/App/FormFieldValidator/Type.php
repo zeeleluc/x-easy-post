@@ -9,8 +9,8 @@ class Type extends FormFieldValidator
     {
         if ($this->value) {
             $validOption = false;
-            foreach ($this->getAllTypes() as $type) {
-                if ($type === $this->value) {
+            foreach ($this->getAllTypes() as $typeKey => $typeValue) {
+                if ($typeKey === $this->value) {
                     $validOption = true;
                     break;
                 }
@@ -29,20 +29,5 @@ class Type extends FormFieldValidator
         }
 
         return $this->image::getOptions();
-    }
-
-    public static function getTypesCryptoPunks(): array
-    {
-        return array_keys(get_cryptopunks_types_and_ids());
-    }
-
-    public static function getTypesLooneyLuca(): array
-    {
-        return array_keys(get_looneyluca_types_and_ids());
-    }
-
-    public static function getTypesBaseAliens(): array
-    {
-        return array_keys(get_basealiens_types_and_ids());
     }
 }
