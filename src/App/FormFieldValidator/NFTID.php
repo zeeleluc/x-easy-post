@@ -2,8 +2,6 @@
 
 namespace App\FormFieldValidator;
 
-use App\Query\PostQuery;
-
 class NFTID extends FormFieldValidator
 {
 

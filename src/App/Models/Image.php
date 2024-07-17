@@ -209,6 +209,8 @@ class Image extends BaseModel
             $title .= ' #' . $nftId;
         } elseif ($nftType = $this->nftType) {
             $title .= ' / ' . $nftType;
+        } else {
+            $title .= ' (random)';
         }
 
         return $title;

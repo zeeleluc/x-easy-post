@@ -14,7 +14,7 @@ class PropertyHighlightBaseAliensWithoutText extends BaseTextImage
 
     protected string $project = Projects::BASE_ALIENS;
 
-    protected string $name = 'Property Highlight Without Text';
+    protected string $name = 'Random NFTs Repeat For Property With Text';
 
     private string $type = '';
 

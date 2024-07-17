@@ -14,7 +14,7 @@ class PropertyHighlightBaseAliens extends BaseTextImage
 
     protected string $project = Projects::BASE_ALIENS;
 
-    protected string $name = 'Property Highlight';
+    protected string $name = 'Random NFTs Repeat For Property';
 
     public function __construct()
     {

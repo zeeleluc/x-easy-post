@@ -43,11 +43,13 @@ class ImagesHelper
 
             $imageClassInit = new $namespace();
             if ($imageClassInit::getProject() === $project) {
-                $instances[] = $imageClassInit;
+                $instances[$imageClassInit::getProject() . '-' . $imageClassInit::getName()] = $imageClassInit;
             }
         }
 
-        return $instances;
+        ksort($instances);
+
+        return array_values($instances);
     }
 
     public static function getImageClassForProjectBySlug(string $project, string $imageSlug):? BaseImage

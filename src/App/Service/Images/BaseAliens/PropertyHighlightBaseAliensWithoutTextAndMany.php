@@ -14,7 +14,7 @@ class PropertyHighlightBaseAliensWithoutTextAndMany extends BaseTextImage
 
     protected string $project = Projects::BASE_ALIENS;
 
-    protected string $name = 'Property Highlight Without Text (many)';
+    protected string $name = 'Neat Properties Highlight With Mint Info';
 
     private string $type = '';
 
