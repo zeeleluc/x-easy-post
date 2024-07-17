@@ -19,6 +19,7 @@ class Image extends BaseModel
     public ?string $nftId = null;
     public ?string $nftType = null;
     public ?string $url = null;
+    public bool $canRedo = false;
     public ?Carbon $createdAt = null;
 
     /**
@@ -67,6 +68,10 @@ class Image extends BaseModel
             $image->url = $url;
         }
 
+        if ($canRedo = Arr::get($values, 'can_redo')) {
+            $image->canRedo = (bool) $canRedo;
+        }
+
         if ($createdAt = Arr::get($values, 'created_at')) {
             $image->createdAt = Carbon::parse($createdAt);
         }
@@ -108,6 +113,12 @@ class Image extends BaseModel
 
         if ($this->url) {
             $array['url'] = $this->url;
+        }
+
+        if ($this->canRedo) {
+            $array['can_redo'] = 1;
+        } else {
+            $array['can_redo'] = 0;
         }
 
         if ($this->createdAt) {
@@ -154,5 +165,14 @@ class Image extends BaseModel
     public function getQueryObject()
     {
         return new ImageQuery();
+    }
+
+    public function canRedo(): bool
+    {
+        if (!$this->canRedo) {
+            return false;
+        }
+
+        return $this->createdBy === Guest::identifier();
     }
 }

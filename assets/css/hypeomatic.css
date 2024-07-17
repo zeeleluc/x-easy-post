@@ -36,7 +36,7 @@ header {
 }
 
 main {
-    padding: 50px 0;
+    padding: 5px 0 10px 0;
     background-color: #D9EDBF;
 }
 
@@ -45,6 +45,14 @@ footer {
     font-weight: bold;
     padding: 30px 0;
 }
+
+@media (max-width: 768px) {
+    footer {
+        font-size: 20px;
+        padding: 15px 0;
+    }
+}
+
 footer, footer a {
     background-color: #F4A261;
     color: #E76F51;
@@ -56,6 +64,13 @@ h1 a {
     font-family: 'andhyta', serif;
     font-size: 80px;
     color: #E9C46A;
+}
+
+@media (max-width: 768px) {
+    h1,
+    h1 a {
+        font-size: 40px;
+    }
 }
 
 h2 {
@@ -108,5 +123,11 @@ button[type="submit"]:focus {
     background-color: #E76F51;
     border-color: #E76F51;
     color: white;
-    font-size: 40px;
+    font-size: 33px;
+    padding: 10px 20px 5px 20px;
+}
+
+#submit-be-patient-text {
+    display: none;
+    font-size: 16px;
 }

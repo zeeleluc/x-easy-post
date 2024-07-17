@@ -102,6 +102,12 @@ class Home extends BaseFormAction
         $values = $this->validatedFormValues;
         $values['url'] = $resolvedImage->urlCDN;
 
+        if ($nftId) {
+            $values['can_redo'] = 0;
+        } else {
+            $values['can_redo'] = 1;
+        }
+
         $image = new Image();
         $image = $image->initNew($values);
 

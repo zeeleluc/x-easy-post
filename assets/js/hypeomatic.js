@@ -75,6 +75,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (submitButton) {
                     submitButton.style.display = 'none';
                 }
+
+                const submitBePatient_text = document.getElementById('submit-be-patient-text');
+                submitBePatient_text.style.display = 'block';
             });
         }
 

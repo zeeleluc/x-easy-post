@@ -15,11 +15,11 @@
                     <div class="card-body">
                         <img class="img-fluid" src="<?=$image->url; ?>" />
                     </div>
-<!--                    <div class="card-footer">-->
-<!--                        <button type="submit" class="btn btn-primary">Redo</button>-->
-<!--                    </div>-->
                 </form>
             </div>
+            <?php if ($image->canRedo()): ?>
+                <button type="submit" class="btn btn-primary">Redo</button>
+            <?php endif; ?>
         </div>
     </div>
 </div>
