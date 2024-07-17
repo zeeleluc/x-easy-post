@@ -7,6 +7,7 @@ use App\Action\BaseAction;
 use App\Object\BaseObject;
 use App\Object\ObjectManager;
 use App\Query\AuthIdentifierQuery;
+use App\Query\ImageQuery;
 use App\Query\PostQuery;
 use App\Service\Projects\Projects;
 
@@ -18,6 +19,7 @@ class Initialize extends BaseObject
         ObjectManager::set(new Session());
         ObjectManager::set(new AbstractAction());
         ObjectManager::set(new PostQuery());
+        ObjectManager::set(new ImageQuery());
         ObjectManager::set(new AuthIdentifierQuery());
     }
 
@@ -79,6 +81,10 @@ class Initialize extends BaseObject
 
             if ($get['action'] === 'load-dynamic-form-elements') {
                 return new Action\Actions\Hypeomatic\LoadDynamicFormElements();
+            }
+
+            if ($get['action'] === 'image') {
+                return new Action\Actions\Hypeomatic\ShowImage();
             }
         }
 

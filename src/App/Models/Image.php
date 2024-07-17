@@ -129,7 +129,7 @@ class Image extends BaseModel
         }
     }
 
-    public function create()
+    public function create(): Image
     {
         $values = $this->toArray();
         $values['uuid'] = UUID::create();

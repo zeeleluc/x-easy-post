@@ -93,22 +93,19 @@ class Home extends BaseFormAction
         $nftId = $this->validatedFormValues['nft_id'] ?: null;
         $type = $this->validatedFormValues['type'] ?: null;
 
-        if ($imageType) {
-            $resolvedImage = ResolveImage::make($imageType, $project,  [
-                'nft_id' => $nftId,
-                'type' => $type,
-                'text' => $textImage,
-            ])->do();
-        } else {
-            $resolvedImage = null;
-        }
+        $resolvedImage = ResolveImage::make($imageType, $project,  [
+            'nft_id' => $nftId,
+            'type' => $type,
+            'text' => $textImage,
+        ])->do();
 
         $values = $this->validatedFormValues;
         $values['url'] = $resolvedImage->urlCDN;
 
         $image = new Image();
-        $image->initNew($values);
+        $image = $image->initNew($values);
 
+        redirect('image/' . $image->uuid);
     }
 
     public function run()

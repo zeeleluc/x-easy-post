@@ -28,9 +28,7 @@ class ImageQuery extends Query
         $values = $this->getImageById($this->db->getInsertId());
 
         $image = new Image();
-        $image->fromArray($values);
-
-        return $image;
+        return $image->fromArray($values);
     }
 
     public function updateImage(array $values): Image
@@ -80,5 +78,18 @@ class ImageQuery extends Query
         return $this->db
             ->where('id', $id)
             ->getOne($this->table);
+    }
+
+    public function getImageByUuid(string $uuid):? Image
+    {
+        $results = $this->db
+            ->where('uuid', $uuid)
+            ->getOne($this->table);
+
+        if (!$results) {
+            return null;
+        }
+
+        return (new Image())->fromArray($results);
     }
 }

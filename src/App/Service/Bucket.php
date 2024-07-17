@@ -24,6 +24,8 @@ class Bucket
 
     public function uploadFile(string $path, string $key):? string
     {
+        $key = str_replace('.png', '/Hypeomatic.png', $key);
+
         if (is_hypeomatic_website()) {
             $folder = env('S3_BUCKET_FOLDER_HYPEOMATIC');
         } else {

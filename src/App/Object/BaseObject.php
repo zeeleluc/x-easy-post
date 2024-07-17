@@ -3,6 +3,7 @@ namespace App\Object;
 
 use App\Action\Action;
 use App\Query\AuthIdentifierQuery;
+use App\Query\ImageQuery;
 use App\Query\PostQuery;
 use App\Request;
 use App\Session;
@@ -26,6 +27,11 @@ abstract class BaseObject
     public function getPostQuery(): PostQuery
     {
         return ObjectManager::getOne('App\Query\PostQuery');
+    }
+
+    public function getImageQuery(): ImageQuery
+    {
+        return ObjectManager::getOne('App\Query\ImageQuery');
     }
 
     public function getAuthIdentifierQuery(): AuthIdentifierQuery

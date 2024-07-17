@@ -21,4 +21,5 @@ RewriteRule ^(magic-login)/([0-9A-Z]+)/([0-9A-Z]+)?$ index.php?action=$1&server_
 RewriteRule ^(logout)?$ index.php?action=$1 [NC,L,QSA]
 
 # hypeomatic
-RewriteRule ^([a-z-_]+)?$ index.php?action=$1&id=$2 [NC,L,QSA]
+RewriteRule ^([a-z-_]+)?$ index.php?action=$1 [NC,L,QSA]
+RewriteRule ^(image)/([a-z0-9-]+)?$ index.php?action=$1&uuid=$2 [NC,L,QSA]

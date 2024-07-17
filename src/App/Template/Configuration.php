@@ -28,6 +28,7 @@ abstract class Configuration extends BaseObject
             ],
             'hypeomatic' => [
                 'home',
+                'show-image',
             ],
         ];
     }
