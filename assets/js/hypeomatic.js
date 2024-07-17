@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const url = body.getAttribute('data-url');
             const spinner = document.getElementById('spinner');
 
+            const projectSelect = document.querySelector('select#project');
+
             // Function to fetch and update the HTML content
             const fetchAndUpdateContent = async () => {
                 try {
@@ -35,6 +37,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     const html = await response.text();
                     dynamicFormElements.innerHTML = html;
+
+                    // Add event listener for dynamically added select#image
+                    const imageSelect = document.querySelector('select#image');
+                    if (imageSelect) {
+                        imageSelect.addEventListener('change', fetchAndUpdateContent);
+                    }
+
                 } catch (error) {
                     console.error('Fetch error: ', error);
                 } finally {
@@ -46,16 +55,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             };
 
-            // Event listener for form elements
-            form.addEventListener('change', (event) => {
-                fetchAndUpdateContent();
-            });
+            projectSelect.addEventListener('change', fetchAndUpdateContent);
 
-            form.querySelectorAll('button[name="project"]').forEach(button => {
-                button.addEventListener('click', handleButtonClick);
-                button.addEventListener('touchend', handleButtonClick); // Add touchend event for iPhone
-            });
-
+            // Initial fetch and update content
             fetchAndUpdateContent();
         }
 

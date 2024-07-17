@@ -19,3 +19,13 @@
 <?php if ($formHelper->options): ?>
     <?php include ('templates/views/website/partial/form-elements/type.phtml'); ?>
 <?php endif; ?>
+
+<?php if ($formHelper->hasImage && $formHelper->selectedImage): ?>
+    <button type="submit" class="btn btn-primary mt-2">
+        <?php if (is_hypeomatic_website()): ?>
+            Hype me Up!
+        <?php else: ?>
+            Schedule Post
+        <?php endif; ?>
+    </button>
+<?php endif; ?>
