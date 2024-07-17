@@ -27,7 +27,7 @@ body {
     font-family: 'chakrapetch', sans-serif;
     font-size: 20px;
     text-align: center;
-    background-color: #36BA98;
+    background-color: #FFDE95;
 }
 
 header {
@@ -37,6 +37,7 @@ header {
 
 main {
     padding: 50px 0;
+    background-color: #D9EDBF;
 }
 
 footer {
@@ -56,10 +57,17 @@ h1 {
     color: #E9C46A;
 }
 
-.card,
+.card {
+    border: 10px solid #c2d9a4;
+}
+
 .card-header,
 .card-body,
 .card-footer {
     background-color: #F5F7F8;
     border: none;
+}
+
+.sweat {
+    font-size: 50px;
 }
