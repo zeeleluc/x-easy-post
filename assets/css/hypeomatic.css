@@ -57,8 +57,18 @@ h1 {
     color: #E9C46A;
 }
 
+h2 {
+    font-family: 'andhyta', serif;
+}
+
+hr {
+    border: 6px solid #c2d9a4;
+    margin: 30px 0;
+}
+
 .card {
-    border: 10px solid #c2d9a4;
+    border: 6px solid #c2d9a4;
+    margin: 30px 15px;
 }
 
 .card-header,
@@ -70,4 +80,13 @@ h1 {
 
 .sweat {
     font-size: 50px;
+}
+
+.spinner {
+    display: none;
+    padding: 50px 0;
+}
+
+.dynamic-form-elements {
+    display: none;
 }

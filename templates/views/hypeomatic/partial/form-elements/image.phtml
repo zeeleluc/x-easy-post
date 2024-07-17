@@ -1,0 +1,17 @@
+<?php
+/**
+ * @var $formHelper \App\Service\Form\FormHelper
+ */
+?>
+
+<div class="form-group my-1">
+    <label for="image" class="my-2">Image</label>
+    <select name="image" class="custom-select form-control" id="image">
+        <option></option>
+        <?php foreach($formHelper->imageOptions as $className => $imageName) : ?>
+            <option value="<?=flatten_string($className); ?>">
+                <?=$imageName; ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>

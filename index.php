@@ -29,8 +29,10 @@ try {
     $errorPage = ob_get_contents();
     ob_end_clean();
 
-    $slack = new \App\Slack();
-    $slack->sendErrorMessage($e->getMessage());
+    if (env('PROD')) {
+        $slack = new \App\Slack();
+        $slack->sendErrorMessage($e->getMessage());
+    }
 
     echo $errorPage;
 }

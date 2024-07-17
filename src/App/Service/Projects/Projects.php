@@ -23,7 +23,7 @@ class Projects
 
     const XRPEPENS = 'XRPepens';
 
-    public static function getAll()
+    public static function getAll(): array
     {
         $projects = [
             flatten_string(self::HAS_MINTS) => self::HAS_MINTS,
@@ -41,5 +41,45 @@ class Projects
         asort($projects);
 
         return $projects;
+    }
+
+    public static function getAllPublic(): array
+    {
+        $projects = [
+            flatten_string(self::RIPPLE_PUNKS) => self::RIPPLE_PUNKS,
+            flatten_string(self::PIPING_PUNKS) => self::PIPING_PUNKS,
+            flatten_string(self::LOADING_PUNKS) => self::LOADING_PUNKS,
+            flatten_string(self::LOONEY_LUCA) => self::LOONEY_LUCA,
+            flatten_string(self::BASE_ALIENS) => self::BASE_ALIENS,
+        ];
+
+        asort($projects);
+
+        return $projects;
+    }
+
+    public static function getSlugForNeatPublicProjectString(string $neatProjectString): ?string
+    {
+        if ($neatProjectString === 'ripplepunks') {
+            return flatten_string(self::RIPPLE_PUNKS);
+        }
+
+        if ($neatProjectString === 'pipingpunks') {
+            return flatten_string(self::PIPING_PUNKS);
+        }
+
+        if ($neatProjectString === 'loadingpunks') {
+            return flatten_string(self::LOADING_PUNKS);
+        }
+
+        if ($neatProjectString === 'looneyluca') {
+            return flatten_string(self::LOONEY_LUCA);
+        }
+
+        if ($neatProjectString === 'basealiens') {
+            return flatten_string(self::BASE_ALIENS);
+        }
+
+        return null;
     }
 }

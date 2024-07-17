@@ -1,0 +1,16 @@
+<?php
+/**
+ * @var $formHelper \App\Service\Form\FormHelper
+ */
+?>
+
+<div class="form-group my-1">
+    <label for="nft_id" class="my-2">NFT ID</label>
+    <input
+        placeholder="<?=$formHelper->nftIdRange[0]; ?> - <?=$formHelper->nftIdRange[(count($formHelper->nftIdRange) - 1)]; ?>"
+        type="text"
+        name="nft_id"
+        class="form-control"
+        id="nft_id"
+    />
+</div>

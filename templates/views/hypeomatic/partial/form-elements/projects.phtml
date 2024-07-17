@@ -1,0 +1,22 @@
+<?php
+/**
+ * @var $formHelper \App\Service\Form\FormHelper
+ */
+?>
+
+<label for="project" class="my-2">Choose Project to Shill</label>
+
+<div class="form-group my-1">
+    <select name="project" class="custom-select form-control" id="project">
+        <option></option>
+        <?php foreach (\App\Service\Projects\Projects::getAllPublic() as $projectSlug => $projectTitle): ?>
+            <option value="<?=$projectSlug; ?>"
+                <?php if ($selectedProjectSlug && $selectedProjectSlug === $projectSlug): ?>
+                    selected
+                <?php endif; ?>
+            >
+                <?=$projectTitle; ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>

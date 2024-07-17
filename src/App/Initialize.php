@@ -8,6 +8,7 @@ use App\Object\BaseObject;
 use App\Object\ObjectManager;
 use App\Query\AuthIdentifierQuery;
 use App\Query\PostQuery;
+use App\Service\Projects\Projects;
 
 class Initialize extends BaseObject
 {
@@ -69,6 +70,16 @@ class Initialize extends BaseObject
             if (false === isset($get['action']) || (true === isset($get['action']) && '' === $get['action'])) {
                 return new Action\Actions\Hypeomatic\Home();
             }
+
+            foreach (Projects::getAllPublic() as $projectSlug => $project) {
+                if ($get['action'] === str_replace('_', '', $projectSlug)) {
+                    return new Action\Actions\Hypeomatic\Home();
+                }
+            }
+
+            if ($get['action'] === 'load-dynamic-form-elements') {
+                return new Action\Actions\Hypeomatic\LoadDynamicFormElements();
+            }
         }
 
         if (false === isset($get['action']) || (true === isset($get['action']) && '' === $get['action'])) {
@@ -101,10 +112,6 @@ class Initialize extends BaseObject
 
         if ($get['action'] === 'check-login') {
             return new Action\Actions\CheckLogin();
-        }
-
-        if ($get['action'] === 'ripplepunks') {
-            return new Action\Actions\RipplePunks();
         }
 
         if ($get['action'] === 'load-dynamic-form-elements') {

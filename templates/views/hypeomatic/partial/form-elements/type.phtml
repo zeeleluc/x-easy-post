@@ -1,0 +1,17 @@
+<?php
+/**
+ * @var $formHelper \App\Service\Form\FormHelper
+ */
+?>
+
+<div class="form-group my-1">
+    <label for="type" class="my-2">Type</label>
+    <select name="type" class="custom-select form-control" id="type">
+        <option></option>
+        <?php foreach($formHelper->options as $option) : ?>
+            <option value="<?=$option; ?>">
+                <?=$option; ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>

@@ -24,19 +24,23 @@ class Bucket
 
     public function uploadFile(string $path, string $key):? string
     {
+        if (is_hypeomatic_website()) {
+            $folder = env('S3_BUCKET_FOLDER_HYPEOMATIC');
+        } else {
+            $folder = env('S3_BUCKET_FOLDER_REGULAR');
+        }
+
         try {
             $result = $this->s3->putObject([
                 'Bucket' => env('S3_BUCKET_NAME'),
-                'Key'    => 'text-images/' . $key,
+                'Key'    => $folder . '/' . $key,
                 'Body'   => fopen($path, 'rb'),
                 'ACL'    => 'public-read'
             ]);
 
             return $result['ObjectURL'];
         } catch (S3Exception $e) {
-            (new Slack())->sendErrorMessage('Error uploading file: ' . $e->getMessage());
+            throw new \Exception('Error uploading file: ' . $e->getMessage());
         }
-
-        return null;
     }
 }
