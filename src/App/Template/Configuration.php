@@ -9,6 +9,7 @@ abstract class Configuration extends BaseObject
     {
         return [
             'default',
+            'hypeomatic',
             'error',
             'async',
         ];
@@ -24,6 +25,9 @@ abstract class Configuration extends BaseObject
                 'home',
                 'login',
                 'ripplepunks',
+            ],
+            'hypeomatic' => [
+                'home',
             ],
         ];
     }

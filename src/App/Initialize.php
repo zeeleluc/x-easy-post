@@ -65,6 +65,12 @@ class Initialize extends BaseObject
             return new Action\Actions\Cli();
         }
 
+        if (is_hypeomatic_website()) {
+            if (false === isset($get['action']) || (true === isset($get['action']) && '' === $get['action'])) {
+                return new Action\Actions\Hypeomatic\Home();
+            }
+        }
+
         if (false === isset($get['action']) || (true === isset($get['action']) && '' === $get['action'])) {
             return new Action\Actions\Home();
         }

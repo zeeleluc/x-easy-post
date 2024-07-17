@@ -290,3 +290,16 @@ if (!function_exists('rarity_change')) {
         return rand(0, $change) === 0;
     }
 }
+
+if (!function_exists('is_hypeomatic_website')) {
+    function is_hypeomatic_website()
+    {
+        if (isset($_SERVER['HTTP_HOST'])) {
+            $host = $_SERVER['HTTP_HOST'];
+
+            return str_contains($host, 'hypeomatic');
+        }
+
+        return false;
+    }
+}

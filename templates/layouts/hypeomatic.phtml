@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="HasMints.com">
+
+    <title><?=$htmlTitle; ?></title>
+
+    <link href="<?=env('URL_HYPEOMATIC'); ?>/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?=env('URL_HYPEOMATIC'); ?>/assets/css/hypeomatic.css?t=<?=date('dmYHi'); ?>" rel="stylesheet">
+</head>
+
+<body data-url="<?=env('URL_HYPEOMATIC'); ?>">
+
+<header>
+    <h1>Hypeomatic</h1>
+</header>
+
+<main>
+    <?=$content; ?>
+</main>
+
+<footer>
+    Built by <a target="_blank" href="https://hasmints.com/">HasMints</a> ~ &copy; <?=date('Y'); ?>
+</footer>
+
+<script type="text/javascript" src="<?=env('URL_HYPEOMATIC'); ?>/assets/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="<?=env('URL_HYPEOMATIC'); ?>/assets/js/hypeomatic.js?t=<?=date('dmYHi'); ?>"></script>
+</body>
+
+</html>

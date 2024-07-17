@@ -1,0 +1,65 @@
+
+@font-face {
+    font-family: 'andhyta';
+    src: url('../fonts/andhyta.regular-webfont.eot');
+    src: url('../fonts/andhyta.regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/andhyta.regular-webfont.woff2') format('woff2'),
+    url('../fonts/andhyta.regular-webfont.woff') format('woff'),
+    url('../fonts/andhyta.regular-webfont.ttf') format('truetype'),
+    url('../fonts/andhyta.regular-webfont.svg#andhyta') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'chakrapetch';
+    src: url('../fonts/chakrapetch-regular-webfont.eot');
+    src: url('../fonts/chakrapetch-regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/chakrapetch-regular-webfont.woff2') format('woff2'),
+    url('../fonts/chakrapetch-regular-webfont.woff') format('woff'),
+    url('../fonts/chakrapetch-regular-webfont.ttf') format('truetype'),
+    url('../fonts/chakrapetch-regular-webfont.svg#chakrapetch') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'chakrapetch', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    background-color: #36BA98;
+}
+
+header {
+    background-color: #E76F51;
+    padding: 30px;
+}
+
+main {
+    padding: 50px 0;
+}
+
+footer {
+    font-size: 30px;
+    font-weight: bold;
+    padding: 30px 0;
+}
+footer, footer a {
+    background-color: #F4A261;
+    color: #E76F51;
+    text-decoration: none;
+}
+
+h1 {
+    font-family: 'andhyta', serif;
+    font-size: 80px;
+    color: #E9C46A;
+}
+
+.card,
+.card-header,
+.card-body,
+.card-footer {
+    background-color: #F5F7F8;
+    border: none;
+}

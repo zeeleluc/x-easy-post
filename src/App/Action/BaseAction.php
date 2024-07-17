@@ -22,7 +22,11 @@ abstract class BaseAction extends BaseObject
             }
         } else {
 
-            $htmlTitle = 'X Easy Post';
+            if (is_hypeomatic_website()) {
+                $htmlTitle = 'Hypeomatic';
+            } else {
+                $htmlTitle = 'X Easy Post';
+            }
 
             $this->setVariable(new Variable('htmlTitle', $htmlTitle));
             $this->template = new Template();
