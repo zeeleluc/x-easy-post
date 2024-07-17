@@ -51,7 +51,8 @@ footer, footer a {
     text-decoration: none;
 }
 
-h1 {
+h1,
+h1 a {
     font-family: 'andhyta', serif;
     font-size: 80px;
     color: #E9C46A;
@@ -84,9 +85,28 @@ hr {
 
 .spinner {
     display: none;
-    padding: 50px 0;
+    padding: 20px 0;
 }
 
 .dynamic-form-elements {
     display: none;
+}
+
+input.readonly,
+select.readonly {
+    background-color: #dddddd;
+    color: #333333;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+button[type="submit"],
+button[type="submit"]:hover,
+button[type="submit"]:active,
+button[type="submit"]:focus {
+    font-family: 'andhyta', serif;
+    background-color: #E76F51;
+    border-color: #E76F51;
+    color: white;
+    font-size: 40px;
 }

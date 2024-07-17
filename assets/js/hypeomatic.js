@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const body = document.body;
             const url = body.getAttribute('data-url');
             const spinner = document.getElementById('spinner');
-
             const projectSelect = document.querySelector('select#project');
 
             // Function to fetch and update the HTML content
@@ -59,6 +58,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Initial fetch and update content
             fetchAndUpdateContent();
+
+            // Form submit event listener
+            form.addEventListener('submit', function(event) {
+                // Show the spinner
+                spinner.style.display = 'block';
+
+                // Disable all form elements
+                Array.from(form.elements).forEach(element => {
+                    element.setAttribute('readOnly', true);
+                    element.classList.add('readonly');
+                });
+
+                // Hide the submit button
+                const submitButton = form.querySelector('button[type="submit"]');
+                if (submitButton) {
+                    submitButton.style.display = 'none';
+                }
+            });
         }
 
     } catch (error) {
