@@ -96,8 +96,16 @@ hr {
 .card-header,
 .card-body,
 .card-footer {
-    background-color: #F5F7F8;
     border: none;
+    padding: 0;
+}
+
+form {
+    margin: 10px 20px;
+}
+
+form label {
+    text-align: left;
 }
 
 .sweat {

@@ -92,4 +92,28 @@ class ImageQuery extends Query
 
         return (new Image())->fromArray($results);
     }
+
+    /**
+     * @return array|Post[]
+     * @throws \Exception
+     */
+    public function getRecentImages(int $limit = 100): array
+    {
+        $sql = <<<SQL
+SELECT *
+    FROM {$this->table}
+        ORDER BY created_at DESC
+            LIMIT {$limit};
+SQL;
+
+        $results = $this->db->rawQuery($sql);
+
+        $images = [];
+
+        foreach ($results as $result) {
+            $images[] = (new Image())->fromArray($result);
+        }
+
+        return $images;
+    }
 }

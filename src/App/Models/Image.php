@@ -175,4 +175,9 @@ class Image extends BaseModel
 
         return $this->createdBy === Guest::identifier();
     }
+
+    public function getUrl(): string
+    {
+        return env('URL_HYPEOMATIC') . '/image/' . $this->uuid;
+    }
 }
