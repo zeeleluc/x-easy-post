@@ -1,21 +1,36 @@
 <?php
 namespace App\Service\Images\BaseAliens;
 
+use App\Models\DataSeeder;
 use App\Service\Bucket;
 use App\Service\Images\BaseTextImage;
 use App\Service\Projects\Projects;
+use App\Service\Traits\HasIdRange;
+use App\Service\Traits\HasOptions;
+use App\Service\Traits\HasOptionsPerId;
 
 class TextImageCenteredBaseAliens extends BaseTextImage
 {
+    use HasIdRange;
+    use HasOptions;
+    use HasOptionsPerId;
+
     protected string $project = Projects::BASE_ALIENS;
 
     protected string $name = 'Centered Text';
 
     private ?string $text = '';
 
+    private ?int $id = null;
+
+    private string $type = '';
+
     public function __construct()
     {
         $this->canHaveImageText = true;
+        $this->idRange = range(1, 4444);
+        $this->optionsPerId = DataSeeder::get(DataSeeder::BASE_ALIENS_PROPERTIES_BY_ID);
+        $this->options = array_keys($this->optionsPerId);
     }
 
     public static function make(): TextImageCenteredBaseAliens
@@ -26,6 +41,20 @@ class TextImageCenteredBaseAliens extends BaseTextImage
     public function setText(string $text = null): static
     {
         $this->text = $text;
+
+        return $this;
+    }
+
+    public function setId(int $id): static
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }
@@ -43,8 +72,16 @@ class TextImageCenteredBaseAliens extends BaseTextImage
         $image->newImage(800, 800, '#CAD9FC');
         $image->setImageFormat("png");
 
-        $baseAlienFirst = $this->getRandomImageBaseAlienFirst(40);
-        $baseAlienSecond = $this->getRandomImageBaseAlienSecond(40);
+        if ($this->id) {
+            $baseAlienFirst = $this->getBasePunkTransparent($this->id, 40);
+            $baseAlienSecond = $this->getBasePunkTransparent($this->id, 40);
+        } elseif ($this->type) {
+            $baseAlienFirst = $this->getBasePunkTransparent($this->getRandomIdForOption($this->type), 40);
+            $baseAlienSecond = $this->getBasePunkTransparent($this->getRandomIdForOption($this->type), 40);
+        } else {
+            $baseAlienFirst = $this->getRandomImageBaseAlienFirst(40);
+            $baseAlienSecond = $this->getRandomImageBaseAlienSecond(40);
+        }
 
         // pick a variant
         $variants = [

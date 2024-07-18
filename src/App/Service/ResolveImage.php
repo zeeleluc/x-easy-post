@@ -260,6 +260,12 @@ class ResolveImage
     {
         $textImage = new TextImageCenteredBaseAliens();
         $textImage->setText($this->text);
+        if ($this->id) {
+            $textImage->setId($this->id);
+        }
+        if ($this->type) {
+            $textImage->setType($this->type);
+        }
 
         return $textImage->render();
     }
@@ -279,6 +285,12 @@ class ResolveImage
         $textImage = new TextImageCenteredRipplePunks();
         if ($this->text) {
             $textImage->setText($this->text);
+        }
+        if ($this->id) {
+            $textImage->setId($this->id);
+        }
+        if ($this->type) {
+            $textImage->setType($this->type);
         }
 
         return $textImage->render();

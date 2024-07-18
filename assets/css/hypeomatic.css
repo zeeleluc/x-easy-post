@@ -139,12 +139,12 @@ button[type="submit"],
 button[type="submit"]:hover,
 button[type="submit"]:active,
 button[type="submit"]:focus {
-    font-family: 'andhyta', serif;
     background-color: #E76F51;
     border-color: #E76F51;
     color: white;
-    font-size: 33px;
-    padding: 10px 20px 5px 20px;
+    font-size: 20px;
+    padding: 3px 20px 5px 20px;
+    margin-bottom: 10px;
 }
 
 #submit-be-patient-text {
