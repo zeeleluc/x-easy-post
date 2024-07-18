@@ -1,0 +1,1 @@
+RENAME TABLE data_seeder TO data_seeders;
