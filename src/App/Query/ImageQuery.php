@@ -116,4 +116,52 @@ SQL;
 
         return $images;
     }
+
+    /**
+     * @return array|Post[]
+     * @throws \Exception
+     */
+    public function getLatestImagesForProject(string $project, int $limit = 4): array
+    {
+        $sql = <<<SQL
+SELECT *
+    FROM {$this->table}
+        WHERE project = {$project}
+        ORDER BY created_at DESC
+            LIMIT {$limit};
+SQL;
+
+        $results = $this->db->rawQuery($sql);
+
+        $images = [];
+
+        foreach ($results as $result) {
+            $images[] = (new Image())->fromArray($result);
+        }
+
+        return $images;
+    }
+
+    /**
+     * @return array|Post[]
+     * @throws \Exception
+     */
+    public function countImagesForProject(string $project, int $limit = 4): array
+    {
+        $sql = <<<SQL
+SELECT COUNT(*)
+    FROM {$this->table}
+    WHERE project = {$project};
+SQL;
+
+        $results = $this->db->rawQuery($sql);
+
+        $images = [];
+
+        foreach ($results as $result) {
+            $images[] = (new Image())->fromArray($result);
+        }
+
+        return $images;
+    }
 }
