@@ -1,10 +1,10 @@
 <?php
 
-namespace App\DataSeeder;
+namespace App\Models;
 
 use App\Query\DataSeederQuery;
 
-class Properties
+class DataSeeder
 {
     const CRYPTO_PUNKS_PROPERTIES_BY_ID = 'CRYPTO-PUNKS-PROPERTIES-BY-ID';
     const BASE_ALIENS_PROPERTIES_BY_ID = 'BASE-ALIENS-PROPERTIES-BY-ID';
