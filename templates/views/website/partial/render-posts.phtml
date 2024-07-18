@@ -1,5 +1,7 @@
 <div class="row row-posts">
-    <?php foreach ($posts as $skip => $post): /* @var $post \App\Models\Post */ ?>
+    <?php $scheduledPostsAhead = $countScheduledPosts; ?>
+    <?php $scheduledPostsAhead--; ?>
+    <?php foreach ($posts as $post): /* @var $post \App\Models\Post */ ?>
         <div class="col col-12 col-lg-4">
             <div class="card">
                 <div class="card-header">
@@ -25,7 +27,7 @@
                             <?php endif; ?>
                         <?php else: ?>
                             Scheduled<br />
-                            <?=\App\Service\PostIntervalEvery4Hours::skipIntervalsFromNow($skip)->format('Y-m-d H:00'); ?>
+                            <?=(new \App\Service\PostIntervalEvery4Hours())->skipIntervalsFromNow($scheduledPostsAhead)->format('Y-m-d H:00'); ?>
                         <?php endif; ?>
                     <?php endif; ?>
 
@@ -61,5 +63,6 @@
                 </div>
             </div>
         </div>
+        <?php $scheduledPostsAhead--; ?>
     <?php endforeach; ?>
 </div>
