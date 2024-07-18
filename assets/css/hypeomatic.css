@@ -166,3 +166,13 @@ label {
     color: #666;
     font-size: 13px;
 }
+
+p.disclaimer {
+    color: #2f3922;
+    line-height: 25px;
+    font-size: 12px;
+}
+p.disclaimer strong {
+    font-size: 14px;
+    margin-bottom: 1px;
+}
