@@ -11,7 +11,7 @@ class TextImageCenteredLooneyLuca extends BaseTextImage
 
     protected string $name = 'Centered Text';
 
-    private array $backgroundColorPerId = [
+    public array $backgroundColorPerId = [
         1 => '#c9e4de',
         10 => '#c6def1',
         100 => '#dbcdf0',
