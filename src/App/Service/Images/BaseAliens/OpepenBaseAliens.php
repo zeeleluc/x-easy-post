@@ -27,6 +27,7 @@ class OpepenBaseAliens extends BaseTextImage
     public function __construct()
     {
         $this->canHaveImageText = true;
+        $this->idRange = range(1, 4444);
         $this->optionsPerId = [
             'Attribute:Cap' => [
                 1,
