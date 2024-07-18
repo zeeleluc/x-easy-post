@@ -1,0 +1,5 @@
+CREATE TABLE data_seeder (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    identifier VARCHAR(255) NOT NULL,
+    data LONGTEXT NOT NULL
+);
