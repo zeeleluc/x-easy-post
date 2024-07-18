@@ -414,6 +414,9 @@ class ResolveImage
         if ($this->text) {
             $textImage->setText($this->text);
         }
+        if ($this->id) {
+            $textImage->setId($this->id);
+        }
         if ($this->type) {
             $textImage->setType($this->type);
         }
@@ -426,6 +429,9 @@ class ResolveImage
         $textImage = new OpepenBaseAliens();
         if ($this->text) {
             $textImage->setText($this->text);
+        }
+        if ($this->id) {
+            $textImage->setId($this->id);
         }
         if ($this->type) {
             $textImage->setType($this->type);

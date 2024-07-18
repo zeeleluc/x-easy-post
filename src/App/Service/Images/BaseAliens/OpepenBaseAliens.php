@@ -22,6 +22,8 @@ class OpepenBaseAliens extends BaseTextImage
 
     private string $type = '';
 
+    private ?int $id = null;
+
     public function __construct()
     {
         $this->canHaveImageText = true;
@@ -11535,6 +11537,13 @@ class OpepenBaseAliens extends BaseTextImage
         return $this;
     }
 
+    public function setId(int $id): static
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function setType(string $type): static
     {
         $this->type = $type;
@@ -11588,7 +11597,9 @@ class OpepenBaseAliens extends BaseTextImage
     {
         $resize = 82.7; // will result in 100px width
 
-        if ($this->type) {
+        if ($this->id) {
+            $ripplePunk = $this->getBasePunkTransparent($this->id, $resize);
+        } elseif ($this->type) {
             $id = $this->getRandomIdForOption($this->type);
             $ripplePunk = $this->getBasePunkTransparent($id, $resize);
         } else {
