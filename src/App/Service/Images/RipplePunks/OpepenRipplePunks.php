@@ -27947,7 +27947,7 @@ class OpepenRipplePunks extends BaseTextImage
         $resize = 82.7; // will result in 100px width
 
         if ($this->type) {
-            $id = get_random_cryptopunk_id_for_type($this->type);
+            $id = $this->getRandomIdForOption($this->type);
             $ripplePunk = $this->getRipplePunkFixedSize($id, $resize);
         } else {
             $ripplePunk = $this->getRipplePunkFixedSize(null, $resize);
