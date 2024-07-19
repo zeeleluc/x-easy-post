@@ -58,14 +58,10 @@ class GatherShillingProgress
         $sumPerProject = [];
 
         foreach ($posts as $post) {
-            if ($post->imageType) {
-                if ($project = $this->getProjectForImageIdentifier($post->imageType)) {
-                    if (!array_key_exists($project, $sumPerProject)) {
-                        $sumPerProject[$project] = 1;
-                    } else {
-                        $sumPerProject[$project] += 1;
-                    }
-                }
+            if (!array_key_exists($post->project, $sumPerProject)) {
+                $sumPerProject[$post->project] = 1;
+            } else {
+                $sumPerProject[$post->project] += 1;
             }
         }
 
@@ -83,16 +79,5 @@ class GatherShillingProgress
         }
 
         return $percentages;
-    }
-
-    private function getProjectForImageIdentifier(string $identifier):? string
-    {
-        foreach ($this->getProjects() as $project => $projectIdentifiers) {
-            if (in_array($identifier, $projectIdentifiers, true)) {
-                return $project;
-            }
-        }
-
-        return null;
     }
 }
