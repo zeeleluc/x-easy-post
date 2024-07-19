@@ -91,6 +91,7 @@ class Home extends BaseFormAction
     {
         $project = $this->validatedFormValues['project'] ?: null;
         $textImage = $this->validatedFormValues['text_image'] ?: null;
+        $textImage = trim($textImage);
         $imageType = $this->validatedFormValues['image'] ?: null;
         $nftId = $this->validatedFormValues['nft_id'] ?: null;
         $type = $this->validatedFormValues['type'] ?: null;
