@@ -67,7 +67,13 @@ class PropertyHighlightBaseAliensWithoutTextAndMany extends BaseTextImage
             $x = 100;
             for ($column = 0; $column < 16; ++$column) {
                 if (!$this->isSmallAlienOutOfRange($row, $column)) {
-                    $id = $this->getRandomIdForOption($this->type);
+                    if ($this->id) {
+                        $id = $this->id;
+                    } elseif ($this->type) {
+                        $id = $this->getRandomIdForOption($this->type);
+                    } else {
+                        $id = $this->getRandomId();
+                    }
                     $baseAlienSmall = $this->getBasePunkTransparent($id, 91.4);
                     $image->compositeImage($baseAlienSmall, \Imagick::COMPOSITE_ATOP, $x, $y);
                 }
@@ -76,7 +82,13 @@ class PropertyHighlightBaseAliensWithoutTextAndMany extends BaseTextImage
             $y += 50;
         }
 
-        $id = $this->getRandomIdForOption($this->type);
+        if ($this->id) {
+            $id = $this->id;
+        } elseif ($this->type) {
+            $id = $this->getRandomIdForOption($this->type);
+        } else {
+            $id = $this->getRandomId();
+        }
         $baseAlienLarge = $this->getBasePunkTransparent($id, 39.2);
         $image->compositeImage($baseAlienLarge, \Imagick::COMPOSITE_ATOP, 325, 325);
 
