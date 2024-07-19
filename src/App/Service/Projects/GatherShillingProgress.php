@@ -21,7 +21,6 @@ class GatherShillingProgress
      */
     public function perProject(bool $scheduled = false): array
     {
-        return [];
         if ($scheduled) {
             $posts = $this->postQuery->getLastPostsScheduled();
         } else {
