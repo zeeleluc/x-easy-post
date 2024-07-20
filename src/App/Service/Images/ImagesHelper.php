@@ -10,7 +10,7 @@ class ImagesHelper
     {
         $instances = [];
 
-        foreach (Projects::getAll() as $project) {
+        foreach (array_merge(Projects::getAllPublic(), Projects::getAll()) as $project) {
             $instances = array_merge($instances, self::getImagesClassesForProject($project));
         }
 

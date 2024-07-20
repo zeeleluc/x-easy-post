@@ -36,6 +36,7 @@ use App\Service\Images\RipplePunks\RegularRewind;
 use App\Service\Images\RipplePunks\RipplePunksQuartetSet;
 use App\Service\Images\RipplePunks\TextImageCenteredRipplePunks;
 use App\Service\Images\RipplePunks\TextSimpleRipplePunksBlue;
+use App\Service\Images\WeepingPlebs\OpepenWeepingPlebs;
 
 class ResolveImage
 {
@@ -423,6 +424,22 @@ class ResolveImage
     public function getRipplePunksOpepenRipplePunks(): array
     {
         $textImage = new OpepenRipplePunks();
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
+        if ($this->id) {
+            $textImage->setId($this->id);
+        }
+        if ($this->type) {
+            $textImage->setType($this->type);
+        }
+
+        return $textImage->render();
+    }
+
+    public function getWeepingPlebsOpepenWeepingPlebs(): array
+    {
+        $textImage = new OpepenWeepingPlebs();
         if ($this->text) {
             $textImage->setText($this->text);
         }

@@ -37,6 +37,24 @@ class BaseTextImage extends BaseImage
         return $this->getImage(realpath($tmpPath), $resize);
     }
 
+
+    public function getWeepingPlebFixedSize(int $id = null, float $resize = 100): \Imagick
+    {
+        if (!$id) {
+            $ids = range(1, 8888);
+            shuffle($ids);
+            $id = $ids[0];
+        }
+
+        $tmpPath = $this->getTempImageFromCDN(
+            'weeping-plebs-v4',
+            $id . '.png',
+            'weepingpleb.png'
+        );
+
+        return $this->getImage(realpath($tmpPath), $resize);
+    }
+
     public function getLooneyLuca(int $id, float $resize = 100): \Imagick
     {
         $tmpPath = $this->getTempImageFromCDN(

@@ -22,6 +22,7 @@ class Projects
     const RICH_LISTS = 'RichLists';
 
     const XRPEPENS = 'XRPepens';
+    const WEEPING_PLEBS = 'WeepingPlebs';
 
     public static function getAll(): array
     {
@@ -51,6 +52,7 @@ class Projects
             flatten_string(self::LOADING_PUNKS) => self::LOADING_PUNKS,
             flatten_string(self::LOONEY_LUCA) => self::LOONEY_LUCA,
             flatten_string(self::BASE_ALIENS) => self::BASE_ALIENS,
+            flatten_string(self::WEEPING_PLEBS) => self::WEEPING_PLEBS,
         ];
 
         asort($projects);
@@ -78,6 +80,10 @@ class Projects
 
         if ($neatProjectString === 'basealiens') {
             return flatten_string(self::BASE_ALIENS);
+        }
+
+        if ($neatProjectString === 'weepingplebs') {
+            return flatten_string(self::WEEPING_PLEBS);
         }
 
         return null;
