@@ -4,8 +4,10 @@
  */
 ?>
 
-<?php if ($formHelper->hasImage): ?>
-    <?php include ('templates/views/' . (is_hypeomatic_website() ? 'hypeomatic' : 'website') . '/partial/form-elements/image.phtml'); ?>
+<?php if (!is_hypeomatic_website()): ?>
+    <?php if ($formHelper->hasImage): ?>
+        <?php include ('templates/views/' . (is_hypeomatic_website() ? 'hypeomatic' : 'website') . '/partial/form-elements/image.phtml'); ?>
+    <?php endif; ?>
 <?php endif; ?>
 
 <?php if ($formHelper->hasImageText): ?>

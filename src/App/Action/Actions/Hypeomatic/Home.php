@@ -38,16 +38,43 @@ class Home extends BaseFormAction
     {
         parent::performGet();
 
-        $project = $this->getRequest()->getParam('action') ?: null;
-        if ($project) {
-            $projectSlug = Projects::getSlugForNeatPublicProjectString($project);
+        // handle given project
+        $neatProjectString = $this->getRequest()->getParam('project') ?: null;
+        if ($neatProjectString) {
+            $projectSlug = Projects::getSlugForNeatPublicProjectString($neatProjectString);
             if (!$projectSlug) {
-                throw new \Exception('Project `' . $project . '` not found.');
+                abort();
             }
-
-            $this->setVariable(new Variable('selectedProjectSlug', $projectSlug));
+        } else {
+            $projectSlug = null;
         }
 
+        // if project, handle give image
+        if ($projectSlug) {
+            $imageType = $this->getRequest()->getParam('imageType') ?: null;
+            if ($imageType) {
+                $imageTypeClass = ImagesHelper::getImageClassByProjectAndSlug($projectSlug, $imageType);
+                if (!$imageTypeClass) {
+                    abort();
+                }
+            }
+        } else {
+            $imageType = null;
+        }
+
+        $this->setVariable(new Variable('selectedProjectSlug', $projectSlug));
+        $this->setVariable(new Variable('selectedImageType', $imageType));
+        if ($projectSlug) {
+            $this->setVariable(new Variable('projectImageTypes', ImagesHelper::getImagesClassesForProject(
+                Projects::getNameFromSlug($projectSlug)
+            )));
+        }
+        if ($imageType) {
+            $this->setVariable(new Variable('selectedImageClass', ImagesHelper::getImageClassByProjectAndSlug(
+                Projects::getNameFromSlug($projectSlug),
+                $imageType
+            )));
+        }
         $this->setVariable(new Variable('recentImages', $this->getImageQuery()->getRecentImages(8)));
     }
 

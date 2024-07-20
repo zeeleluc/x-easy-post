@@ -1,23 +1,7 @@
 <?php
 /**
- * @var $formHelper \App\Service\Form\FormHelper
+ * @var $selectedImageClass \App\Service\Images\BaseImage
  */
 ?>
 
-<div class="form-group my-1">
-    <label for="image" class="my-2">Shill Image Type *</label>
-    <select name="image" class="custom-select form-control" id="image">
-        <option></option>
-        <?php foreach($formHelper->imageOptions as $className => $imageName) : ?>
-            <option value="<?=flatten_string($className); ?>"
-                <?php if ($formHelper->selectedImage): ?>
-                    <?php if ($formHelper->selectedImage === flatten_string($className)): ?>
-                        selected
-                    <?php endif; ?>
-                <?php endif; ?>
-            >
-                <?=$imageName; ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-</div>
+<input type="hidden" id="image" name="image" value="<?=$selectedImageClass::getSlug(); ?>" />

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const body = document.body;
             const url = body.getAttribute('data-url');
             const spinner = document.getElementById('spinner');
-            const projectSelect = document.querySelector('input#project');
+            const projectHiddenInput = document.querySelector('input#project');
 
             // Function to fetch and update the HTML content
             const fetchAndUpdateContent = async () => {
@@ -38,9 +38,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     dynamicFormElements.innerHTML = html;
 
                     // Add event listener for dynamically added select#image
-                    const imageSelect = document.querySelector('select#image');
-                    if (imageSelect) {
-                        imageSelect.addEventListener('change', fetchAndUpdateContent);
+                    const imageHiddenInput = document.querySelector('input#image');
+                    if (imageHiddenInput) {
+                        imageHiddenInput.addEventListener('change', fetchAndUpdateContent);
                     }
 
                 } catch (error) {
@@ -50,11 +50,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     setTimeout(() => {
                         spinner.style.display = 'none';
                         dynamicFormElements.style.display = 'block';
-                    }, 500);
+                    }, 100);
                 }
             };
 
-            projectSelect.addEventListener('change', fetchAndUpdateContent);
+            projectHiddenInput.addEventListener('change', fetchAndUpdateContent);
 
             // Initial fetch and update content
             fetchAndUpdateContent();

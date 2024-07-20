@@ -96,7 +96,12 @@ hr {
 
 .card {
     border: 6px solid #c2d9a4;
-    margin: 30px 15px;
+    margin: 20px 0;
+}
+
+.card-header {
+    background-color: #c2d9a4;
+    padding: 10px 0;
 }
 
 .card-header,
