@@ -165,8 +165,8 @@ class OpepenWeepingPlebs extends BaseTextImage
 
     private function calculateFontSize(): int
     {
-        $baseFontSize = 100;
-        $minFontSize = 30;
+        $baseFontSize = 120;
+        $minFontSize = 50;
         $maxLength = 30;
         $rate = 0.4;
 
