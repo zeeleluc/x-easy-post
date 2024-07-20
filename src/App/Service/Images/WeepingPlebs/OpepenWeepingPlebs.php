@@ -150,7 +150,7 @@ class OpepenWeepingPlebs extends BaseTextImage
 
         $draw = new \ImagickDraw();
         $draw->setTextAlignment(\Imagick::ALIGN_CENTER);
-        $draw->setFont(ROOT . "/assets/fonts/downtown_street.ttf");
+        $draw->setFont(ROOT . "/assets/fonts/downtown_street-webfont.ttf");
         $draw->setFontSize($fontSize);
         $draw->setFillColor(new \ImagickPixel('#0C6DFD'));
 
