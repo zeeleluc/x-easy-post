@@ -53,50 +53,33 @@ class Cli extends BaseAction
         }
 
 
-//        if ($this->action === 'tmp') {
-//
-//            $phpCode = '<?php' . PHP_EOL . PHP_EOL;
-//            $phpCode .= 'function get_ids_for_basealiens_type(string $type): array' . PHP_EOL;
-//            $phpCode .= '{' . PHP_EOL;
-//            $phpCode .= '    return [' . PHP_EOL;
-//
-//            $types = [];
-//            foreach (glob(ROOT . '/data/basealiens/*.json') as $metadata) {
-//
-//                $metadata = (array) json_decode(file_get_contents($metadata), true);
-//                $name = $metadata['name'];
-//                $id = (int) str_replace('BaseAlien #', '', $name);
-//
-//                foreach ($metadata['attributes'] as $attribute) {
-//                    if (!is_numeric($attribute['value'])) {
-//                        $attribute['value'] = trim($attribute['value']);
-//                        if (!array_key_exists('Attribute:' . $attribute['value'], $types)) {
-//                            $types['Attribute:' . $attribute['value']] = [];
-//                        }
-//                    }
-//                }
-//
-//                foreach ($metadata['attributes'] as $attribute) {
-//                    if (!is_numeric($attribute['value'])) {
-//                        $attribute['value'] = trim($attribute['value']);
-//                        $types['Attribute:' . $attribute['value']][] = $id;
-//                    }
-//                }
-//            }
-//
-//            foreach ($types as $type => $ids) {
-//                $phpCode .= "            '" . $type . "' => [" . PHP_EOL;
-//                foreach ($ids as $id) {
-//                    $phpCode .= "                " . $id . "," . PHP_EOL;
-//                }
-//                $phpCode .= "            ]," . PHP_EOL;
-//            }
-//
-//            $phpCode .= '    ];' . PHP_EOL;
-//            $phpCode .= '}' . PHP_EOL;
-//            $phpCode .= PHP_EOL;
-//            file_put_contents('basealiens_type_attributes.php', $phpCode);
-//
-//        }
+        if ($this->action === 'read-metadata') {
+
+            $data = [];
+            foreach (glob(ROOT . '/data/weepingplebs/*.json') as $metadata) {
+
+                $metadata = (array) json_decode(file_get_contents($metadata), true);
+                $name = $metadata['name'];
+                $id = (int) str_replace('WeepingPleb #', '', $name);
+
+                foreach ($metadata['attributes'] as $attribute) {
+                    if (!is_numeric($attribute['value'])) {
+                        $attribute['value'] = trim($attribute['value']);
+                        if (!array_key_exists('Attribute:' . $attribute['value'], $data)) {
+                            $data['Attribute:' . $attribute['value']] = [];
+                        }
+                    }
+                }
+
+                foreach ($metadata['attributes'] as $attribute) {
+                    if (!is_numeric($attribute['value'])) {
+                        $attribute['value'] = trim($attribute['value']);
+                        $data['Attribute:' . $attribute['value']][] = $id;
+                    }
+                }
+            }
+
+            file_put_contents('./migrations/migration_data/weepingplebs.json', json_encode($data));
+        }
     }
 }
