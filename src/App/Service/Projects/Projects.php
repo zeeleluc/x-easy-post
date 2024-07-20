@@ -60,6 +60,22 @@ class Projects
         return $projects;
     }
 
+    public static function getNeatPublicProjectStringForSlug(string $projectSlug): string
+    {
+        return str_replace('_', '', $projectSlug);
+    }
+
+    public static function getNameFromSlug(string $givenProjectSlug): ?string
+    {
+        foreach (array_merge(self::getAll(), self::getAllPublic()) as $projectSlug => $projectName) {
+            if ($projectSlug === $givenProjectSlug) {
+                return $projectName;
+            }
+        }
+
+        return null;
+    }
+
     public static function getSlugForNeatPublicProjectString(string $neatProjectString): ?string
     {
         if ($neatProjectString === 'ripplepunks') {

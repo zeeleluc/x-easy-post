@@ -1,29 +1,41 @@
 <div class="container">
     <div class="row justify-content-center">
-
-        <div class="col col-12 col-lg-5 col-md-10">
-            <div class="card">
-                <form id="posts-form" method="post" action="">
-                    <div class="card-header">
-
-                    </div>
-                    <div class="card-body">
-
-                        <?php include ('templates/views/hypeomatic/partial/form-elements/projects.phtml'); ?>
-
-                        <div id="dynamic-form-elements"></div>
-
-                        <div id="spinner" class="spinner">
-                            <img src="./assets/images/loading.gif" />
-                        </div>
-
-                        <div id="submit-be-patient-text" class="my-4">
-                            The process may take some time, but you will be redirected as soon as the image is ready.
-                        </div>
-                    </div>
-                </form>
+        <?php if (!$selectedProjectSlug): ?>
+            <div class="col col-12 pb-5">
+                <h2>
+                    Choose Project to Shill
+                </h2>
+                <?php foreach (\App\Service\Projects\Projects::getAllPublic() as $projectSlug => $projectName): ?>
+                    <a class="btn btn-lg btn-primary" href="<?=env('URL_HYPEOMATIC'); ?>/<?=\App\Service\Projects\Projects::getNeatPublicProjectStringForSlug($projectSlug); ?>">
+                        <?=$projectName; ?>
+                    </a>
+                <?php endforeach; ?>
             </div>
-        </div>
+        <?php else: ?>
+            <div class="col col-12">
+                <h2><?=\App\Service\Projects\Projects::getNameFromSlug($selectedProjectSlug); ?></h2>
+            </div>
+            <div class="col col-12 col-lg-5 col-md-10">
+                <div class="card">
+                    <form id="posts-form" method="post" action="">
+                        <div class="card-body">
+
+                            <?php include ('templates/views/hypeomatic/partial/form-elements/projects.phtml'); ?>
+
+                            <div id="dynamic-form-elements"></div>
+
+                            <div id="spinner" class="spinner">
+                                <img src="./assets/images/loading.gif" />
+                            </div>
+
+                            <div id="submit-be-patient-text" class="my-4">
+                                The process may take some time, but you will be redirected as soon as the image is ready.
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 

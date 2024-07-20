@@ -185,3 +185,18 @@ p.disclaimer strong {
 .container-color-1 .card {
     border-color: #D9EDBF;
 }
+
+.btn-primary {
+    border-color: #FFDE95;
+    background-color: #FFDE95;
+    color: #E76F51;
+    margin: 0 3px 10px 3px;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+    border-color: #E76F51;
+    background-color: #E76F51;
+    color: #FFDE95;
+}

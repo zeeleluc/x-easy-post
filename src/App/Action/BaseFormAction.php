@@ -60,6 +60,7 @@ abstract class BaseFormAction extends BaseAction
         }
 
         if ($this->hasFormErrors()) {
+            var_dump($this->formErrors);exit;
             form_errors($this->validatedFormValues, $this->formErrors);
             warning($this->formRoute, 'Fix the form errors and try again.');
         } else {

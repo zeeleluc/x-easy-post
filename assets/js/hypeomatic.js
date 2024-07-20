@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const body = document.body;
             const url = body.getAttribute('data-url');
             const spinner = document.getElementById('spinner');
-            const projectSelect = document.querySelector('select#project');
+            const projectSelect = document.querySelector('input#project');
 
             // Function to fetch and update the HTML content
             const fetchAndUpdateContent = async () => {
