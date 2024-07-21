@@ -18,6 +18,8 @@ class MovingPipingPunk extends BaseImage
 
     protected string $name = 'NFT as GIF';
 
+    protected string $imageExtension = 'gif';
+
     public function __construct()
     {
         $this->idRange = range(0, 9999);

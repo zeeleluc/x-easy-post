@@ -17,7 +17,7 @@ class PropertyHighlightRipplePunksWithoutTextAndMany extends BaseTextImage
 
     protected string $project = Projects::RIPPLE_PUNKS;
 
-    protected string $name = 'Property Highlight Without Text (many)';
+    protected string $name = 'RipplePunk surrounded by small RipplePunks';
 
     private ?int $id = null;
 
