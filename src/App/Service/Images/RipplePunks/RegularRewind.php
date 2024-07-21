@@ -18,6 +18,8 @@ class RegularRewind extends BaseImage
 
     protected string $name = 'Regular Rewind NFT';
 
+    protected string $imageExtension = 'gif';
+
     public function __construct()
     {
         $this->idRange = range(0, 9999);
