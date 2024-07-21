@@ -1,3 +1,6 @@
+<?php
+$allPublicProjects = \App\Service\Projects\Projects::getAllPublic();
+?>
 <div class="container">
     <div class="row justify-content-center">
         <?php if (!$selectedProjectSlug): ?>
@@ -5,8 +8,6 @@
                 <h2>Choose Project to Shill</h2>
                 <h3 class="mb-3">Step 1: Choose for which project you want to shill an image</h3>
                 <?php
-                // Cache the results of the expensive method call
-                $allPublicProjects = \App\Service\Projects\Projects::getAllPublic();
                 foreach ($allPublicProjects as $projectSlug => $projectName):
                     ?>
                     <a class="btn btn-lg btn-primary" href="<?= htmlspecialchars(env('URL_HYPEOMATIC')) . '/' . htmlspecialchars(\App\Service\Projects\Projects::getNeatPublicProjectStringForSlug($projectSlug)); ?>">
