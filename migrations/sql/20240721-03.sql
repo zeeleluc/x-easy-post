@@ -1,0 +1,1 @@
+CREATE INDEX idx_project_created_at ON xeasypost.images (project, created_at DESC);

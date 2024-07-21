@@ -1,0 +1,1 @@
+CREATE INDEX idx_uuid ON xeasypost.images (uuid);

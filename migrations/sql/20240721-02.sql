@@ -1,0 +1,1 @@
+CREATE INDEX idx_project ON xeasypost.images (project);
