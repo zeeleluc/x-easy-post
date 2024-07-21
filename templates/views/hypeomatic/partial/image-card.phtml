@@ -5,9 +5,19 @@
 ?>
 
 <div class="card">
+    <div class="card-header">
+        <a href="<?=env('URL_HYPEOMATIC'); ?>/<?=$image->getProjectNeatUrlSlug(); ?>">
+            <?=$image->getProjectName(); ?>
+        </a>
+    </div>
     <div class="card-body">
         <a href="<?=$image->getUrl(); ?>">
             <img class="img-fluid" src="<?=$image->url; ?>" />
+        </a>
+    </div>
+    <div class="card-footer">
+        <a href="<?=env('URL_HYPEOMATIC'); ?>/<?=$image->getProjectNeatUrlSlug(); ?>/<?=$image->imageType; ?>">
+            <?=$image->getTitle(); ?>
         </a>
     </div>
 </div>

@@ -124,6 +124,10 @@ hr {
     padding: 10px 20px;
 }
 
+.card a,
+.card a:hover {
+    color: #111111;
+}
 
 form {
     margin: 10px 20px;
@@ -203,6 +207,10 @@ p.disclaimer strong {
 }
 .container-color-1 .card {
     border-color: #D9EDBF;
+}
+
+.container-color-2 {
+    background-color: #d1e8b3;
 }
 
 .btn-primary {
