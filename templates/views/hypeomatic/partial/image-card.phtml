@@ -11,14 +11,14 @@
         </a>
     </div>
     <div class="card-body">
-<!--        <a href="--><?php //=$image->getUrl(); ?><!--">-->
-<!--            <img class="img-fluid" src="--><?php //=$image->url; ?><!--" />-->
-<!--        </a>-->
+        <a href="<?=$image->getUrl(); ?>">
+            <img class="img-fluid" src="<?=$image->url; ?>" />
+        </a>
     </div>
     <div class="card-footer">
-        <a href="<?=env('URL_HYPEOMATIC'); ?>/<?=$image->getProjectNeatUrlSlug(); ?>/<?=$image->imageType; ?>">
-            <?=$image->getTitle(); ?>
-        </a>
+<!--        <a href="--><?php //=env('URL_HYPEOMATIC'); ?><!--/--><?php //=$image->getProjectNeatUrlSlug(); ?><!--/--><?php //=$image->imageType; ?><!--">-->
+<!--            --><?php //=$image->getTitle(); ?>
+<!--        </a>-->
     </div>
 </div>
 
