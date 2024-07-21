@@ -1,0 +1,135 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <?php if (!$selectedProjectSlug): ?>
+            <div class="col col-12 pb-5">
+                <h2>
+                    Choose Project to Shill
+                </h2>
+                <h3 class="mb-3">
+                    Step 1: Choose for which project you want to shill an image
+                </h3>
+                <?php foreach (\App\Service\Projects\Projects::getAllPublic() as $projectSlug => $projectName): ?>
+                    <a class="btn btn-lg btn-primary" href="<?=env('URL_HYPEOMATIC'); ?>/<?=\App\Service\Projects\Projects::getNeatPublicProjectStringForSlug($projectSlug); ?>">
+                        <?=$projectName; ?>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <div class="col col-12">
+                <h2>
+                    <?php if (!$selectedImageType): ?>
+                        <a href="<?=env('URL_HYPEOMATIC'); ?>">
+                            <?=\App\Service\Projects\Projects::getNameFromSlug($selectedProjectSlug); ?>
+                        </a>
+                    <?php else: ?>
+                        <a href="<?=env('URL_HYPEOMATIC'); ?>/<?=\App\Service\Projects\Projects::getNeatPublicProjectStringForSlug($selectedProjectSlug); ?>">
+                            <?=\App\Service\Projects\Projects::getNameFromSlug($selectedProjectSlug); ?>
+                        </a>
+                    <?php endif; ?>
+                </h2>
+            </div>
+            <?php if (!$selectedImageType): ?>
+                <div class="col col-12">
+                    <h3>
+                        Step 2: Choose an Image Type
+                    </h3>
+                </div>
+                <div class="col col-12">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <?php foreach ($projectImageTypes as $projectImageType): /* @var $projectImageType \App\Service\Images\BaseImage */ ?>
+                                <div class="col col-12 col-md-6 col-lg-3">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <?=$projectImageType::getName(); ?>
+                                        </div>
+                                        <div class="card-body">
+                                            <?php $imageUri = $projectImageType::getExampleImageUri(); ?>
+                                            <a href="<?=env('URL_HYPEOMATIC'); ?>/<?=\App\Service\Projects\Projects::getNeatPublicProjectStringForSlug($selectedProjectSlug); ?>/<?=$projectImageType::getSlug(); ?>">
+                                                <?php if (file_exists('./assets/images/examples/' . $imageUri)): ?>
+                                                    <img src="<?='./assets/images/examples/' . $imageUri; ?>" class="img-fluid" />
+                                                <?php else: ?>
+                                                    Example Image Soon
+                                                <?php endif; ?>
+                                            </a>
+                                        </div>
+                                        <?php if ($description = $projectImageType::getDescription()): ?>
+                                            <div class="card-footer">
+                                                <?=$description; ?>
+                                            </div>
+                                        <?php endif; ?>
+
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div class="col col-12">
+                    <h3>
+                        Step 3: Fill out OPTIONAL fields for "<?=$selectedImageClass::getName(); ?>"
+                    </h3>
+                </div>
+                <div class="col col-12 col-lg-5 col-md-10">
+                    <div class="card">
+                        <form id="posts-form" method="post" action="">
+                            <div class="card-body">
+                                <?php include ('templates/views/hypeomatic/partial/form-elements/projects.phtml'); ?>
+                                <?php include ('templates/views/hypeomatic/partial/form-elements/image.phtml'); ?>
+                                <div id="dynamic-form-elements"></div>
+                                <div id="spinner" class="spinner">
+                                    <img src="<?=env('URL_HYPEOMATIC'); ?>/assets/images/loading.gif" />
+                                </div>
+                                <div id="submit-be-patient-text" class="my-4">
+                                    The process may take some time, but you will be redirected as soon as the image is ready.
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+        <?php endif; ?>
+    </div>
+</div>
+
+<?php if ($selectedProjectSlug): ?>
+    <div class="container-fluid container-color-1 mt-5">
+        <div class="row">
+            <div class="col col-12 pb-5">
+                <h2>
+                    Choose Another Project to Shill
+                </h2>
+                <h3 class="mb-3">
+                    Step 1: Choose for which project you want to shill an image
+                </h3>
+                <?php foreach (\App\Service\Projects\Projects::getAllPublic() as $projectSlug => $projectName): ?>
+                    <a class="btn btn-lg btn-primary" href="<?=env('URL_HYPEOMATIC'); ?>/<?=\App\Service\Projects\Projects::getNeatPublicProjectStringForSlug($projectSlug); ?>">
+                        <?=$projectName; ?>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+
+<div class="container-fluid container-color-2">
+    <div class="row">
+        <div class="col">
+            <div class="container">
+                <div class="row justify-content-center">
+
+                    <h2>Latest Shills</h2>
+
+                    <?php foreach ($recentImages as $image): ?>
+                        <div class="col col-12 col-md-6 col-lg-3">
+                            <?php include ('templates/views/hypeomatic/partial/image-card.phtml'); ?>
+                        </div>
+                    <?php endforeach; ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
