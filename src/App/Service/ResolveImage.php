@@ -38,6 +38,7 @@ use App\Service\Images\RipplePunks\RipplePunksQuartetSet;
 use App\Service\Images\RipplePunks\TextImageCenteredRipplePunks;
 use App\Service\Images\RipplePunks\TextSimpleRipplePunksBlue;
 use App\Service\Images\WeepingPlebs\OpepenWeepingPlebs;
+use App\Service\Images\WeepingPlebs\TextImageCenteredWeepingPlebs;
 
 class ResolveImage
 {
@@ -261,6 +262,20 @@ class ResolveImage
     public function getBaseAliensTextImageCenteredBaseAliens(): array
     {
         $textImage = new TextImageCenteredBaseAliens();
+        $textImage->setText($this->text);
+        if ($this->id) {
+            $textImage->setId($this->id);
+        }
+        if ($this->type) {
+            $textImage->setType($this->type);
+        }
+
+        return $textImage->render();
+    }
+
+    public function getWeepingPlebsTextImageCenteredWeepingPlebs(): array
+    {
+        $textImage = new TextImageCenteredWeepingPlebs();
         $textImage->setText($this->text);
         if ($this->id) {
             $textImage->setId($this->id);
