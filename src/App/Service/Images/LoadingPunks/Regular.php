@@ -18,6 +18,8 @@ class Regular extends BaseImage
 
     protected string $name = 'Regular NFT';
 
+    protected string $imageExtension = 'gif';
+
     public function __construct()
     {
         $this->idRange = range(0, 9999);

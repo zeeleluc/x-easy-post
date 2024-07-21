@@ -1,6 +1,7 @@
 <?php
 namespace App\Service\Images\LooneyLuca;
 
+use App\Models\DataSeeder;
 use App\Service\Bucket;
 use App\Service\Images\BaseTextImage;
 use App\Service\Projects\Projects;
@@ -10,6 +11,7 @@ class OpepenLooneyLuca extends BaseTextImage
     protected string $project = Projects::LOONEY_LUCA;
 
     protected string $name = 'Opepen Style';
+    private array $backgroundColorPerId;
 
     private string $text = '';
 
@@ -18,6 +20,7 @@ class OpepenLooneyLuca extends BaseTextImage
     public function __construct()
     {
         $this->canHaveImageText = true;
+        $this->backgroundColorPerId = DataSeeder::get(DataSeeder::LOONEY_LUCA_BACKGROUND_COLOR_PER_ID);
     }
 
     public static function make(): OpepenLooneyLuca
@@ -49,13 +52,13 @@ class OpepenLooneyLuca extends BaseTextImage
         $urlTMP = ROOT . '/tmp/' . $filename;
 
 
-        $looneyLucaWithSolidBackground = array_keys(id_background_hex_looney_luca());
+        $looneyLucaWithSolidBackground = array_keys($this->backgroundColorPerId);
         shuffle($looneyLucaWithSolidBackground);
 
-        $background = id_background_hex_looney_luca()[$looneyLucaWithSolidBackground[0]];
+        $background = $this->backgroundColorPerId[$looneyLucaWithSolidBackground[0]];
 
         $image = new \Imagick();
-        $image->newImage(1000, 1000, $background);
+        $image->newImage(800, 800, $background);
         $image->setImageFormat("png");
 
         $rowsY = [200, 300, 400, 500, 700];
@@ -82,7 +85,7 @@ class OpepenLooneyLuca extends BaseTextImage
     {
         $resize = 95.1; // will result in 100px width
 
-        $id = get_random_by_hex($color);
+        $id = $this->getRandomByHex($color);
         $ripplePunk = $this->getLooneyLuca($id, $resize);
 
         // background square
@@ -110,13 +113,13 @@ class OpepenLooneyLuca extends BaseTextImage
 
         $draw = new \ImagickDraw();
         $draw->setTextAlignment(\Imagick::ALIGN_CENTER);
-        $draw->setFont(ROOT . "/assets/fonts/space_age-webfont.ttf");
+        $draw->setFont(ROOT . "/assets/fonts/kidslinedemo-webfont.ttf");
         $draw->setFontSize($fontSize);
-        $draw->setFillColor(new \ImagickPixel('#efefef'));
+        $draw->setFillColor(new \ImagickPixel('#111111'));
 
-        $y = 100;
+        $y = 120;
         if ($fontSize >= 60) {
-            $y = 110;
+            $y = 130;
         }
         $draw->annotation(400, $y, $text);
 
@@ -139,6 +142,21 @@ class OpepenLooneyLuca extends BaseTextImage
         }
 
         return max($fontSize, $minFontSize);
+    }
+
+    public function getRandomByHex(string $forHex): int
+    {
+        $idsForHex = [];
+        foreach ($this->backgroundColorPerId as $id => $hex)
+        {
+            if ($hex === $forHex) {
+                $idsForHex[$id] = $hex;
+            }
+        }
+        $ids = array_keys($idsForHex);
+        shuffle($ids);
+
+        return $ids[0];
     }
 
 }
