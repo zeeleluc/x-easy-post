@@ -99,17 +99,24 @@ hr {
     margin: 20px 0;
 }
 
-.card-header {
-    background-color: #c2d9a4;
-    padding: 10px 0;
-}
-
 .card-header,
 .card-body,
 .card-footer {
     border: none;
     padding: 0;
 }
+
+.card-header {
+    background-color: #c2d9a4;
+    padding: 20px 0;
+    border-radius: 0 !important;
+}
+
+.card-footer {
+    font-size: 14px;
+    padding: 10px 20px;
+}
+
 
 form {
     margin: 10px 20px;

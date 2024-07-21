@@ -25,16 +25,27 @@
                     <div class="container">
                         <div class="row justify-content-center">
                             <?php foreach ($projectImageTypes as $projectImageType): /* @var $projectImageType \App\Service\Images\BaseImage */ ?>
-                                <div class="col col-3">
+                                <div class="col col-12 col-md-6 col-lg-3">
                                     <div class="card">
                                         <div class="card-header">
                                             <?=$projectImageType::getName(); ?>
                                         </div>
-                                        <div class="card-body py-5">
+                                        <div class="card-body">
+                                            <?php $imageUri = $projectImageType::getExampleImageUri(); ?>
                                             <a href="<?=env('URL_HYPEOMATIC'); ?>/<?=\App\Service\Projects\Projects::getNeatPublicProjectStringForSlug($selectedProjectSlug); ?>/<?=$projectImageType::getSlug(); ?>">
-                                                Example Image Coming Soon
+                                                <?php if (file_exists('./assets/images/examples/' . $imageUri)): ?>
+                                                    <img src="<?='./assets/images/examples/' . $imageUri; ?>" class="img-fluid" />
+                                                <?php else: ?>
+                                                    Example Image Soon
+                                                <?php endif; ?>
                                             </a>
                                         </div>
+                                        <?php if ($description = $projectImageType::getDescription()): ?>
+                                            <div class="card-footer">
+                                                <?=$description; ?>
+                                            </div>
+                                        <?php endif; ?>
+
                                     </div>
                                 </div>
                             <?php endforeach; ?>

@@ -65,6 +65,11 @@ class Projects
         return str_replace('_', '', $projectSlug);
     }
 
+    public static function getSlugFromName(string $projectName): string
+    {
+        return flatten_string($projectName);
+    }
+
     public static function getNameFromSlug(string $givenProjectSlug): ?string
     {
         foreach (array_merge(self::getAll(), self::getAllPublic()) as $projectSlug => $projectName) {

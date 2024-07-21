@@ -18,6 +18,8 @@ class RegularQR extends BaseImage
 
     protected string $name = 'Regular NFT With QR Code';
 
+    protected string $description = 'This image type gives a regular RipplePunk by ID, including a QR code that leads to the RipplePunk on the RipplePunks website';
+
     public function __construct()
     {
         $this->idRange = range(0, 9999);

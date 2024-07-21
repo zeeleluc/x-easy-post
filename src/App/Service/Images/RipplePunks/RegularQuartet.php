@@ -13,6 +13,8 @@ class RegularQuartet extends BaseImage
 
     protected string $name = 'Regular Quartet NFT';
 
+    protected string $description = 'This image type gives a RipplePunk Quartet card by #ID';
+
     public function __construct()
     {
         $this->idRange = range(1, 512);

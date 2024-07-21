@@ -9,6 +9,7 @@ use App\Service\Images\BaseAliens\PropertyHighlightBaseAliensWithoutTextAndMany;
 use App\Service\Images\BaseAliens\PuzzleBaseAliensBlue;
 use App\Service\Images\BaseAliens\Regular as BaseAlienRegular;
 use App\Service\Images\BaseAliens\TextImageCenteredBaseAliens;
+use App\Service\Images\BaseAliens\TextImageCenteredWithMintInfoBaseAliens;
 use App\Service\Images\BaseAliens\TextSimpleBaseAliensBlue;
 use App\Service\Images\HasMints\PuzzleBlackBGWhiteText;
 use App\Service\Images\HasMints\PuzzleHasMintsBlue;
@@ -260,6 +261,20 @@ class ResolveImage
     public function getBaseAliensTextImageCenteredBaseAliens(): array
     {
         $textImage = new TextImageCenteredBaseAliens();
+        $textImage->setText($this->text);
+        if ($this->id) {
+            $textImage->setId($this->id);
+        }
+        if ($this->type) {
+            $textImage->setType($this->type);
+        }
+
+        return $textImage->render();
+    }
+
+    public function getBaseAliensTextImageCenteredWithMintInfoBaseAliens(): array
+    {
+        $textImage = new TextImageCenteredWithMintInfoBaseAliens();
         $textImage->setText($this->text);
         if ($this->id) {
             $textImage->setId($this->id);

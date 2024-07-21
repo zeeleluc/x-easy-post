@@ -9,7 +9,7 @@ use App\Service\Traits\HasIdRange;
 use App\Service\Traits\HasOptions;
 use App\Service\Traits\HasOptionsPerId;
 
-class TextImageCenteredBaseAliens extends BaseTextImage
+class TextImageCenteredWithMintInfoBaseAliens extends BaseTextImage
 {
     use HasIdRange;
     use HasOptions;
@@ -17,7 +17,7 @@ class TextImageCenteredBaseAliens extends BaseTextImage
 
     protected string $project = Projects::BASE_ALIENS;
 
-    protected string $name = 'Centered Text';
+    protected string $name = 'Centered Text With Mint Info';
 
     private ?string $text = '';
 
@@ -33,7 +33,7 @@ class TextImageCenteredBaseAliens extends BaseTextImage
         $this->options = array_keys($this->optionsPerId);
     }
 
-    public static function make(): TextImageCenteredBaseAliens
+    public static function make(): TextImageCenteredWithMintInfoBaseAliens
     {
         return new self();
     }
@@ -85,8 +85,8 @@ class TextImageCenteredBaseAliens extends BaseTextImage
 
         // pick a variant
         $variants = [
-            'positionImagesVariantOne',
-            'positionImagesVariantTwo',
+            'positionImagesVariantThree',
+            'positionImagesVariantFour',
         ];
         shuffle($variants);
         $this->{$variants[0]}($image, $baseAlienFirst, $baseAlienSecond);
@@ -103,22 +103,26 @@ class TextImageCenteredBaseAliens extends BaseTextImage
         ];
     }
 
-    private function positionImagesVariantOne(\Imagick &$image, \Imagick $baseAlienFirst, \Imagick $baseAlienSecond): void
+    private function positionImagesVariantThree(\Imagick &$image, \Imagick $baseAlienFirst, \Imagick $baseAlienSecond): void
     {
-        $baseAlienFirst->flipImage();
-        $baseAlienSecond->flopImage();
+        $baseAlienFirst->rotateImage('#CAD9FC', 90);
+        $baseAlienSecond->rotateImage('#CAD9FC', 90 * 3);
 
-        $image->compositeImage($baseAlienFirst, \Imagick::COMPOSITE_ATOP, 10, 0);
-        $image->compositeImage($baseAlienSecond, \Imagick::COMPOSITE_ATOP, 470, 455);
+        $image->compositeImage($baseAlienFirst, \Imagick::COMPOSITE_ATOP, 0, 0);
+        $image->compositeImage($baseAlienSecond, \Imagick::COMPOSITE_ATOP, 455, 455);
+
+        $this->setTopBottomRectanglesWithInformation($image);
     }
 
-    private function positionImagesVariantTwo(\Imagick &$image, \Imagick $baseAlienFirst, \Imagick $baseAlienSecond): void
+    private function positionImagesVariantFour(\Imagick &$image, \Imagick $baseAlienFirst, \Imagick $baseAlienSecond): void
     {
-        $baseAlienFirst->flipImage();
-        $baseAlienFirst->flopImage();
+        $baseAlienFirst->rotateImage('#CAD9FC', 90 * 3);
+        $baseAlienSecond->rotateImage('#CAD9FC', 90);
 
-        $image->compositeImage($baseAlienFirst, \Imagick::COMPOSITE_ATOP, 470, 0);
-        $image->compositeImage($baseAlienSecond, \Imagick::COMPOSITE_ATOP, 10, 455);
+        $image->compositeImage($baseAlienFirst, \Imagick::COMPOSITE_ATOP, 455, 40);
+        $image->compositeImage($baseAlienSecond, \Imagick::COMPOSITE_ATOP, 0, 415);
+
+        $this->setTopBottomRectanglesWithInformation($image);
     }
 
     private function setTopBottomRectanglesWithInformation(\Imagick &$image): void
