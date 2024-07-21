@@ -6,7 +6,6 @@ use Carbon\Carbon;
 
 class PostQuery extends Query
 {
-
     private string $table = 'posts';
 
     /**
@@ -30,9 +29,7 @@ class PostQuery extends Query
         $values = $this->getPostById($this->db->getInsertId());
 
         $post = new Post();
-        $post->fromArray($values);
-
-        return $post;
+        return $post->fromArray($values);
     }
 
     public function updatePost(array $values): Post
@@ -45,15 +42,13 @@ class PostQuery extends Query
 
         $result = $this->db->where('id', $values['id'])->update($this->table, $values);
         if (!$result) {
-            throw new \Exception('Post not created.');
+            throw new \Exception('Post not updated.');
         }
 
         $values = $this->getPostById($values['id']);
 
         $post = new Post();
-        $post->fromArray($values);
-
-        return $post;
+        return $post->fromArray($values);
     }
 
     public function deletePost(Post $post): bool
@@ -85,8 +80,7 @@ class PostQuery extends Query
             ->getOne($this->table);
     }
 
-
-    public function getPostById(int $id):? array
+    public function getPostById(int $id): ?array
     {
         return $this->db
             ->where('id', $id)
@@ -99,12 +93,12 @@ class PostQuery extends Query
      */
     public function getLastPosts(Carbon $date): array
     {
-        $posts = [];
         $results = $this->db
             ->orderBy('created_at')
             ->where('created_at', $date->format('Y-m-d H:i:s'), '>')
             ->get($this->table);
 
+        $posts = [];
         foreach ($results as $result) {
             $posts[] = (new Post())->fromArray($result);
         }
@@ -117,16 +111,15 @@ class PostQuery extends Query
         $sql = <<<SQL
 SELECT *
     FROM {$this->table}
-          WHERE posted_at IS NOT NULL
-          AND success = '1'
-            AND posted_at > '{$date->format('Y-m-d H:i:s')}'
-                ORDER BY posted_at DESC;
+    WHERE posted_at IS NOT NULL
+    AND success = 1
+    AND posted_at > ?
+    ORDER BY posted_at DESC;
 SQL;
 
-        $results = $this->db->rawQuery($sql);
+        $results = $this->db->rawQuery($sql, [$date->format('Y-m-d H:i:s')]);
 
         $posts = [];
-
         foreach ($results as $result) {
             $posts[] = (new Post())->fromArray($result);
         }
@@ -143,16 +136,15 @@ SQL;
         $sql = <<<SQL
 SELECT *
     FROM {$this->table}
-          WHERE posted_at IS NOT NULL
-          AND success = '1'
-            AND created_at > '{$date->format('Y-m-d H:i:s')}'
-                ORDER BY posted_at DESC;
+    WHERE posted_at IS NOT NULL
+    AND success = 1
+    AND created_at > ?
+    ORDER BY posted_at DESC;
 SQL;
 
-        $results = $this->db->rawQuery($sql);
+        $results = $this->db->rawQuery($sql, [$date->format('Y-m-d H:i:s')]);
 
         $posts = [];
-
         foreach ($results as $result) {
             $posts[] = (new Post())->fromArray($result);
         }
@@ -169,14 +161,13 @@ SQL;
         $sql = <<<SQL
 SELECT *
     FROM {$this->table}
-        WHERE posted_at IS NULL
-            ORDER BY created_at DESC;
+    WHERE posted_at IS NULL
+    ORDER BY created_at DESC;
 SQL;
 
         $results = $this->db->rawQuery($sql);
 
         $posts = [];
-
         foreach ($results as $result) {
             $posts[] = (new Post())->fromArray($result);
         }
@@ -193,14 +184,13 @@ SQL;
         $sql = <<<SQL
 SELECT *
     FROM {$this->table}
-        WHERE success = '0'
-            ORDER BY created_at DESC;
+    WHERE success = 0
+    ORDER BY created_at DESC;
 SQL;
 
         $results = $this->db->rawQuery($sql);
 
         $posts = [];
-
         foreach ($results as $result) {
             $posts[] = (new Post())->fromArray($result);
         }
@@ -211,7 +201,7 @@ SQL;
     public function getCountPostsInLastPeriod(): int
     {
         return count($this->db
-            ->where('success', true)
+            ->where('success', 1)
             ->where('created_at', now()->subDay()->format('Y-m-d H:i:s'), '>')
             ->get($this->table));
     }
@@ -219,8 +209,9 @@ SQL;
     public function getCountScheduledPosts(): int
     {
         $sql = <<<SQL
-SELECT COUNT(*) AS row_count FROM {$this->table}
-    WHERE posted_at IS NULL
+SELECT COUNT(*) AS row_count
+    FROM {$this->table}
+    WHERE posted_at IS NULL;
 SQL;
 
         $results = $this->db->rawQuery($sql);
@@ -228,13 +219,14 @@ SQL;
         return $results[0]['row_count'];
     }
 
-    public function getNextScheduledPost():? Post
+    public function getNextScheduledPost(): ?Post
     {
         $sql = <<<SQL
-SELECT * FROM {$this->table}
+SELECT *
+    FROM {$this->table}
     WHERE posted_at IS NULL
     ORDER BY created_at ASC
-    LIMIT 1
+    LIMIT 1;
 SQL;
 
         $results = $this->db->rawQuery($sql);

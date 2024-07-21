@@ -6,7 +6,6 @@ use Carbon\Carbon;
 
 class ImageQuery extends Query
 {
-
     private string $table = 'images';
 
     /**
@@ -41,15 +40,13 @@ class ImageQuery extends Query
 
         $result = $this->db->where('uuid', $values['uuid'])->update($this->table, $values);
         if (!$result) {
-            throw new \Exception('Image not created.');
+            throw new \Exception('Image not updated.');
         }
 
         $values = $this->getImageById($values['id']);
 
         $image = new Image();
-        $image->fromArray($values);
-
-        return $image;
+        return $image->fromArray($values);
     }
 
     public function deleteImage(Image $image): bool
@@ -73,43 +70,38 @@ class ImageQuery extends Query
         return $images;
     }
 
-    public function getImageById(int $id):? array
+    public function getImageById(int $id): ?array
     {
-        return $this->db
-            ->where('id', $id)
-            ->getOne($this->table);
+        return $this->db->where('id', $id)->getOne($this->table);
     }
 
-    public function getImageByUuid(string $uuid):? Image
+    public function getImageByUuid(string $uuid): ?Image
     {
-        $results = $this->db
-            ->where('uuid', $uuid)
-            ->getOne($this->table);
+        $result = $this->db->where('uuid', $uuid)->getOne($this->table);
 
-        if (!$results) {
+        if (!$result) {
             return null;
         }
 
-        return (new Image())->fromArray($results);
+        return (new Image())->fromArray($result);
     }
 
     /**
-     * @return array|Post[]
+     * @return array|Image[]
      * @throws \Exception
      */
     public function getRecentImages(int $limit = 100): array
     {
         $sql = <<<SQL
-SELECT *
+SELECT id, uuid, created_by, project, image_type, text_image, nft_id, nft_type, url, can_redo, created_at
     FROM {$this->table}
-        ORDER BY created_at DESC
-            LIMIT {$limit};
+    ORDER BY created_at DESC
+    LIMIT ?;
 SQL;
 
-        $results = $this->db->rawQuery($sql);
+        $results = $this->db->rawQuery($sql, [$limit]);
 
         $images = [];
-
         foreach ($results as $result) {
             $images[] = (new Image())->fromArray($result);
         }
@@ -118,23 +110,22 @@ SQL;
     }
 
     /**
-     * @return array|Post[]
+     * @return array|Image[]
      * @throws \Exception
      */
     public function getLatestImagesForProject(string $project, int $limit = 4): array
     {
         $sql = <<<SQL
-SELECT *
+SELECT id, uuid, created_by, project, image_type, text_image, nft_id, nft_type, url, can_redo, created_at
     FROM {$this->table}
-        WHERE project = {$project}
-        ORDER BY created_at DESC
-            LIMIT {$limit};
+    WHERE project = ?
+    ORDER BY created_at DESC
+    LIMIT ?;
 SQL;
 
-        $results = $this->db->rawQuery($sql);
+        $results = $this->db->rawQuery($sql, [$project, $limit]);
 
         $images = [];
-
         foreach ($results as $result) {
             $images[] = (new Image())->fromArray($result);
         }
@@ -143,25 +134,18 @@ SQL;
     }
 
     /**
-     * @return array|Post[]
      * @throws \Exception
      */
-    public function countImagesForProject(string $project, int $limit = 4): array
+    public function countImagesForProject(string $project): int
     {
         $sql = <<<SQL
-SELECT COUNT(*)
+SELECT COUNT(*) as count
     FROM {$this->table}
-    WHERE project = {$project};
+    WHERE project = ?;
 SQL;
 
-        $results = $this->db->rawQuery($sql);
+        $result = $this->db->rawQuery($sql, [$project]);
 
-        $images = [];
-
-        foreach ($results as $result) {
-            $images[] = (new Image())->fromArray($result);
-        }
-
-        return $images;
+        return $result[0]['count'] ?? 0;
     }
 }
