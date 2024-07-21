@@ -85,22 +85,6 @@ $allPublicProjects = \App\Service\Projects\Projects::getAllPublic();
     </div>
 </div>
 
-<?php if ($selectedProjectSlug): ?>
-    <div class="container-fluid container-color-1 mt-5">
-        <div class="row">
-            <div class="col col-12 pb-5">
-                <h2>Choose Another Project to Shill</h2>
-                <h3 class="mb-3">Step 1: Choose for which project you want to shill an image</h3>
-                <?php foreach ($allPublicProjects as $projectSlug => $projectName): ?>
-                    <a class="btn btn-lg btn-primary" href="<?= htmlspecialchars(env('URL_HYPEOMATIC')) . '/' . htmlspecialchars(\App\Service\Projects\Projects::getNeatPublicProjectStringForSlug($projectSlug)); ?>">
-                        <?= htmlspecialchars($projectName); ?>
-                    </a>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </div>
-<?php endif; ?>
-
 <!--<div class="container-fluid container-color-2">-->
 <!--    <div class="row">-->
 <!--        <div class="col">-->
