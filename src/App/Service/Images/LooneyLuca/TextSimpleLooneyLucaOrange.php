@@ -10,6 +10,8 @@ class TextSimpleLooneyLucaOrange extends BaseSimpleTextImage
 
     protected string $name = 'Simple Text';
 
+    protected string $description = 'Plain text over the project\'s signature color';
+
     public function __construct()
     {
         $this->canHaveImageText = true;

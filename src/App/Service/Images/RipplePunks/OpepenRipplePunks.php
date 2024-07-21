@@ -19,6 +19,8 @@ class OpepenRipplePunks extends BaseTextImage
 
     protected string $name = 'Opepen Style';
 
+    protected string $description = 'You can put your own text above Jack Butchers "Opepen"';
+
     private string $text = '';
 
     private string $type = '';

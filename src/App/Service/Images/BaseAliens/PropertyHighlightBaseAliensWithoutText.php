@@ -17,6 +17,8 @@ class PropertyHighlightBaseAliensWithoutText extends BaseTextImage
 
     protected string $name = 'Random NFTs Repeat For Property';
 
+    protected string $description = 'Randomly select NFTs from the specified attribute';
+
     private string $type = '';
 
     public function __construct()

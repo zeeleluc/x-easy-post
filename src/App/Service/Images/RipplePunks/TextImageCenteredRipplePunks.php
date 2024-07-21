@@ -21,6 +21,8 @@ class TextImageCenteredRipplePunks extends BaseTextImage
 
     protected string $name = 'Centered Text';
 
+    protected string $description = 'Shout a few words with RipplePunks on top, and below that you can optionally specify NFTs by ID or attribute';
+
     private ?int $id = null;
 
     private string $type = '';

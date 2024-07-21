@@ -17,6 +17,8 @@ class PropertyHighlightBaseAliens extends BaseTextImage
 
     protected string $name = 'Random NFTs Repeat For Property With Property Text';
 
+    protected string $description = 'Randomly select NFTs from the specified attribute and also highlight the specified attribute';
+
     public function __construct()
     {
         $this->optionsPerId = DataSeeder::get(DataSeeder::BASE_ALIENS_PROPERTIES_BY_ID);

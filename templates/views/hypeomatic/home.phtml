@@ -5,6 +5,9 @@
                 <h2>
                     Choose Project to Shill
                 </h2>
+                <h3 class="mb-3">
+                    Step 1: Choose for which project you want to shill an image
+                </h3>
                 <?php foreach (\App\Service\Projects\Projects::getAllPublic() as $projectSlug => $projectName): ?>
                     <a class="btn btn-lg btn-primary" href="<?=env('URL_HYPEOMATIC'); ?>/<?=\App\Service\Projects\Projects::getNeatPublicProjectStringForSlug($projectSlug); ?>">
                         <?=$projectName; ?>
@@ -14,12 +17,22 @@
         <?php else: ?>
             <div class="col col-12">
                 <h2>
-                    <?=\App\Service\Projects\Projects::getNameFromSlug($selectedProjectSlug); ?>
+                    <?php if (!$selectedImageType): ?>
+                        <a href="<?=env('URL_HYPEOMATIC'); ?>">
+                            <?=\App\Service\Projects\Projects::getNameFromSlug($selectedProjectSlug); ?>
+                        </a>
+                    <?php else: ?>
+                        <a href="<?=env('URL_HYPEOMATIC'); ?>/<?=\App\Service\Projects\Projects::getNeatPublicProjectStringForSlug($selectedProjectSlug); ?>">
+                            <?=\App\Service\Projects\Projects::getNameFromSlug($selectedProjectSlug); ?>
+                        </a>
+                    <?php endif; ?>
                 </h2>
             </div>
             <?php if (!$selectedImageType): ?>
                 <div class="col col-12">
-                    <h3>Choose Image Type</h3>
+                    <h3>
+                        Step 2: Choose an Image Type
+                    </h3>
                 </div>
                 <div class="col col-12">
                     <div class="container">
@@ -54,7 +67,9 @@
                 </div>
             <?php else: ?>
                 <div class="col col-12">
-                    <?=$selectedImageClass::getName(); ?>
+                    <h3>
+                        Step 3: Fill out OPTIONAL fields for "<?=$selectedImageClass::getName(); ?>"
+                    </h3>
                 </div>
                 <div class="col col-12 col-lg-5 col-md-10">
                     <div class="card">

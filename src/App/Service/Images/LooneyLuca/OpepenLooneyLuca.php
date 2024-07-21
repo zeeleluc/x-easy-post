@@ -17,6 +17,8 @@ class OpepenLooneyLuca extends BaseTextImage
 
     private string $type = '';
 
+    protected string $description = 'You can put your own text above Jack Butchers "Opepen"';
+
     public function __construct()
     {
         $this->canHaveImageText = true;

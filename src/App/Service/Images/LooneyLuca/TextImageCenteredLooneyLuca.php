@@ -16,6 +16,8 @@ class TextImageCenteredLooneyLuca extends BaseTextImage
 
     private string $text = '';
 
+    protected string $description = 'Shout a few words with 2 random Looney Luca\'s';
+
     public function __construct()
     {
         $this->canHaveImageText = true;

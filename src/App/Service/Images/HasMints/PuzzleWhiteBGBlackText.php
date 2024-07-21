@@ -10,6 +10,8 @@ class PuzzleWhiteBGBlackText extends BasePuzzle
 
     protected string $name = 'Puzzle White Background, Black Text';
 
+    protected string $description = 'A creative way to showcase something about this project';
+
     public function __construct()
     {
         $this->canHaveImageText = true;

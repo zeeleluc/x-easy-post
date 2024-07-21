@@ -20,6 +20,8 @@ class RegularRewind extends BaseImage
 
     protected string $imageExtension = 'gif';
 
+    protected string $description = 'This image type gives a regular RipplePunk Rewind by #ID';
+
     public function __construct()
     {
         $this->idRange = range(0, 9999);

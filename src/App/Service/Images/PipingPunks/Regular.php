@@ -11,6 +11,8 @@ class Regular extends BaseImage
 
     protected string $name = 'Regular NFT';
 
+    protected string $description = 'This image type gives a regular PipingPunk by #ID';
+
     public function __construct()
     {
         $this->idRange = range(0, 9999);

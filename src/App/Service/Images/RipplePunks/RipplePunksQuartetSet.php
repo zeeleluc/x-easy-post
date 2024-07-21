@@ -13,6 +13,8 @@ class RipplePunksQuartetSet extends BaseImage
 
     protected string $name = 'RipplePunks Quartet Set';
 
+    protected string $description = 'This image type gives a full quartet set for the chosen attribute';
+
     public function __construct()
     {
         $this->options = [

@@ -25,6 +25,8 @@ class TextImageCenteredBaseAliens extends BaseTextImage
 
     private string $type = '';
 
+    protected string $description = 'Shout a few words with BaseAliens on top, and below that you can optionally specify NFTs by ID or attribute';
+
     public function __construct()
     {
         $this->canHaveImageText = true;

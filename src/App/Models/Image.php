@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Guest;
 use App\Query\ImageQuery;
 use App\Service\Images\ImagesHelper;
+use App\Service\Projects\Projects;
 use App\UUID;
 use ArrayHelpers\Arr;
 use Carbon\Carbon;
@@ -194,6 +195,11 @@ class Image extends BaseModel
     public function getProjectName(): string
     {
         return convert_snakecase_to_project_name($this->project);
+    }
+
+    public function getProjectNeatUrlSlug(): string
+    {
+        return Projects::getNeatPublicProjectStringForSlug($this->project);
     }
 
     public function getTitle(): string

@@ -85,6 +85,13 @@ h2 {
     font-family: 'andhyta', serif;
 }
 
+h2 a,
+h2 a:hover,
+h2 a:active,
+h2 a:focus {
+    color: #111111;
+}
+
 h3 {
     font-size: 16px;
 }

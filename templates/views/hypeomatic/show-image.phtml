@@ -7,7 +7,11 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
 
-        <h2><?=$image->getProjectName(); ?></h2>
+        <h2>
+            <a href="<?=env('URL_HYPEOMATIC'); ?>/<?=$image->getProjectNeatUrlSlug(); ?>">
+                <?=$image->getProjectName(); ?>
+            </a>
+        </h2>
         <h3><?=$image->getTitle(); ?></h3>
 
         <div class="col col-lg-4">

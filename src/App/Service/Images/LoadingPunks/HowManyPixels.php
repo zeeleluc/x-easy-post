@@ -18,6 +18,8 @@ class HowManyPixels extends BaseImage
 
     protected string $name = 'How many pixels?';
 
+    protected string $description = 'Get a breakdown of all pixels per attribute, incl. a QR code that leads to the NFT on the LoadingPunks website';
+
     public function __construct()
     {
         $this->idRange = range(0, 9999);

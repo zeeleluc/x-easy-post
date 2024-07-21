@@ -16,6 +16,8 @@ class BaseImage
 
     protected string $imageExtension = 'png';
 
+    protected string $description = '';
+
     public static function getClassName(): string
     {
         $calledClass = get_called_class();

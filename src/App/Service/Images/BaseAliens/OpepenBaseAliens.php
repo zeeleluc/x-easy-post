@@ -25,6 +25,8 @@ class OpepenBaseAliens extends BaseTextImage
 
     private ?int $id = null;
 
+    protected string $description = 'You can put your own text above Jack Butchers "Opepen"';
+
     public function __construct()
     {
         $this->canHaveImageText = true;

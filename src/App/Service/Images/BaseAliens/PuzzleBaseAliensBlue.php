@@ -10,6 +10,8 @@ class PuzzleBaseAliensBlue extends BasePuzzle
 
     protected string $name = 'Puzzle';
 
+    protected string $description = 'A creative way to showcase something about this project';
+
     public function __construct()
     {
         $this->canHaveImageText = true;

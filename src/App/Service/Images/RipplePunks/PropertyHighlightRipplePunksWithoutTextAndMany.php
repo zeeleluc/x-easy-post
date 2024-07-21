@@ -19,6 +19,8 @@ class PropertyHighlightRipplePunksWithoutTextAndMany extends BaseTextImage
 
     protected string $name = 'RipplePunk surrounded by small RipplePunks';
 
+    protected string $description = 'Highlight RipplePunks with your favorite RipplePunk in the center';
+
     private ?int $id = null;
 
     private string $type = '';
