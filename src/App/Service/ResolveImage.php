@@ -414,8 +414,6 @@ class ResolveImage
         }
         if ($this->type) {
             $textImage->setType($this->type);
-        } else {
-            $textImage->setType($textImage->getRandomOption());
         }
 
         return $textImage->render();
