@@ -14,6 +14,8 @@ class BaseImage
 
     protected ?array $optionsPerId = [];
 
+    protected string $imageExtension = 'png';
+
     public static function getClassName(): string
     {
         $calledClass = get_called_class();
@@ -49,7 +51,14 @@ class BaseImage
 
     public static function getExampleImageUri(): string
     {
-        return self::getProjectSlug() . '/' . self::getSlug() . '.png';
+        return self::getProjectSlug() . '/' . self::getSlug() . '.' . self::getImageExtension();
+    }
+
+    public static function getImageExtension(): string
+    {
+        $calledClass = get_called_class();
+
+        return (new $calledClass())->imageExtension;
     }
 
     public static function getSlug(): string

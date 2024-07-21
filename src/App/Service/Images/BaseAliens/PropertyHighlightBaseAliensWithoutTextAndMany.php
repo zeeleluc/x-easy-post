@@ -67,9 +67,7 @@ class PropertyHighlightBaseAliensWithoutTextAndMany extends BaseTextImage
             $x = 100;
             for ($column = 0; $column < 16; ++$column) {
                 if (!$this->isSmallAlienOutOfRange($row, $column)) {
-                    if ($this->id) {
-                        $id = $this->id;
-                    } elseif ($this->type) {
+                    if ($this->type) {
                         $id = $this->getRandomIdForOption($this->type);
                     } else {
                         $id = $this->getRandomId();

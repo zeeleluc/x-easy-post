@@ -18,6 +18,8 @@ class Loading extends BaseImage
 
     protected string $name = 'Loading BaseAlien';
 
+    protected string $imageExtension = 'gif';
+
     public function __construct()
     {
         $this->idRange = range(1, 4444);
