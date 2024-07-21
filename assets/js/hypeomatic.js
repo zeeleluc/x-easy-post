@@ -81,6 +81,16 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
+        document.querySelectorAll('.redo-button').forEach(button => {
+            button.addEventListener('click', function(event) {
+                document.querySelectorAll('.redo-button').forEach(btn => {
+                    btn.classList.add('disabled');
+                    btn.style.pointerEvents = 'none';
+                    btn.textContent = 'One moment please...';
+                });
+            });
+        });
+
     } catch (error) {
         console.error('An error occurred:', error);
     }

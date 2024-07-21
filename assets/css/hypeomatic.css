@@ -227,3 +227,9 @@ p.disclaimer strong {
     background-color: #E76F51;
     color: #FFDE95;
 }
+
+.btn.disabled {
+    background-color: #d3d3d3;
+    border-color: #d3d3d3;
+    color: #888888;
+}

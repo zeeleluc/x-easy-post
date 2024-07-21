@@ -86,6 +86,10 @@ class Initialize extends BaseObject
             if ($get['action'] === 'image') {
                 return new Action\Actions\Hypeomatic\ShowImage();
             }
+
+            if ($get['action'] === 'redo') {
+                return new Action\Actions\Hypeomatic\Redo();
+            }
         }
 
         if (false === isset($get['action']) || (true === isset($get['action']) && '' === $get['action'])) {
