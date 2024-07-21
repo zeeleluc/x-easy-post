@@ -33,14 +33,6 @@
                     <h3>Step 2: Choose an Image Type</h3>
                 </div>
                 <div class="col col-12">
-                    <?php
-                    // Cache file existence checks
-                    $exampleImages = [];
-                    foreach ($projectImageTypes as $projectImageType) {
-                        $imageUri = $projectImageType::getExampleImageUri();
-                        $exampleImages[$imageUri] = file_exists('./assets/images/examples/' . $imageUri);
-                    }
-                    ?>
                     <div class="container">
                         <div class="row justify-content-center">
                             <?php foreach ($projectImageTypes as $projectImageType): ?>
@@ -52,11 +44,7 @@
                                         <div class="card-body">
                                             <?php $imageUri = $projectImageType::getExampleImageUri(); ?>
                                             <a href="<?= htmlspecialchars(env('URL_HYPEOMATIC')) . '/' . htmlspecialchars(\App\Service\Projects\Projects::getNeatPublicProjectStringForSlug($selectedProjectSlug)) . '/' . htmlspecialchars($projectImageType::getSlug()); ?>">
-                                                <?php if ($exampleImages[$imageUri]): ?>
-                                                    <img src="<?= htmlspecialchars('./assets/images/examples/' . $imageUri); ?>" class="img-fluid" />
-                                                <?php else: ?>
-                                                    Example Image Soon
-                                                <?php endif; ?>
+                                                <img src="<?= htmlspecialchars('./assets/images/examples/' . $imageUri); ?>" class="img-fluid" />
                                             </a>
                                         </div>
                                         <?php if ($description = $projectImageType::getDescription()): ?>
