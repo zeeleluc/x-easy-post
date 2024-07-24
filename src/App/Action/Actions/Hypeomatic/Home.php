@@ -97,8 +97,9 @@ class Home extends BaseFormAction
                     $validateFields[] = new ImageText('text_image', $value);
                 }
 
-                if ($value = $this->getRequest()->getPostParam('nft_id')) {
-                    $validateFields[] = new NFTID('nft_id', $value);
+                $nftId = $this->getRequest()->getPostParam('nft_id');
+                if (is_numeric($nftId)) {
+                    $validateFields[] = new NFTID('nft_id', $nftId);
                 }
 
                 if ($value = $this->getRequest()->getPostParam('type')) {
@@ -120,7 +121,7 @@ class Home extends BaseFormAction
         $textImage = $this->validatedFormValues['text_image'] ?: null;
         $textImage = trim($textImage);
         $imageType = $this->validatedFormValues['image'] ?: null;
-        $nftId = $this->validatedFormValues['nft_id'] ?: null;
+        $nftId = is_numeric($this->validatedFormValues['nft_id']) ? $this->validatedFormValues['nft_id'] : null;
         $type = $this->validatedFormValues['type'] ?: null;
 
         $resolvedImage = ResolveImage::make($imageType, $project,  [

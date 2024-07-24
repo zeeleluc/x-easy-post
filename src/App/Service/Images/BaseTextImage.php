@@ -1,6 +1,8 @@
 <?php
 namespace App\Service\Images;
 
+use App\Models\DataSeeder;
+
 class BaseTextImage extends BaseImage
 {
     public function getBasePunkTransparent(int $id = null, float $resize = 100): \Imagick
@@ -21,6 +23,23 @@ class BaseTextImage extends BaseImage
     }
 
     public function getRipplePunkFixedSize(int $id = null, float $resize = 100): \Imagick
+    {
+        if (!is_numeric($id)) {
+            $ids = range(0, 9999);
+            shuffle($ids);
+            $id = $ids[0];
+        }
+
+        $tmpPath = $this->getTempImageFromCDN(
+            'ripplepunks',
+            $id . '.png',
+            'ripplepunk.png'
+        );
+
+        return $this->getImage(realpath($tmpPath), $resize);
+    }
+
+    public function getRipplePunkFixedSizeTransparent(int $id = null, float $resize = 100): \Imagick
     {
         if (!$id) {
             $ids = range(0, 9999);
@@ -143,5 +162,12 @@ class BaseTextImage extends BaseImage
         chmod($path, 0777);
 
         return $path;
+    }
+
+    protected function getRipplePunksMetadata(int $id): array
+    {
+        $metadata = DataSeeder::get(DataSeeder::RIPPLE_PUNKS_METADATA);
+
+        return $metadata[$id];
     }
 }

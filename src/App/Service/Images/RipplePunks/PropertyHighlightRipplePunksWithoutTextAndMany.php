@@ -71,9 +71,9 @@ class PropertyHighlightRipplePunksWithoutTextAndMany extends BaseTextImage
                 if (!$this->isSmallPunkOutOfRange($row, $column)) {
                     if ($this->type) {
                         $id = $this->getRandomIdForOption($this->type);
-                        $smallPunk = $this->getRipplePunkFixedSize($id, 91.4);
+                        $smallPunk = $this->getRipplePunkFixedSizeTransparent($id, 91.4);
                     } else {
-                        $smallPunk = $this->getRipplePunkFixedSize(null, 91.4);
+                        $smallPunk = $this->getRipplePunkFixedSizeTransparent(null, 91.4);
                     }
                     $image->compositeImage($smallPunk, \Imagick::COMPOSITE_ATOP, $x, $y);
                 }
@@ -87,7 +87,7 @@ class PropertyHighlightRipplePunksWithoutTextAndMany extends BaseTextImage
         } else {
             $id = $this->id;
         }
-        $largePunk = $this->getRipplePunkFixedSize($id, 39.2);
+        $largePunk = $this->getRipplePunkFixedSizeTransparent($id, 39.2);
         $image->compositeImage($largePunk, \Imagick::COMPOSITE_ATOP, 325, 325);
 
         $draw = new \ImagickDraw();

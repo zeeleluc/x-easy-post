@@ -63,8 +63,8 @@ class Image extends BaseModel
             $image->textImage = $textImage;
         }
 
-        if ($nftId = Arr::get($values, 'nft_id')) {
-            $image->nftId = $nftId;
+        if (is_numeric(Arr::get($values, 'nft_id'))) {
+            $image->nftId = Arr::get($values, 'nft_id');
         }
 
         if ($nftType = Arr::get($values, 'nft_type')) {
@@ -114,7 +114,7 @@ class Image extends BaseModel
             $array['text_image'] = $this->textImage;
         }
 
-        if ($this->nftId) {
+        if (is_numeric($this->nftId)) {
             $array['nft_id'] = $this->nftId;
         }
 

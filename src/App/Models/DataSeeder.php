@@ -12,6 +12,7 @@ class DataSeeder
     const LOONEY_LUCA_BACKGROUND_COLOR_PER_ID = 'LOONEY-LUCA-BACKGROUND-COLOR-PER-ID';
     const WEEPING_PLEBS_BY_ID = 'WEEPING-PLEBS-BY-ID';
 
+    const RIPPLE_PUNKS_METADATA = 'RIPPLE-PUNKS-METADATA';
 
     public static function get(string $identifier): array
     {

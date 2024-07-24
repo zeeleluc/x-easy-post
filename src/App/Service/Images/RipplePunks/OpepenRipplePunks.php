@@ -108,12 +108,12 @@ class OpepenRipplePunks extends BaseTextImage
         $resize = 82.7; // will result in 100px width
 
         if ($this->id) {
-            $ripplePunk = $this->getRipplePunkFixedSize($this->id, $resize);
+            $ripplePunk = $this->getRipplePunkFixedSizeTransparent($this->id, $resize);
         } elseif ($this->type) {
             $id = $this->getRandomIdForOption($this->type);
-            $ripplePunk = $this->getRipplePunkFixedSize($id, $resize);
+            $ripplePunk = $this->getRipplePunkFixedSizeTransparent($id, $resize);
         } else {
-            $ripplePunk = $this->getRipplePunkFixedSize(null, $resize);
+            $ripplePunk = $this->getRipplePunkFixedSizeTransparent(null, $resize);
         }
 
         // background square

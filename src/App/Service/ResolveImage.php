@@ -27,6 +27,7 @@ use App\Service\Images\LooneyLuca\TextImageCenteredLooneyLuca;
 use App\Service\Images\LooneyLuca\TextSimpleLooneyLucaOrange;
 use App\Service\Images\PipingPunks\MovingPipingPunk;
 use App\Service\Images\RichLists\TextAdRichLists;
+use App\Service\Images\RipplePunks\LaserEyes;
 use App\Service\Images\RipplePunks\OpepenRipplePunks;
 use App\Service\Images\RipplePunks\PropertyHighlightRipplePunksWithoutTextAndMany;
 use App\Service\Images\RipplePunks\PuzzleRipplePunksBlue;
@@ -254,6 +255,16 @@ class ResolveImage
         }
         if (isset($chunks[3])) {
             $textImage->textFourthRow($chunks[3]);
+        }
+
+        return $textImage->render();
+    }
+
+    public function getRipplePunksLaserEyes(): array
+    {
+        $textImage = new LaserEyes();
+        if (is_numeric($this->id)) {
+            $textImage->setId($this->id);
         }
 
         return $textImage->render();

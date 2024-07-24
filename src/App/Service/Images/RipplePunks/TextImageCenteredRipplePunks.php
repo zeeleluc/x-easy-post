@@ -139,7 +139,7 @@ class TextImageCenteredRipplePunks extends BaseTextImage
         } else {
             $id = null;
         }
-        $image->compositeImage($this->getRipplePunkFixedSize($id, $resize), \Imagick::COMPOSITE_ATOP, $x, $y);
+        $image->compositeImage($this->getRipplePunkFixedSizeTransparent($id, $resize), \Imagick::COMPOSITE_ATOP, $x, $y);
     }
 
     private function getColor(): string
