@@ -72,7 +72,10 @@ class LaserEyes extends BaseTextImage
         $metadata = $this->getRipplePunksMetadata($this->id);
         foreach ($metadata['attributes'] as $attribute) {
             if ($attribute['trait_type'] === 'Type') {
-                $isMale = ($attribute['value'] === 'Male');
+                $isMale = ($attribute['value'] === 'Male') ||
+                    ($attribute['value'] === 'Zombie') ||
+                    ($attribute['value'] === 'Alien') ||
+                    ($attribute['value'] === 'Ape');
                 break;
             }
         }
