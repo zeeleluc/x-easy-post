@@ -136,12 +136,12 @@ class TextImageCenteredWeepingPlebs extends BaseTextImage
 
         $draw = new \ImagickDraw();
         $draw->setTextAlignment(\Imagick::ALIGN_CENTER);
-        $draw->setFont(ROOT . "/assets/fonts/downtown_street-webfont.ttf");
+        $draw->setFont(ROOT . "/assets/fonts/plebs_-_official_text_font_1-webfont.ttf");
         $draw->setFontSize($fontSize);
         $draw->setFillColor(new \ImagickPixel('#0C6DFD'));
 
         $y = 380;
-        if ($fontSize >= 60) {
+        if ($fontSize >= 70) {
             $y = 420;
         }
         $draw->annotation(400, $y, $text);
@@ -151,8 +151,8 @@ class TextImageCenteredWeepingPlebs extends BaseTextImage
 
     private function calculateFontSize(): int
     {
-        $baseFontSize = 120;
-        $minFontSize = 40;
+        $baseFontSize = 140;
+        $minFontSize = 50;
         $maxLength = 30;
         $rate = 0.4;
 

@@ -152,12 +152,12 @@ class OpepenWeepingPlebs extends BaseTextImage
 
         $draw = new \ImagickDraw();
         $draw->setTextAlignment(\Imagick::ALIGN_CENTER);
-        $draw->setFont(ROOT . "/assets/fonts/downtown_street-webfont.ttf");
+        $draw->setFont(ROOT . "/assets/fonts/plebs_-_official_text_font_1-webfont.ttf");
         $draw->setFontSize($fontSize);
         $draw->setFillColor(new \ImagickPixel('#0C6DFD'));
 
         $y = 100;
-        if ($fontSize >= 60) {
+        if ($fontSize >= 70) {
             $y = 110;
         }
         $draw->annotation(400, $y, $text);
@@ -167,7 +167,7 @@ class OpepenWeepingPlebs extends BaseTextImage
 
     private function calculateFontSize(): int
     {
-        $baseFontSize = 120;
+        $baseFontSize = 150;
         $minFontSize = 50;
         $maxLength = 30;
         $rate = 0.4;
