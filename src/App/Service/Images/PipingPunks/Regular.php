@@ -11,7 +11,7 @@ class Regular extends BaseImage
 
     protected string $name = 'Regular NFT';
 
-    protected string $description = 'This image type gives a regular PipingPunk by #ID';
+    protected string $description = 'This image type gives a regular PipingPunk by #ID (or random by property)';
 
     public function __construct()
     {

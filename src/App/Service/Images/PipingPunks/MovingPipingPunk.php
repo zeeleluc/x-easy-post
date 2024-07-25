@@ -20,7 +20,7 @@ class MovingPipingPunk extends BaseImage
 
     protected string $imageExtension = 'gif';
 
-    protected string $description = 'This image type gives a regular PipingPunk by #ID as a moving GIF variant';
+    protected string $description = 'This image type gives a regular PipingPunk by #ID (or random by property) as a moving GIF variant';
 
     public function __construct()
     {

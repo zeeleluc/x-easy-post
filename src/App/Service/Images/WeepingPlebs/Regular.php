@@ -1,5 +1,5 @@
 <?php
-namespace App\Service\Images\LoadingPunks;
+namespace App\Service\Images\WeepingPlebs;
 
 use App\Models\DataSeeder;
 use App\Service\Images\BaseImage;
@@ -10,22 +10,20 @@ use App\Service\Traits\HasOptionsPerId;
 
 class Regular extends BaseImage
 {
-    use HasOptions;
     use HasIdRange;
+    use HasOptions;
     use HasOptionsPerId;
 
-    protected string $project = Projects::LOADING_PUNKS;
+    protected string $project = Projects::WEEPING_PLEBS;
 
     protected string $name = 'Regular NFT';
 
-    protected string $description = 'This image type gives a regular LoadingPunk by #ID (or random by property)';
-
-    protected string $imageExtension = 'gif';
+    protected string $description = 'This image type gives a regular WeepingPleb by #ID (or random by property)';
 
     public function __construct()
     {
-        $this->idRange = range(0, 9999);
-        $this->optionsPerId = DataSeeder::get(DataSeeder::CRYPTO_PUNKS_PROPERTIES_BY_ID);
+        $this->idRange = range(1, 8888);
+        $this->optionsPerId = DataSeeder::get(DataSeeder::WEEPING_PLEBS_BY_ID);
         $this->options = array_keys($this->optionsPerId);
     }
 }

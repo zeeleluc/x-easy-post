@@ -40,6 +40,7 @@ use App\Service\Images\RipplePunks\TextImageCenteredRipplePunks;
 use App\Service\Images\RipplePunks\TextSimpleRipplePunksBlue;
 use App\Service\Images\WeepingPlebs\OpepenWeepingPlebs;
 use App\Service\Images\WeepingPlebs\TextImageCenteredWeepingPlebs;
+use App\Service\Images\WeepingPlebs\Regular as WeepingPlebRegular;
 
 class ResolveImage
 {
@@ -167,6 +168,19 @@ class ResolveImage
         }
 
         return download_remote_url_and_return_temp_path('ripplepunks', $this->id . '.png');
+    }
+
+    public function getWeepingPlebsRegular()
+    {
+        if (!$this->id) {
+            if ($this->type) {
+                $this->id = (new WeepingPlebRegular())->getRandomIdForOption($this->type);
+            } else {
+                $this->id = (new WeepingPlebRegular())->getRandomId();
+            }
+        }
+
+        return download_remote_url_and_return_temp_path('weeping-plebs-v4', $this->id . '.png');
     }
 
     public function getRipplePunksRegularRewind(): array

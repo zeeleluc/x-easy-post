@@ -62,6 +62,15 @@ $allPublicProjects = \App\Service\Projects\Projects::getAllPublic();
             <?php else: ?>
                 <div class="col col-12">
                     <h3>Step 3: Fill out OPTIONAL fields for "<?= htmlspecialchars($selectedImageClass::getName()); ?>"</h3>
+                    <?php if ($description = $selectedImageClass::getDescription()): ?>
+                        <p>
+                            <small>
+                                <em>
+                                    <?=$description; ?>
+                                </em>
+                            </small>
+                        </p>
+                    <?php endif; ?>
                 </div>
                 <div class="col col-12 col-lg-5 col-md-10">
                     <div class="card">
