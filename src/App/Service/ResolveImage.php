@@ -41,6 +41,7 @@ use App\Service\Images\RipplePunks\TextSimpleRipplePunksBlue;
 use App\Service\Images\WeepingPlebs\OpepenWeepingPlebs;
 use App\Service\Images\WeepingPlebs\TextImageCenteredWeepingPlebs;
 use App\Service\Images\WeepingPlebs\Regular as WeepingPlebRegular;
+use App\Service\Images\WeepingPlebs\WebsiteLinkQR;
 
 class ResolveImage
 {
@@ -494,6 +495,19 @@ class ResolveImage
         if ($this->text) {
             $textImage->setText($this->text);
         }
+        if ($this->id) {
+            $textImage->setId($this->id);
+        }
+        if ($this->type) {
+            $textImage->setType($this->type);
+        }
+
+        return $textImage->render();
+    }
+
+    public function getWeepingPlebsWebsiteLinkQR(): array
+    {
+        $textImage = new WebsiteLinkQR();
         if ($this->id) {
             $textImage->setId($this->id);
         }

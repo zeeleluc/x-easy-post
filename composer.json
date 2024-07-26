@@ -10,7 +10,8 @@
         "toin0u/digitalocean-v2": "^4.9",
         "guzzlehttp/guzzle": "^7.8",
         "http-interop/http-factory-guzzle": "^1.2",
-        "aws/aws-sdk-php": "^3.306"
+        "aws/aws-sdk-php": "^3.306",
+        "chillerlan/php-qrcode": "^5.0"
     },
     "config": {
         "allow-plugins": {

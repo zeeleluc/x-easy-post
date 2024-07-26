@@ -85,10 +85,10 @@ class OpepenWeepingPlebs extends BaseTextImage
         $rowsY = [200, 300, 400, 500, 700];
         foreach ($rowsY as $rowY) {
             shuffle($colors);
-            $this->pasteRipplePunk($image, $colors[0], 2 * 100, $rowY);
-            $this->pasteRipplePunk($image, $colors[1], 3 * 100, $rowY);
-            $this->pasteRipplePunk($image, $colors[2], 4 * 100, $rowY);
-            $this->pasteRipplePunk($image, $colors[3], 5 * 100, $rowY);
+            $this->pasteWeepingPleb($image, $colors[0], 2 * 100, $rowY);
+            $this->pasteWeepingPleb($image, $colors[1], 3 * 100, $rowY);
+            $this->pasteWeepingPleb($image, $colors[2], 4 * 100, $rowY);
+            $this->pasteWeepingPleb($image, $colors[3], 5 * 100, $rowY);
         }
 
         if ($this->text) {
@@ -103,7 +103,7 @@ class OpepenWeepingPlebs extends BaseTextImage
         ];
     }
 
-    private function pasteRipplePunk(\Imagick &$image, string $color, int $x, int $y)
+    private function pasteWeepingPleb(\Imagick &$image, string $color, int $x, int $y)
     {
         $resize = 90; // will result in 100px width
 
