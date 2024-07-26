@@ -9,7 +9,6 @@ use App\Service\Traits\HasIdRange;
 use App\Service\Traits\HasOptions;
 use App\Service\Traits\HasOptionsPerId;
 use App\Slack;
-use chillerlan\QRCode\Common\GDLuminanceSource;
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
 
@@ -22,8 +21,7 @@ class WebsiteLinkQR extends BaseTextImage
 
     protected string $project = Projects::WEEPING_PLEBS;
 
-    protected string $name = 'Regular NFT With QR Code
-';
+    protected string $name = 'Regular NFT With QR Code';
 
     private string $text = '';
 
@@ -89,22 +87,22 @@ class WebsiteLinkQR extends BaseTextImage
             $draw->annotation(485, 125, '#' . $this->id);
             $image->drawImage($draw);
 
-//            # Create QR Code
-//            $tempQR = ROOT . '/tmp/qr.png';
-//            $data = 'https://weepingplebs.hasmints.com/weepingpleb/' . $this->id;
-//            $options = new QROptions([
-//                'outputType' => QRCode::OUTPUT_IMAGE_PNG,
-//                'eccLevel' => QRCode::ECC_L, // Error correction level
-//                'scale' => 5, // Size of each QR code module
-//            ]);
-//            $qrcode = new QRCode($options);
-//            $qrcode->render($data, $tempQR);
-//
-//            # Composite QR Code
-//            $imagick = new \Imagick($tempQR);
-//            $imagick->setImageBackgroundColor("gray");
-//            $imagick->resizeimage(250, 250, \Imagick::FILTER_LANCZOS, 1.0, true);
-//            $image->compositeImage($imagick, \Imagick::COMPOSITE_ATOP, 545, 100);
+            # Create QR Code
+            $tempQR = ROOT . '/tmp/qr.png';
+            $data = 'https://weepingplebs.hasmints.com/weepingpleb/' . $this->id;
+            $options = new QROptions([
+                'outputType' => QRCode::OUTPUT_IMAGE_PNG,
+                'eccLevel' => QRCode::ECC_L, // Error correction level
+                'scale' => 5, // Size of each QR code module
+            ]);
+            $qrcode = new QRCode($options);
+            $qrcode->render($data, $tempQR);
+
+            # Composite QR Code
+            $imagick = new \Imagick($tempQR);
+            $imagick->setImageBackgroundColor("gray");
+            $imagick->resizeimage(250, 250, \Imagick::FILTER_LANCZOS, 1.0, true);
+            $image->compositeImage($imagick, \Imagick::COMPOSITE_ATOP, 545, 100);
 
             # Arrow
             $arrow = new \Imagick(realpath(ROOT . '/assets/images/90-degrees-arrow.png'));
