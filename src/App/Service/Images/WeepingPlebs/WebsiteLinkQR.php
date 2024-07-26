@@ -89,22 +89,22 @@ class WebsiteLinkQR extends BaseTextImage
             $draw->annotation(485, 125, '#' . $this->id);
             $image->drawImage($draw);
 
-            # Create QR Code
-            $tempQR = ROOT . '/tmp/qr.png';
-            $data = 'https://weepingplebs.hasmints.com/weepingpleb/' . $this->id;
-            $options = new QROptions([
-                'outputType' => QRCode::OUTPUT_IMAGE_PNG,
-                'eccLevel' => QRCode::ECC_L, // Error correction level
-                'scale' => 5, // Size of each QR code module
-            ]);
-            $qrcode = new QRCode($options);
-            $qrcode->render($data, $tempQR);
-
-            # Composite QR Code
-            $imagick = new \Imagick($tempQR);
-            $imagick->setImageBackgroundColor("gray");
-            $imagick->resizeimage(250, 250, \Imagick::FILTER_LANCZOS, 1.0, true);
-            $image->compositeImage($imagick, \Imagick::COMPOSITE_ATOP, 545, 100);
+//            # Create QR Code
+//            $tempQR = ROOT . '/tmp/qr.png';
+//            $data = 'https://weepingplebs.hasmints.com/weepingpleb/' . $this->id;
+//            $options = new QROptions([
+//                'outputType' => QRCode::OUTPUT_IMAGE_PNG,
+//                'eccLevel' => QRCode::ECC_L, // Error correction level
+//                'scale' => 5, // Size of each QR code module
+//            ]);
+//            $qrcode = new QRCode($options);
+//            $qrcode->render($data, $tempQR);
+//
+//            # Composite QR Code
+//            $imagick = new \Imagick($tempQR);
+//            $imagick->setImageBackgroundColor("gray");
+//            $imagick->resizeimage(250, 250, \Imagick::FILTER_LANCZOS, 1.0, true);
+//            $image->compositeImage($imagick, \Imagick::COMPOSITE_ATOP, 545, 100);
 
             # Arrow
             $arrow = new \Imagick(realpath('assets/images/90-degrees-arrow.png'));
