@@ -8,6 +8,7 @@ use App\Service\Projects\Projects;
 use App\Service\Traits\HasIdRange;
 use App\Service\Traits\HasOptions;
 use App\Service\Traits\HasOptionsPerId;
+use App\Slack;
 use chillerlan\QRCode\Common\GDLuminanceSource;
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
@@ -60,82 +61,87 @@ class WebsiteLinkQR extends BaseTextImage
 
     public function render(): array
     {
-        $filename = uniqid() . '.png';
-        $urlTMP = ROOT . '/tmp/' . $filename;
+        try {
+            $filename = uniqid() . '.png';
+            $urlTMP = ROOT . '/tmp/' . $filename;
 
-        $image = new \Imagick();
-        $image->newImage(800, 800, '#FFFFFF');
-        $image->setImageFormat("png");
+            $image = new \Imagick();
+            $image->newImage(800, 800, '#FFFFFF');
+            $image->setImageFormat("png");
 
-        # Image: "The Weeping Pleb"
-        $this->pasteWeepingPleb($image, '#ffffff', 30, 200);
+            # Image: "The Weeping Pleb"
+            $this->pasteWeepingPleb($image, '#ffffff', 30, 200);
 
-        # Text: "Weeping Pleb"
-        $draw = new \ImagickDraw();
-        $draw->setFont(ROOT . "/assets/fonts/plebs_-_official_text_font_1-webfont.ttf");
-        $draw->setFontSize(80);
-        $draw->setFillColor('#2E6EFD');
-        $draw->annotation(40, 90, 'Weeping Pleb');
-        $image->drawImage($draw);
+            # Text: "Weeping Pleb"
+            $draw = new \ImagickDraw();
+            $draw->setFont(ROOT . "/assets/fonts/plebs_-_official_text_font_1-webfont.ttf");
+            $draw->setFontSize(80);
+            $draw->setFillColor('#2E6EFD');
+            $draw->annotation(40, 90, 'Weeping Pleb');
+            $image->drawImage($draw);
 
-        # Text: #123 (ID)
-        $draw = new \ImagickDraw();
-        $draw->setFont(ROOT . "/assets/fonts/Ubuntu-Light.ttf");
-        $draw->setTextAlignment(\Imagick::ALIGN_RIGHT);
-        $draw->setFontSize(25);
-        $draw->setFillColor('#B30A21');
-        $draw->annotation(485, 125, '#' . $this->id);
-        $image->drawImage($draw);
+            # Text: #123 (ID)
+            $draw = new \ImagickDraw();
+            $draw->setFont(ROOT . "/assets/fonts/Ubuntu-Light.ttf");
+            $draw->setTextAlignment(\Imagick::ALIGN_RIGHT);
+            $draw->setFontSize(25);
+            $draw->setFillColor('#B30A21');
+            $draw->annotation(485, 125, '#' . $this->id);
+            $image->drawImage($draw);
 
-        # Create QR Code
-        $tempQR = ROOT . '/tmp/qr.png';
-        $data = 'https://weepingplebs.hasmints.com/weepingpleb/' . $this->id;
-        $options = new QROptions([
-            'outputType' => QRCode::OUTPUT_IMAGE_PNG,
-            'eccLevel' => QRCode::ECC_L, // Error correction level
-            'scale' => 5, // Size of each QR code module
-        ]);
-        $qrcode = new QRCode($options);
-        $qrcode->render($data, $tempQR);
+            # Create QR Code
+            $tempQR = ROOT . '/tmp/qr.png';
+            $data = 'https://weepingplebs.hasmints.com/weepingpleb/' . $this->id;
+            $options = new QROptions([
+                'outputType' => QRCode::OUTPUT_IMAGE_PNG,
+                'eccLevel' => QRCode::ECC_L, // Error correction level
+                'scale' => 5, // Size of each QR code module
+            ]);
+            $qrcode = new QRCode($options);
+            $qrcode->render($data, $tempQR);
 
-        # Composite QR Code
-        $imagick = new \Imagick($tempQR);
-        $imagick->setImageBackgroundColor("gray");
-        $imagick->resizeimage(250, 250, \Imagick::FILTER_LANCZOS, 1.0, true);
-        $image->compositeImage($imagick, \Imagick::COMPOSITE_ATOP, 545, 100);
+            # Composite QR Code
+            $imagick = new \Imagick($tempQR);
+            $imagick->setImageBackgroundColor("gray");
+            $imagick->resizeimage(250, 250, \Imagick::FILTER_LANCZOS, 1.0, true);
+            $image->compositeImage($imagick, \Imagick::COMPOSITE_ATOP, 545, 100);
 
-        # Arrow
-        $arrow = new \Imagick(realpath('assets/images/90-degrees-arrow.png'));
-        $arrow->resizeimage(120, 120, \Imagick::FILTER_LANCZOS, 1.0, true);
-        $arrow->rotateImage(new \ImagickPixel('rgba(0,0,0,0)'), -40);
-        $image->compositeImage($arrow, \Imagick::COMPOSITE_ATOP, 570, 340);
+            # Arrow
+            $arrow = new \Imagick(realpath('assets/images/90-degrees-arrow.png'));
+            $arrow->resizeimage(120, 120, \Imagick::FILTER_LANCZOS, 1.0, true);
+            $arrow->rotateImage(new \ImagickPixel('rgba(0,0,0,0)'), -40);
+            $image->compositeImage($arrow, \Imagick::COMPOSITE_ATOP, 570, 340);
 
-        # Text: Check
-        $draw = new \ImagickDraw();
-        $draw->setFont(ROOT . "/assets/fonts/plebs_-_official_text_font_1-webfont.ttf");
-        $draw->setFontSize(70);
-        $draw->setFillColor('#2E6EFD');
-        $draw->annotation(570, 580, 'Check');
-        $image->drawImage($draw);
+            # Text: Check
+            $draw = new \ImagickDraw();
+            $draw->setFont(ROOT . "/assets/fonts/plebs_-_official_text_font_1-webfont.ttf");
+            $draw->setFontSize(70);
+            $draw->setFillColor('#2E6EFD');
+            $draw->annotation(570, 580, 'Check');
+            $image->drawImage($draw);
 
-        # Text: Traits
-        $draw = new \ImagickDraw();
-        $draw->setFont(ROOT . "/assets/fonts/plebs_-_official_text_font_1-webfont.ttf");
-        $draw->setFontSize(60);
-        $draw->setFillColor('#2E6EFD');
-        $draw->annotation(600, 645, 'Traits');
-        $image->drawImage($draw);
+            # Text: Traits
+            $draw = new \ImagickDraw();
+            $draw->setFont(ROOT . "/assets/fonts/plebs_-_official_text_font_1-webfont.ttf");
+            $draw->setFontSize(60);
+            $draw->setFillColor('#2E6EFD');
+            $draw->annotation(600, 645, 'Traits');
+            $image->drawImage($draw);
 
-        # Text: (footer) "www.weepingplebs.com"
-        $draw = new \ImagickDraw();
-        $draw->setTextAlignment(\Imagick::ALIGN_RIGHT);
-        $draw->setFont(ROOT . "/assets/fonts/Ubuntu-Light.ttf");
-        $draw->setFontSize(25);
-        $draw->setFillColor('#000000');
-        $draw->annotation(545, 755, 'www.weepingplebs.com');
-        $image->drawImage($draw);
+            # Text: (footer) "www.weepingplebs.com"
+            $draw = new \ImagickDraw();
+            $draw->setTextAlignment(\Imagick::ALIGN_RIGHT);
+            $draw->setFont(ROOT . "/assets/fonts/Ubuntu-Light.ttf");
+            $draw->setFontSize(25);
+            $draw->setFillColor('#000000');
+            $draw->annotation(545, 755, 'www.weepingplebs.com');
+            $image->drawImage($draw);
 
-        $image->writeImage($urlTMP);
+            $image->writeImage($urlTMP);
+
+        } catch (\Exception $e) {
+            (new Slack())->sendErrorMessage($e->getMessage());
+        }
 
         return [
             'urlCDN' => $this->upload($urlTMP, $filename),
