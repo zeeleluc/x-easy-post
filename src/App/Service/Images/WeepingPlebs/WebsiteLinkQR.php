@@ -107,7 +107,7 @@ class WebsiteLinkQR extends BaseTextImage
 //            $image->compositeImage($imagick, \Imagick::COMPOSITE_ATOP, 545, 100);
 
             # Arrow
-            $arrow = new \Imagick(realpath('assets/images/90-degrees-arrow.png'));
+            $arrow = new \Imagick(realpath(ROOT . '/assets/images/90-degrees-arrow.png'));
             $arrow->resizeimage(120, 120, \Imagick::FILTER_LANCZOS, 1.0, true);
             $arrow->rotateImage(new \ImagickPixel('rgba(0,0,0,0)'), -40);
             $image->compositeImage($arrow, \Imagick::COMPOSITE_ATOP, 570, 340);
