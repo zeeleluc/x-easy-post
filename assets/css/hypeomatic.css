@@ -191,12 +191,12 @@ label {
 
 p.disclaimer {
     color: #2f3922;
-    line-height: 25px;
-    font-size: 12px;
+    font-size: 14px;
+    line-height: 140%;
 }
 p.disclaimer strong {
-    font-size: 14px;
-    margin-bottom: 1px;
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
 .container-color-1 {
