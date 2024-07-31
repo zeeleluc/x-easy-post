@@ -24,6 +24,8 @@ class Projects
     const XRPEPENS = 'XRPepens';
     const WEEPING_PLEBS = 'WeepingPlebs';
 
+    const MONEY_MINDED_APES = 'Money Minded Apes';
+
     public static function getAll(): array
     {
         $projects = [
@@ -53,6 +55,7 @@ class Projects
             flatten_string(self::LOONEY_LUCA) => self::LOONEY_LUCA,
             flatten_string(self::BASE_ALIENS) => self::BASE_ALIENS,
             flatten_string(self::WEEPING_PLEBS) => self::WEEPING_PLEBS,
+            flatten_string(self::MONEY_MINDED_APES) => self::MONEY_MINDED_APES,
         ];
 
         asort($projects);
