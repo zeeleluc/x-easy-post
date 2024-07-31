@@ -32,7 +32,7 @@ body {
 
 header {
     background-color: #E76F51;
-    padding: 30px;
+    padding: 20px 0 10px 0;
 }
 
 @media (max-width: 768px) {
@@ -42,7 +42,7 @@ header {
 }
 
 main {
-    padding: 5px 0 10px 0;
+    padding: 5px 0 0 0;
     background-color: #D9EDBF;
 }
 
@@ -80,8 +80,8 @@ h1 a {
 }
 
 h2 {
-    margin-top: 50px !important;
-    font-size: 48px;
+    margin-top: 30px !important;
+    font-size: 42px;
     font-family: 'andhyta', serif;
 }
 
