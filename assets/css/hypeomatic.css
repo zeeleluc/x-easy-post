@@ -103,7 +103,18 @@ hr {
 
 .card {
     border: 6px solid #c2d9a4;
+    background-color: #c2d9a4;
     margin: 20px 0;
+}
+
+a.card:hover {
+    border-color: #abc28d;
+    background-color: #abc28d;
+}
+
+a.card {
+    color: black;
+    text-decoration: none;
 }
 
 .card-header,
@@ -114,7 +125,6 @@ hr {
 }
 
 .card-header {
-    background-color: #c2d9a4;
     padding: 20px 0;
     border-radius: 0 !important;
 }

@@ -4,18 +4,14 @@
  */
 ?>
 
-<div class="card">
+<a class="card" href="<?=env('URL_HYPEOMATIC'); ?>/<?=$image->getProjectNeatUrlSlug(); ?>">
     <?php if (!$selectedProjectSlug): ?>
         <div class="card-header">
-            <a href="<?=env('URL_HYPEOMATIC'); ?>/<?=$image->getProjectNeatUrlSlug(); ?>">
-                <?=$image->getProjectName(); ?>
-            </a>
+            <?=$image->getProjectName(); ?>
         </div>
     <?php endif; ?>
     <div class="card-body">
-        <a href="<?=$image->getUrl(); ?>">
-            <img class="img-fluid" src="<?=$image->url; ?>" />
-        </a>
+        <img class="img-fluid" src="<?=$image->url; ?>" />
     </div>
-</div>
+</a>
 

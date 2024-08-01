@@ -38,22 +38,20 @@ $allPublicProjects = \App\Service\Projects\Projects::getAllPublic();
                         <div class="row justify-content-center">
                             <?php foreach ($projectImageTypes as $projectImageType): ?>
                                 <div class="col col-12 col-md-6 col-lg-3">
-                                    <div class="card">
+                                    <a class="card" href="<?= htmlspecialchars(env('URL_HYPEOMATIC')) . '/' . htmlspecialchars(\App\Service\Projects\Projects::getNeatPublicProjectStringForSlug($selectedProjectSlug)) . '/' . htmlspecialchars($projectImageType::getSlug()); ?>">
                                         <div class="card-header">
                                             <?= htmlspecialchars($projectImageType::getName()); ?>
                                         </div>
                                         <div class="card-body">
                                             <?php $imageUri = $projectImageType::getExampleImageUri(); ?>
-                                            <a href="<?= htmlspecialchars(env('URL_HYPEOMATIC')) . '/' . htmlspecialchars(\App\Service\Projects\Projects::getNeatPublicProjectStringForSlug($selectedProjectSlug)) . '/' . htmlspecialchars($projectImageType::getSlug()); ?>">
-                                                <img src="<?= htmlspecialchars('./assets/images/examples/' . $imageUri); ?>" class="img-fluid" />
-                                            </a>
+                                            <img src="<?= htmlspecialchars('./assets/images/examples/' . $imageUri); ?>" class="img-fluid" />
                                         </div>
                                         <?php if ($description = $projectImageType::getDescription()): ?>
                                             <div class="card-footer">
                                                 <?= htmlspecialchars($description); ?>
                                             </div>
                                         <?php endif; ?>
-                                    </div>
+                                    </a>
                                 </div>
                             <?php endforeach; ?>
                         </div>
