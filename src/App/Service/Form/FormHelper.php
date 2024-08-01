@@ -15,6 +15,7 @@ class FormHelper
     public bool $hasImageText = false;
     public ?string $imageText = '';
     public ?array $nftIdRange = null;
+    public ?string $nftIdPlaceholder = null;
     public ?int $nftId = null;
     public ?array $options = [];
     public ?string $selectedOption = '';
@@ -52,6 +53,7 @@ class FormHelper
                 $imageClass = $this->imagesHelper->getImageClassForProjectBySlug($projectName, $this->selectedImage);
                 if ($imageClass) {
                     $this->nftIdRange = $imageClass::getIdRange();
+                    $this->nftIdPlaceholder = $imageClass::getNftIdPlaceholder();
                     $this->hasImageText = $imageClass::canHaveImageText();
                     $this->options = $imageClass::getOptions();
                 }

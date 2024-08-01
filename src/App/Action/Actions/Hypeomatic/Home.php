@@ -23,7 +23,6 @@ class Home extends BaseFormAction
         $this->setLayout('hypeomatic');
         $this->setView('hypeomatic/home');
 
-
         if ($this->getRequest()->isGet()) {
             $this->performGet();
         } elseif ($this->getRequest()->isPost()) {
@@ -99,7 +98,10 @@ class Home extends BaseFormAction
 
                 $nftId = $this->getRequest()->getPostParam('nft_id');
                 if (is_numeric($nftId)) {
-                    $validateFields[] = new NFTID('nft_id', $nftId);
+                    $validateFields[] = new NFTID(
+                        'nft_id',
+                        $nftId,
+                        ImagesHelper::getImageClassByProjectAndSlug($project, $image));
                 }
 
                 if ($value = $this->getRequest()->getPostParam('type')) {

@@ -42,6 +42,7 @@ use App\Service\Images\WeepingPlebs\OpepenWeepingPlebs;
 use App\Service\Images\WeepingPlebs\TextImageCenteredWeepingPlebs;
 use App\Service\Images\WeepingPlebs\Regular as WeepingPlebRegular;
 use App\Service\Images\WeepingPlebs\WebsiteLinkQR;
+use App\Service\Images\MoneyMindedApes\Regular as MoneyMindedApesRegular;
 
 class ResolveImage
 {
@@ -91,6 +92,19 @@ class ResolveImage
         }
 
         return null;
+    }
+
+    public function getMoneyMindedApesRegular(): array
+    {
+        if (!$this->id) {
+            if ($this->type) {
+                $this->id = (new MoneyMindedApesRegular())->getRandomIdForOption($this->type);
+            } else {
+                $this->id = (new MoneyMindedApesRegular())->getRandomId();
+            }
+        }
+
+        return download_remote_url_and_return_temp_path('moneymindedapes', $this->id . '.png');
     }
 
     private function getLooneyLucaRegular(): array

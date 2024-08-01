@@ -110,6 +110,10 @@ class Projects
             return flatten_string(self::WEEPING_PLEBS);
         }
 
+        if ($neatProjectString === 'moneymindedapes') {
+            return flatten_string(self::MONEY_MINDED_APES);
+        }
+
         return null;
     }
 }

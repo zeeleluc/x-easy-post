@@ -8,6 +8,8 @@ class BaseImage
 {
     protected ?array $idRange = null;
 
+    protected ?string $nftIdPlaceholder = null;
+
     protected ?bool $canHaveImageText = false;
 
     protected ?array $options = [];
@@ -73,6 +75,13 @@ class BaseImage
         $calledClass = get_called_class();
 
         return (new $calledClass())->idRange;
+    }
+
+    public static function getNftIdPlaceholder():? string
+    {
+        $calledClass = get_called_class();
+
+        return (new $calledClass())->nftIdPlaceholder;
     }
 
     public static function canHaveImageText():? bool
