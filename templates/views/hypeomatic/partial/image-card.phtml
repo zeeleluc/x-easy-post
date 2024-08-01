@@ -4,7 +4,7 @@
  */
 ?>
 
-<a class="card" href="<?=env('URL_HYPEOMATIC'); ?>/<?=$image->getProjectNeatUrlSlug(); ?>">
+<a class="card" href="<?=$image->getUrl(); ?>">
     <?php if (!$selectedProjectSlug): ?>
         <div class="card-header">
             <?=$image->getProjectName(); ?>
