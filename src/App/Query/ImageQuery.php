@@ -90,14 +90,24 @@ class ImageQuery extends Query
      * @return array|Image[]
      * @throws \Exception
      */
-    public function getRecentImages(int $limit = 100): array
+    public function getRecentImages(int $limit = 100, string $projectSlug = null): array
     {
-        $sql = <<<SQL
+        if ($projectSlug) {
+            $sql = <<<SQL
+SELECT id, uuid, created_by, project, image_type, text_image, nft_id, nft_type, url, can_redo, created_at
+    FROM {$this->table}
+    WHERE `project` = '{$projectSlug}'
+    ORDER BY created_at DESC
+    LIMIT ?;
+SQL;
+        } else {
+            $sql = <<<SQL
 SELECT id, uuid, created_by, project, image_type, text_image, nft_id, nft_type, url, can_redo, created_at
     FROM {$this->table}
     ORDER BY created_at DESC
     LIMIT ?;
 SQL;
+        }
 
         $results = $this->db->rawQuery($sql, [$limit]);
 

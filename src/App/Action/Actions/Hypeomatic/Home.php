@@ -74,7 +74,12 @@ class Home extends BaseFormAction
                 $imageType
             )));
         }
-        $this->setVariable(new Variable('recentImages', $this->getImageQuery()->getRecentImages(8)));
+
+        if ($projectSlug) {
+            $this->setVariable(new Variable('recentImages', $this->getImageQuery()->getRecentImages(8, $projectSlug)));
+        } else {
+            $this->setVariable(new Variable('recentImages', $this->getImageQuery()->getRecentImages(8)));
+        }
     }
 
     /**

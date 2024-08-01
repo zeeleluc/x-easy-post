@@ -55,31 +55,40 @@ class Cli extends BaseAction
 
         if ($this->action === 'read-metadata') {
 
+
             $data = [];
-            foreach (glob(ROOT . '/data/weepingplebs/*.json') as $metadata) {
+            $idData = [];
+            foreach (glob(ROOT . '/data/*.json') as $metadata) {
 
                 $metadata = (array) json_decode(file_get_contents($metadata), true);
                 $name = $metadata['name'];
-                $id = (int) str_replace('WeepingPleb #', '', $name);
+                $name = str_replace('Money Minded Ape ', '', $name);
+                $id = (int) str_replace('#', '', $name);
 
-                foreach ($metadata['attributes'] as $attribute) {
-                    if (!is_numeric($attribute['value'])) {
-                        $attribute['value'] = trim($attribute['value']);
-                        if (!array_key_exists('Attribute:' . $attribute['value'], $data)) {
-                            $data['Attribute:' . $attribute['value']] = [];
+                if (file_exists(ROOT . '/data/img/' . $id . '.png')) {
+                    $idData[] = $id;
+
+                    foreach ($metadata['attributes'] as $attribute) {
+                        if (!is_numeric($attribute['value'])) {
+                            $attribute['value'] = trim($attribute['value']);
+                            if (!array_key_exists('Attribute:' . $attribute['value'], $data)) {
+                                $data['Attribute:' . $attribute['value']] = [];
+                            }
+                        }
+                    }
+
+                    foreach ($metadata['attributes'] as $attribute) {
+                        if (!is_numeric($attribute['value'])) {
+                            $attribute['value'] = trim($attribute['value']);
+                            $data['Attribute:' . $attribute['value']][] = $id;
                         }
                     }
                 }
 
-                foreach ($metadata['attributes'] as $attribute) {
-                    if (!is_numeric($attribute['value'])) {
-                        $attribute['value'] = trim($attribute['value']);
-                        $data['Attribute:' . $attribute['value']][] = $id;
-                    }
-                }
             }
 
-            file_put_contents('./migrations/migration_data/weepingplebs.json', json_encode($data));
+            file_put_contents('./migrations/migration_data/moneymindedapes.json', json_encode($data));
+            file_put_contents('./migrations/migration_data/moneymindedapes-ids.json', json_encode($idData));
         }
     }
 }
