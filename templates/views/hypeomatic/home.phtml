@@ -2,15 +2,14 @@
 $allPublicProjects = \App\Service\Projects\Projects::getAllPublic();
 ?>
 <div class="container">
-    <div class="row justify-content-center pb-5">
+    <div class="row justify-content-center pb-3">
         <?php if (!$selectedProjectSlug): ?>
             <div class="col col-12 pb-5">
                 <h2>Choose Project to Shill</h2>
-                <h3 class="mb-3">Step 1: Choose for which project you want to shill an image</h3>
                 <?php
                 foreach ($allPublicProjects as $projectSlug => $projectName):
                     ?>
-                    <a class="btn btn-lg btn-primary" href="<?= htmlspecialchars(env('URL_HYPEOMATIC')) . '/' . htmlspecialchars(\App\Service\Projects\Projects::getNeatPublicProjectStringForSlug($projectSlug)); ?>">
+                    <a class="btn btn-primary" href="<?= htmlspecialchars(env('URL_HYPEOMATIC')) . '/' . htmlspecialchars(\App\Service\Projects\Projects::getNeatPublicProjectStringForSlug($projectSlug)); ?>">
                         <?= htmlspecialchars($projectName); ?>
                     </a>
                 <?php endforeach; ?>
@@ -31,7 +30,7 @@ $allPublicProjects = \App\Service\Projects\Projects::getAllPublic();
             </div>
             <?php if (!$selectedImageType): ?>
                 <div class="col col-12">
-                    <h3>Step 2: Choose an Image Type</h3>
+                    <h3>Choose an Image Type</h3>
                 </div>
                 <div class="col col-12">
                     <div class="container">
@@ -59,16 +58,7 @@ $allPublicProjects = \App\Service\Projects\Projects::getAllPublic();
                 </div>
             <?php else: ?>
                 <div class="col col-12">
-                    <h3>Step 3: Fill out OPTIONAL fields for "<?= htmlspecialchars($selectedImageClass::getName()); ?>"</h3>
-                    <?php if ($description = $selectedImageClass::getDescription()): ?>
-                        <p>
-                            <small>
-                                <em>
-                                    <?=$description; ?>
-                                </em>
-                            </small>
-                        </p>
-                    <?php endif; ?>
+                    <h3>Fill out OPTIONAL fields for "<?= htmlspecialchars($selectedImageClass::getName()); ?>"</h3>
                 </div>
                 <div class="col col-12 col-lg-5 col-md-10">
                     <div class="card">
@@ -91,6 +81,13 @@ $allPublicProjects = \App\Service\Projects\Projects::getAllPublic();
                     <div class="card">
                         <div class="card-header">
                             Example Image
+                            <?php if ($description = $selectedImageClass::getDescription()): ?>
+                                <br />
+                                <div class="sub">
+                                    <?=$description; ?>
+                                </div>
+                            <?php endif; ?>
+
                         </div>
                         <div class="card-body">
                             <?php $imageUri = $selectedImageClass::getExampleImageUri(); ?>
