@@ -22,6 +22,40 @@ class BaseTextImage extends BaseImage
         return $this->getImage(realpath($tmpPath), $resize);
     }
 
+    public function getCryptoPunkTransparent(int $id = null, float $resize = 100): \Imagick
+    {
+        if (!$id) {
+            $ids = range(0, 9999);
+            shuffle($ids);
+            $id = $ids[0];
+        }
+
+        $tmpPath = $this->getTempImageFromCDN(
+            'cryptopunks-transparent-background',
+            $id . '.png',
+            'cryptopunks-transparent-background.png'
+        );
+
+        return $this->getImage(realpath($tmpPath), $resize);
+    }
+
+    public function getCryptoPunkFixedSize(int $id = null, int $width = 100, int $height = 100): \Imagick
+    {
+        if (!$id) {
+            $ids = range(0, 9999);
+            shuffle($ids);
+            $id = $ids[0];
+        }
+
+        $tmpPath = $this->getTempImageFromCDN(
+            'cryptopunks-transparent-background',
+            $id . '.png',
+            'cryptopunks-transparent-background.png'
+        );
+
+        return $this->getImageFixedSize(realpath($tmpPath), $width, $height);
+    }
+
     public function getRipplePunkFixedSize(int $id = null, float $resize = 100): \Imagick
     {
         if (!is_numeric($id)) {
@@ -130,6 +164,20 @@ class BaseTextImage extends BaseImage
     {
         return $this->getImage(realpath('assets/images/money-face-emoji.png'), $resize);
     }
+
+    /**
+     * @throws \ImagickException
+     */
+    private function getImageFixedSize(string $path, int $width = 100, int $height = 100): \Imagick
+    {
+        $imagick = new \Imagick(realpath($path));
+        $imagick->setImageBackgroundColor("gray");
+        $imagick->resampleImage(1150, 1150, \Imagick::FILTER_BESSEL, 0.1);
+        $imagick->resizeimage($width, $height, \Imagick::FILTER_LANCZOS, 1.0, true);
+
+        return $imagick;
+    }
+
 
     /**
      * @throws \ImagickException

@@ -1,6 +1,7 @@
 <?php
 namespace App\Service;
 
+use App\Service\Images\BaseAliens\BaseAlienToCryptoPunk;
 use App\Service\Images\BaseAliens\Loading;
 use App\Service\Images\BaseAliens\OpepenBaseAliens;
 use App\Service\Images\BaseAliens\PropertyHighlightBaseAliens;
@@ -105,6 +106,16 @@ class ResolveImage
         }
 
         return download_remote_url_and_return_temp_path('moneymindedapes', $this->id . '.png');
+    }
+
+    private function getBaseAliensBaseAlienToCryptoPunk(): array
+    {
+        $textImage = new BaseAlienToCryptoPunk();
+        if (is_numeric($this->id)) {
+            $textImage->setId($this->id);
+        }
+
+        return $textImage->render();
     }
 
     private function getLooneyLucaRegular(): array
