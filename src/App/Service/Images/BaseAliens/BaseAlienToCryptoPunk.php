@@ -58,7 +58,8 @@ class BaseAlienToCryptoPunk extends BaseTextImage
 
         $image->drawImage($this->createTextBaseAlien('BaseAlien'));
         $image->drawImage($this->createTextBaseAlienNr('#' . $this->id));
-        $image->drawImage($this->createTextCryptoPunk('CryptoPunk #' . $this->baseAliensIdToCryptoPunksId[$this->id] . ' was once a humble humanoid on Ethereum'));
+
+        $this->createTextCryptoPunk($image);
 
         $this->pasteBaseAlien($image,-20, 235);
         $this->pasteCryptoPunk($image,440, 450);
@@ -132,15 +133,35 @@ class BaseAlienToCryptoPunk extends BaseTextImage
      * @throws \ImagickException
      * @throws \ImagickDrawException
      */
-    private function createTextCryptoPunk(string $text): \ImagickDraw
+    private function createTextCryptoPunk(&$image): \ImagickDraw
     {
+        $text1 = 'CryptoPunk #' . $this->baseAliensIdToCryptoPunksId[$this->id];
+        $text2 = 'was once a humble';
+        $text3 = 'humanoid on Ethereum';
+
         $draw = new \ImagickDraw();
         $draw->setTextAlignment(\Imagick::ALIGN_CENTER);
 //        $draw->setFont(ROOT . "/assets/fonts/space_age-webfont.ttf");
         $draw->setFontSize(25);
         $draw->setFillColor(new \ImagickPixel('#ffffff'));
+        $draw->annotation(600, 350, $text1);
+        $image->drawImage($draw);
 
-        $draw->annotation(400, 250, $text);
+        $draw = new \ImagickDraw();
+        $draw->setTextAlignment(\Imagick::ALIGN_CENTER);
+//        $draw->setFont(ROOT . "/assets/fonts/space_age-webfont.ttf");
+        $draw->setFontSize(25);
+        $draw->setFillColor(new \ImagickPixel('#ffffff'));
+        $draw->annotation(600, 380, $text2);
+        $image->drawImage($draw);
+
+        $draw = new \ImagickDraw();
+        $draw->setTextAlignment(\Imagick::ALIGN_CENTER);
+//        $draw->setFont(ROOT . "/assets/fonts/space_age-webfont.ttf");
+        $draw->setFontSize(25);
+        $draw->setFillColor(new \ImagickPixel('#ffffff'));
+        $draw->annotation(600, 410, $text3);
+        $image->drawImage($draw);
 
         return $draw;
     }
