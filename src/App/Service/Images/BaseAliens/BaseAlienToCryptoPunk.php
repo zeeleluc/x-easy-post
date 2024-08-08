@@ -144,7 +144,7 @@ class BaseAlienToCryptoPunk extends BaseTextImage
 //        $draw->setFont(ROOT . "/assets/fonts/space_age-webfont.ttf");
         $draw->setFontSize(25);
         $draw->setFillColor(new \ImagickPixel('#ffffff'));
-        $draw->annotation(600, 350, $text1);
+        $draw->annotation(610, 350, $text1);
         $image->drawImage($draw);
 
         $draw = new \ImagickDraw();
@@ -152,7 +152,7 @@ class BaseAlienToCryptoPunk extends BaseTextImage
 //        $draw->setFont(ROOT . "/assets/fonts/space_age-webfont.ttf");
         $draw->setFontSize(25);
         $draw->setFillColor(new \ImagickPixel('#ffffff'));
-        $draw->annotation(600, 380, $text2);
+        $draw->annotation(610, 380, $text2);
         $image->drawImage($draw);
 
         $draw = new \ImagickDraw();
@@ -160,7 +160,7 @@ class BaseAlienToCryptoPunk extends BaseTextImage
 //        $draw->setFont(ROOT . "/assets/fonts/space_age-webfont.ttf");
         $draw->setFontSize(25);
         $draw->setFillColor(new \ImagickPixel('#ffffff'));
-        $draw->annotation(600, 410, $text3);
+        $draw->annotation(610, 410, $text3);
         $image->drawImage($draw);
 
         return $draw;
