@@ -26,6 +26,7 @@ use App\Service\Images\LooneyLuca\PuzzleLooneyLucaOrange;
 use App\Service\Images\LooneyLuca\Regular as LooneyLucaRegular;
 use App\Service\Images\LooneyLuca\TextImageCenteredLooneyLuca;
 use App\Service\Images\LooneyLuca\TextSimpleLooneyLucaOrange;
+use App\Service\Images\MoneyMindedApes\TextImageCenteredMMA;
 use App\Service\Images\PipingPunks\MovingPipingPunk;
 use App\Service\Images\RichLists\TextAdRichLists;
 use App\Service\Images\RipplePunks\LaserEyes;
@@ -303,6 +304,17 @@ class ResolveImage
     public function getRipplePunksLaserEyes(): array
     {
         $textImage = new LaserEyes();
+        if (is_numeric($this->id)) {
+            $textImage->setId($this->id);
+        }
+
+        return $textImage->render();
+    }
+
+    public function getMoneyMindedApesTextImageCenteredMMA(): array
+    {
+        $textImage = new TextImageCenteredMMA();
+        $textImage->setText($this->text);
         if (is_numeric($this->id)) {
             $textImage->setId($this->id);
         }

@@ -90,6 +90,22 @@ class BaseTextImage extends BaseImage
         return $this->getImage(realpath($tmpPath), $resize);
     }
 
+    public function getMoneyMindedApeFixedSize(int $id = null, float $resize = 100): \Imagick
+    {
+        if (!$id) {
+            $ids = range(1, 1730);
+            shuffle($ids);
+            $id = $ids[0];
+        }
+
+        $tmpPath = $this->getTempImageFromCDN(
+            'moneymindedapes',
+            $id . '.png',
+            'moneymindedape.png'
+        );
+
+        return $this->getImage(realpath($tmpPath), $resize);
+    }
 
     public function getWeepingPlebFixedSize(int $id = null, float $resize = 100): \Imagick
     {

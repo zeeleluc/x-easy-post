@@ -18,16 +18,11 @@ class Regular extends BaseImage
 
     protected string $name = 'Regular NFT';
 
-    protected ?string $nftIdPlaceholder = '1 - 156, 196 - 1730';
-
     protected string $description = 'This image type gives a regular MoneyMindedApe by #ID (or random by property)';
 
     public function __construct()
     {
-        $this->idRange = array_merge(
-            range(1, 156),
-            range(196, 1730)
-        );
+        $this->idRange = range(1, 1730);
         $this->optionsPerId = DataSeeder::get(DataSeeder::MONEY_MINDED_APES_PROPERTIES_BY_ID);
         $this->options = array_keys($this->optionsPerId);
     }
