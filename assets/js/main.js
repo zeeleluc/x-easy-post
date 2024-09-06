@@ -71,32 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Check login status
-        function checkLoginStatus() {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', '/check-login', true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    const response = JSON.parse(xhr.responseText);
-                    if (response.success === false) {
-                        window.location.href = '/login';
-                    }
-                }
-            };
-            xhr.send();
-        }
-
         // Form element focus and change handling
         if (form) {
-            const formElements = form.querySelectorAll('textarea, select, input');
-            formElements.forEach(element => {
-                element.addEventListener('focus', function() {
-                    checkLoginStatus();
-                });
-                element.addEventListener('change', function() {
-                    checkLoginStatus();
-                });
-            });
 
             // Disable submit button after form submission
             form.addEventListener('submit', function(event) {
