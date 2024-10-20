@@ -35,10 +35,11 @@ class PostIntervalEvery4Hours
     public function skipIntervalsFromNow(int $skipRounds): Carbon
     {
         $now = Carbon::now()->subHours(4);
-        $nextSlot = $this->postHours[$now->hour];
-        $nextSlot = $now->addHours($nextSlot - $now->hour);
-        $nextSlot->addHours($skipRounds * 4);
+//        $nextSlot = $this->postHours[$now->hour];
+//        $nextSlot = $now->addHours($nextSlot - $now->hour);
+//        $nextSlot->addHours($skipRounds * 4);
 
-        return $nextSlot;
+        return $now->addDays($skipRounds);
+//        return $nextSlot;
     }
 }
