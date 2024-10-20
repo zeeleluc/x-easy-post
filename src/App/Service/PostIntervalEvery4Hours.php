@@ -42,7 +42,7 @@ class PostIntervalEvery4Hours
 //        if ($now->hour < 7) {
 //            return $now->addDays($skipRounds - 1);
 //        } else {
-            return $now->addDays($skipRounds);
+            return $now->addDays($skipRounds + 1);
 //        }
 
 //        return $nextSlot;
