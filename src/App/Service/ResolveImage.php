@@ -21,6 +21,7 @@ use App\Service\Images\HasMints\TextSimpleHasMintsBlue;
 use App\Service\Images\HasMints\TextSimpleWhiteBGBlackText;
 use App\Service\Images\LoadingPunks\HowManyPixels;
 use App\Service\Images\LoadingPunks\Regular as RegularLoadingPunks;
+use App\Service\Images\LoadingPunksOnBase\Regular as RegularLoadingPunksOnBase;
 use App\Service\Images\LooneyLuca\OpepenLooneyLuca;
 use App\Service\Images\LooneyLuca\PuzzleLooneyLucaOrange;
 use App\Service\Images\LooneyLuca\Regular as LooneyLucaRegular;
@@ -143,6 +144,19 @@ class ResolveImage
         }
 
         return download_remote_url_and_return_temp_path('loadingpunks', get_uuid_for_loading_punk($this->id) . '.gif');
+    }
+
+    public function getLoadingPunksonBaseRegular(): array
+    {
+        if (!$this->id) {
+            if ($this->type) {
+                $this->id = (new RegularLoadingPunksOnBase())->getRandomIdForOption($this->type);
+            } else {
+                $this->id = (new RegularLoadingPunksOnBase())->getRandomId();
+            }
+        }
+
+        return download_remote_url_and_return_temp_path('loadingpunks-base', $this->id . '.gif');
     }
 
     public function getLoadingPunksHowManyPixels(): array

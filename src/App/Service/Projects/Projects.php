@@ -11,6 +11,8 @@ class Projects
 
     const LOADING_PUNKS = 'LoadingPunks';
 
+    const LOADING_PUNKS_BASE = 'LoadingPunks on Base';
+
     const OPEPE_PUNKS = 'OpepePunks';
 
     const SHAPED_PUNKS = 'ShapedPunks';
@@ -33,6 +35,7 @@ class Projects
             flatten_string(self::RIPPLE_PUNKS) => self::RIPPLE_PUNKS,
             flatten_string(self::PIPING_PUNKS) => self::PIPING_PUNKS,
             flatten_string(self::LOADING_PUNKS) => self::LOADING_PUNKS,
+            flatten_string(self::LOADING_PUNKS_BASE) => self::LOADING_PUNKS_BASE,
 //            flatten_string(self::OPEPE_PUNKS) => self::OPEPE_PUNKS,
 //            flatten_string(self::SHAPED_PUNKS) => self::SHAPED_PUNKS,
             flatten_string(self::LOONEY_LUCA) => self::LOONEY_LUCA,
@@ -52,6 +55,7 @@ class Projects
             flatten_string(self::RIPPLE_PUNKS) => self::RIPPLE_PUNKS,
             flatten_string(self::PIPING_PUNKS) => self::PIPING_PUNKS,
             flatten_string(self::LOADING_PUNKS) => self::LOADING_PUNKS,
+            flatten_string(self::LOADING_PUNKS_BASE) => self::LOADING_PUNKS_BASE,
             flatten_string(self::LOONEY_LUCA) => self::LOONEY_LUCA,
             flatten_string(self::BASE_ALIENS) => self::BASE_ALIENS,
             flatten_string(self::WEEPING_PLEBS) => self::WEEPING_PLEBS,
@@ -96,6 +100,10 @@ class Projects
 
         if ($neatProjectString === 'loadingpunks') {
             return flatten_string(self::LOADING_PUNKS);
+        }
+
+        if ($neatProjectString === 'loadingpunksonbase') {
+            return flatten_string(self::LOADING_PUNKS_BASE);
         }
 
         if ($neatProjectString === 'looneyluca') {

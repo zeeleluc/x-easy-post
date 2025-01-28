@@ -136,6 +136,18 @@ tr.scheduled {
     color: #333333;
 }
 
+.bg-loading_punkson_base,
+.btn.bg-loading_punkson_base:hover,
+.btn-check:checked+.btn.bg-loading_punkson_base,
+.btn.bg-loading_punkson_base.active,
+.btn.bg-loading_punkson_base.show,
+.btn.bg-loading_punkson_base:first-child:active,
+:not(.btn-check)+.btn.bg-loading_punkson_base:active {
+    background-color: #eeeeee;
+    border-color: #eeeeee;
+    color: #333333;
+}
+
 .bg-piping_punks,
 .btn.bg-piping_punks:hover,
 .btn-check:checked+.btn.bg-piping_punks,

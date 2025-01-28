@@ -45,6 +45,7 @@ class ImagesHelper
             if ($imageClassInit::getProject() === $project) {
                 $instances[$imageClassInit::getProject() . '-' . $imageClassInit::getName()] = $imageClassInit;
             }
+
         }
 
         ksort($instances);

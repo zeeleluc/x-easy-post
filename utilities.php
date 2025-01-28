@@ -240,6 +240,10 @@ if (!function_exists('convert_snakecase_to_project_name')) {
             $string = 'Looney Luca';
         }
 
+        if ($string === 'LoadingPunksonBase' || $string === 'LoadingPunksOnBase') {
+            $string = 'LoadingPunks on Base';
+        }
+
         if ($string === 'MoneyMindedApes') {
             $string = 'Money Minded Apes';
         }
