@@ -93,7 +93,7 @@ class Home extends BaseFormAction
                 }
 
                 if ($value = $this->getRequest()->getPostParam('nft_id')) {
-                    $validateFields[] = new NFTID('nft_id', $value);
+                    $validateFields[] = new NFTID('nft_id', $value, ImagesHelper::getImageClassByProjectAndSlug($project, $image));
                 }
 
                 if ($value = $this->getRequest()->getPostParam('type')) {

@@ -136,6 +136,42 @@ tr.scheduled {
     color: #333333;
 }
 
+.bg-magic_punks,
+.btn.bg-magic_punks:hover,
+.btn-check:checked+.btn.bg-magic_punks,
+.btn.bg-magic_punks.active,
+.btn.bg-magic_punks.show,
+.btn.bg-magic_punks:first-child:active,
+:not(.btn-check)+.btn.bg-magic_punks:active {
+    background-color: #e394a9;
+    border-color: #e394a9;
+    color: #333333;
+}
+
+.bg-bull_run_punks,
+.btn.bg-bull_run_punks:hover,
+.btn-check:checked+.btn.bg-bull_run_punks,
+.btn.bg-bull_run_punks.active,
+.btn.bg-bull_run_punks.show,
+.btn.bg-bull_run_punks:first-child:active,
+:not(.btn-check)+.btn.bg-bull_run_punks:active {
+    background-color: #818181;
+    border-color: #818181;
+    color: #000000;
+}
+
+.bg-no_based,
+.btn.bg-no_based:hover,
+.btn-check:checked+.btn.bg-no_based,
+.btn.bg-no_based.active,
+.btn.bg-no_based.show,
+.btn.bg-no_based:first-child:active,
+:not(.btn-check)+.btn.bg-no_based:active {
+    background-color: #222222;
+    border-color: #222222;
+    color: #ffffff;
+}
+
 .bg-loading_punkson_base,
 .btn.bg-loading_punkson_base:hover,
 .btn-check:checked+.btn.bg-loading_punkson_base,

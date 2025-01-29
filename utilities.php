@@ -124,6 +124,7 @@ if (!function_exists('flatten_string')) {
         }
 
         $result = str_replace(' ', '', $result);
+        $result = str_replace('-', '', $result);
 
         return ltrim($result, '_');
     }
@@ -246,6 +247,14 @@ if (!function_exists('convert_snakecase_to_project_name')) {
 
         if ($string === 'MoneyMindedApes') {
             $string = 'Money Minded Apes';
+        }
+
+        if ($string === 'BullRunPunks') {
+            $string = 'BullRun Punks';
+        }
+
+        if ($string === 'NoBased') {
+            $string = 'No-Based';
         }
 
         return $string;

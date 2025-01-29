@@ -7,11 +7,17 @@ class Projects
 
     const RIPPLE_PUNKS = 'RipplePunks';
 
+    const BULLRUN_PUNKS = 'BullRun Punks';
+
     const PIPING_PUNKS = 'PipingPunks';
 
     const LOADING_PUNKS = 'LoadingPunks';
 
+    const NO_BASED = 'No-Based';
+
     const LOADING_PUNKS_BASE = 'LoadingPunks on Base';
+
+    const MAGIC_PUNKS = 'MagicPunks';
 
     const OPEPE_PUNKS = 'OpepePunks';
 
@@ -33,6 +39,9 @@ class Projects
         $projects = [
             flatten_string(self::HAS_MINTS) => self::HAS_MINTS,
             flatten_string(self::RIPPLE_PUNKS) => self::RIPPLE_PUNKS,
+            flatten_string(self::MAGIC_PUNKS) => self::MAGIC_PUNKS,
+            flatten_string(self::NO_BASED) => self::NO_BASED,
+            flatten_string(self::BULLRUN_PUNKS) => self::BULLRUN_PUNKS,
             flatten_string(self::PIPING_PUNKS) => self::PIPING_PUNKS,
             flatten_string(self::LOADING_PUNKS) => self::LOADING_PUNKS,
             flatten_string(self::LOADING_PUNKS_BASE) => self::LOADING_PUNKS_BASE,
@@ -53,7 +62,10 @@ class Projects
     {
         $projects = [
             flatten_string(self::RIPPLE_PUNKS) => self::RIPPLE_PUNKS,
+            flatten_string(self::MAGIC_PUNKS) => self::MAGIC_PUNKS,
+            flatten_string(self::NO_BASED) => self::NO_BASED,
             flatten_string(self::PIPING_PUNKS) => self::PIPING_PUNKS,
+            flatten_string(self::BULLRUN_PUNKS) => self::BULLRUN_PUNKS,
             flatten_string(self::LOADING_PUNKS) => self::LOADING_PUNKS,
             flatten_string(self::LOADING_PUNKS_BASE) => self::LOADING_PUNKS_BASE,
             flatten_string(self::LOONEY_LUCA) => self::LOONEY_LUCA,
@@ -98,8 +110,20 @@ class Projects
             return flatten_string(self::PIPING_PUNKS);
         }
 
+        if ($neatProjectString === 'magicpunks') {
+            return flatten_string(self::MAGIC_PUNKS);
+        }
+
+        if ($neatProjectString === 'nobased') {
+            return flatten_string(self::NO_BASED);
+        }
+
         if ($neatProjectString === 'loadingpunks') {
             return flatten_string(self::LOADING_PUNKS);
+        }
+
+        if ($neatProjectString === 'bullrunpunks') {
+            return flatten_string(self::BULLRUN_PUNKS);
         }
 
         if ($neatProjectString === 'loadingpunksonbase') {

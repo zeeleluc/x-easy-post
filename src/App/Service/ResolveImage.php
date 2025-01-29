@@ -46,6 +46,9 @@ use App\Service\Images\WeepingPlebs\TextImageCenteredWeepingPlebs;
 use App\Service\Images\WeepingPlebs\Regular as WeepingPlebRegular;
 use App\Service\Images\WeepingPlebs\WebsiteLinkQR;
 use App\Service\Images\MoneyMindedApes\Regular as MoneyMindedApesRegular;
+use App\Service\Images\MagicPunks\Regular as MagicPunksRegular;
+use App\Service\Images\NoBased\Regular as NoBasedRegular;
+use App\Service\Images\BullRunPunks\Regular as BullRunPunksRegular;
 
 class ResolveImage
 {
@@ -159,6 +162,19 @@ class ResolveImage
         return download_remote_url_and_return_temp_path('loadingpunks-base', $this->id . '.gif');
     }
 
+    public function getMagicPunksRegular(): array
+    {
+        if (!$this->id) {
+            if ($this->type) {
+                $this->id = (new NoBasedRegular())->getRandomIdForOption($this->type);
+            } else {
+                $this->id = (new NoBasedRegular())->getRandomId();
+            }
+        }
+
+        return download_remote_url_and_return_temp_path('nobased', $this->id . '.png');
+    }
+
     public function getLoadingPunksHowManyPixels(): array
     {
         if (!$this->id) {
@@ -170,6 +186,32 @@ class ResolveImage
         }
 
         return download_remote_url_and_return_temp_path('loadingpunks-pixel-counts', get_uuid_for_loading_punk($this->id) . '.png');
+    }
+
+    public function getNoBasedRegular(): array
+    {
+        if (!$this->id) {
+            if ($this->type) {
+                $this->id = (new NoBasedRegular())->getRandomIdForOption($this->type);
+            } else {
+                $this->id = (new NoBasedRegular())->getRandomId();
+            }
+        }
+
+        return download_remote_url_and_return_temp_path('nobased', $this->id . '.png');
+    }
+
+    public function getBullRunPunksRegular(): array
+    {
+        if (!$this->id) {
+            if ($this->type) {
+                $this->id = (new BullRunPunksRegular())->getRandomIdForOption($this->type);
+            } else {
+                $this->id = (new BullRunPunksRegular())->getRandomId();
+            }
+        }
+
+        return download_remote_url_and_return_temp_path('bullrun-punks', $this->id . '.png');
     }
 
     public function getPipingPunksMovingPipingPunk(): array
