@@ -166,13 +166,13 @@ class ResolveImage
     {
         if (!$this->id) {
             if ($this->type) {
-                $this->id = (new NoBasedRegular())->getRandomIdForOption($this->type);
+                $this->id = (new MagicPunksRegular())->getRandomIdForOption($this->type);
             } else {
-                $this->id = (new NoBasedRegular())->getRandomId();
+                $this->id = (new MagicPunksRegular())->getRandomId();
             }
         }
 
-        return download_remote_url_and_return_temp_path('nobased', $this->id . '.png');
+        return download_remote_url_and_return_temp_path('magicpunks', $this->id . '.png');
     }
 
     public function getLoadingPunksHowManyPixels(): array
