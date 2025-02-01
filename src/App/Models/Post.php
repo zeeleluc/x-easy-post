@@ -184,47 +184,52 @@ class Post extends BaseModel
             ];
         }
 
-        $xPost = new XPost();
-        if ($this->text) {
-            $xPost->setText($this->text);
-        }
-        if ($this->image) {
-            $path = ROOT . '/tmp/' . uniqid();
-            $image = file_get_contents($this->image);
-            file_put_contents($path, $image);
-            chmod($path, 0777);
+        try {
+            $xPost = new XPost();
+            if ($this->text) {
+                $xPost->setText($this->text);
+            }
+            if ($this->image) {
+                $path = ROOT . '/tmp/' . uniqid();
+                $image = file_get_contents($this->image);
+                file_put_contents($path, $image);
+                chmod($path, 0777);
 
-            $xPost->setImage($path);
-        }
-        if ($this->postId) {
-            $result = $xPost->reply($this->postId);
-        } else {
-            $result = $xPost->post();
+                $xPost->setImage($path);
+            }
+            if ($this->postId) {
+                $result = $xPost->reply($this->postId);
+            } else {
+                $result = $xPost->post();
+            }
+
+            $success = true;
+            if (array_key_exists('status', $result)) {
+                $success = false;
+                $readableResult = $result['status'] . ': ' . $result['detail'];
+            } elseif (array_key_exists('errors', $result)) {
+                $success = false;
+                $readableResult = $result['title'] . ': ' . $result['detail'];
+
+            } else {
+                $readableResult = $result['data']['id'];
+            }
+
+            $this->result = $result;
+            $this->readableResult = $readableResult;
+            $this->success = $success;
+            if ($success) {
+                $this->postedAt = now();
+            }
+            $this->save();
+
+            return [
+                'success' => $success,
+                'message' => $readableResult,
+            ];
+        } catch (\Exception $exception) {
+            var_dump($exception);
         }
 
-        $success = true;
-        if (array_key_exists('status', $result)) {
-            $success = false;
-            $readableResult = $result['status'] . ': ' . $result['detail'];
-        } elseif (array_key_exists('errors', $result)) {
-            $success = false;
-            $readableResult = $result['title'] . ': ' . $result['detail'];
-
-        } else {
-            $readableResult = $result['data']['id'];
-        }
-
-        $this->result = $result;
-        $this->readableResult = $readableResult;
-        $this->success = $success;
-        if ($success) {
-            $this->postedAt = now();
-        }
-        $this->save();
-
-        return [
-            'success' => $success,
-            'message' => $readableResult,
-        ];
     }
 }

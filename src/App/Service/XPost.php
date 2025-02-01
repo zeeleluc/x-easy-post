@@ -113,6 +113,7 @@ class XPost
             $this->oauthToken,
             $this->oauthTokenSecret
         );
+        $connection->setTimeouts(30, 60);
 
         $connection->setApiVersion($version);
 
