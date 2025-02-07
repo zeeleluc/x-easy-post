@@ -38,10 +38,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Event listener for form elements
             form.addEventListener('change', (event) => {
-                if (event.target.name === "project" || form.contains(event.target)) {
+                const target = event.target;
+
+                if (target.tagName.toLowerCase() === 'textarea' || target.id === 'post_id' || target.id === 'text_image' || target.id === 'nft_id' || target.id === 'type') {
+                    return; // Stop als het een textarea of input#post_id is
+                }
+
+                if (target.name === "project" || form.contains(target)) {
                     fetchAndUpdateContent();
                 }
             });
+
+
 
             // Event listener for buttons with the name "project"
             const handleButtonClick = () => {
