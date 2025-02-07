@@ -16,10 +16,12 @@ class NextPost extends BaseAction
 
     public function run()
     {
-        $post = $this->postQuery->getNextScheduledPost();
+        foreach (get_all_accounts() as $account) {
+            $post = $this->postQuery->getNextScheduledPost($account);
 
-        if ($post) {
-            $post->postOnX();
+            if ($post) {
+                $post->postOnX();
+            }
         }
     }
 }

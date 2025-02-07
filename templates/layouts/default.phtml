@@ -17,6 +17,20 @@
         <div class="container">
             <a class="navbar-brand" href="<?=env('URL'); ?>">X Easy Post (<?=$actualPostsLast24Hours; ?>)</a>
             <?php if ($isLoggedIn): ?>
+                <div class="dropdown">
+                    <a class="navbar-item dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <strong>
+                            <?=current_account(); ?>
+                        </strong>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                        <?php foreach (get_all_accounts() as $account): ?>
+                            <?php if (current_account() !== $account): ?>
+                                <li><a class="dropdown-item" href="<?= env('URL'); ?>/account/<?=$account; ?>"><?=$account; ?></a></li>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
                 <a class="navbar-item" href="<?=env('URL'); ?>/logout">Logout</a>
             <?php endif; ?>
         </div>

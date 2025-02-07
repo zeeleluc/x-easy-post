@@ -16,6 +16,7 @@ class Post extends BaseModel
 
     public ?bool $success = null;
 
+    public ?string $account = null;
     public ?string $project = null;
     public ?string $text = null;
 
@@ -59,6 +60,9 @@ class Post extends BaseModel
             $post->success = null;
         } else {
             $post->success = (bool) $success;
+        }
+        if ($account = Arr::get($values, 'account')) {
+            $post->account = $account;
         }
         if ($project = Arr::get($values, 'project')) {
             $post->project = $project;
@@ -104,6 +108,9 @@ class Post extends BaseModel
         }
         if (isset($this->success)) {
             $array['success'] = $this->success ? 1 : 0;
+        }
+        if ($this->account) {
+            $array['account'] = $this->account;
         }
         if ($this->project) {
             $array['project'] = $this->project;
@@ -185,7 +192,7 @@ class Post extends BaseModel
         }
 
         try {
-            $xPost = new XPost();
+            $xPost = new XPost($this->account);
             if ($this->text) {
                 $xPost->setText($this->text);
             }

@@ -13,6 +13,8 @@ class PostQuery extends Query
      */
     public function createNewPost(array $values): Post
     {
+        $values['account'] = current_account();
+
         foreach ($values as $key => $value) {
             if ($value instanceof Carbon) {
                 $values[$key] = $value->format('Y-m-d H:i:s');
@@ -62,7 +64,7 @@ class PostQuery extends Query
      */
     public function getAll(): array
     {
-        $results = $this->db->get($this->table);
+        $results = $this->db->where('account', current_account())->get($this->table);
 
         $posts = [];
         foreach ($results as $result) {
@@ -75,6 +77,7 @@ class PostQuery extends Query
     public function doesPostExistForPostId(string $postId): bool
     {
         return (bool) $this->db
+            ->where('account', current_account())
             ->where('success', 1)
             ->where('post_id', $postId)
             ->getOne($this->table);
@@ -95,6 +98,7 @@ class PostQuery extends Query
     {
         $results = $this->db
             ->orderBy('created_at')
+            ->where('account', current_account())
             ->where('created_at', $date->format('Y-m-d H:i:s'), '>')
             ->get($this->table);
 
@@ -111,13 +115,17 @@ class PostQuery extends Query
         $sql = <<<SQL
 SELECT *
     FROM {$this->table}
-    WHERE posted_at IS NOT NULL
+    WHERE account = ?
+    AND posted_at IS NOT NULL
     AND success = 1
     AND posted_at > ?
     ORDER BY posted_at DESC;
 SQL;
 
-        $results = $this->db->rawQuery($sql, [$date->format('Y-m-d H:i:s')]);
+        $results = $this->db->rawQuery($sql, [
+            current_account(),
+            $date->format('Y-m-d H:i:s')
+        ]);
 
         $posts = [];
         foreach ($results as $result) {
@@ -136,13 +144,17 @@ SQL;
         $sql = <<<SQL
 SELECT *
     FROM {$this->table}
-    WHERE posted_at IS NOT NULL
+    WHERE account = ?
+    AND posted_at IS NOT NULL
     AND success = 1
     AND created_at > ?
     ORDER BY posted_at DESC;
 SQL;
 
-        $results = $this->db->rawQuery($sql, [$date->format('Y-m-d H:i:s')]);
+        $results = $this->db->rawQuery($sql, [
+            current_account(),
+            $date->format('Y-m-d H:i:s')
+        ]);
 
         $posts = [];
         foreach ($results as $result) {
@@ -161,11 +173,14 @@ SQL;
         $sql = <<<SQL
 SELECT *
     FROM {$this->table}
-    WHERE posted_at IS NULL
+    WHERE account = ?
+    AND posted_at IS NULL
     ORDER BY created_at DESC;
 SQL;
 
-        $results = $this->db->rawQuery($sql);
+        $results = $this->db->rawQuery($sql, [
+            current_account(),
+        ]);
 
         $posts = [];
         foreach ($results as $result) {
@@ -184,11 +199,14 @@ SQL;
         $sql = <<<SQL
 SELECT *
     FROM {$this->table}
-    WHERE success = 0
+    WHERE account = ?
+    AND success = 0
     ORDER BY created_at DESC;
 SQL;
 
-        $results = $this->db->rawQuery($sql);
+        $results = $this->db->rawQuery($sql, [
+            current_account(),
+        ]);
 
         $posts = [];
         foreach ($results as $result) {
@@ -201,6 +219,7 @@ SQL;
     public function getCountPostsInLastPeriod(): int
     {
         return count($this->db
+            ->where('account', current_account())
             ->where('success', 1)
             ->where('created_at', now()->subDay()->format('Y-m-d H:i:s'), '>')
             ->get($this->table));
@@ -211,25 +230,31 @@ SQL;
         $sql = <<<SQL
 SELECT COUNT(*) AS row_count
     FROM {$this->table}
-    WHERE posted_at IS NULL;
+    WHERE account = ?
+    AND posted_at IS NULL;
 SQL;
 
-        $results = $this->db->rawQuery($sql);
+        $results = $this->db->rawQuery($sql, [
+            current_account(),
+        ]);
 
         return $results[0]['row_count'];
     }
 
-    public function getNextScheduledPost(): ?Post
+    public function getNextScheduledPost(string $account): ?Post
     {
         $sql = <<<SQL
 SELECT *
     FROM {$this->table}
-    WHERE posted_at IS NULL
+    WHERE account = ?
+    AND posted_at IS NULL
     ORDER BY created_at ASC
     LIMIT 1;
 SQL;
 
-        $results = $this->db->rawQuery($sql);
+        $results = $this->db->rawQuery($sql, [
+            $account,
+        ]);
         if (!$results) {
             return null;
         }

@@ -21,21 +21,23 @@ class CheckPosts extends BaseAction
      */
     public function run()
     {
-        $post = $this->postQuery->getNextScheduledPost();
+        foreach (get_all_accounts() as $account) {
+            $post = $this->postQuery->getNextScheduledPost($account);
 
-        if (!$post) {
-            $authIdentifier = AuthIdentifierService::new();
-            AuthIdentifierService::slack('No more posts to show', $authIdentifier);
-            return;
-        }
+            if (!$post) {
+                $authIdentifier = AuthIdentifierService::new();
+                AuthIdentifierService::slack('No more posts to show for `' . $account . '`', $authIdentifier);
+                return;
+            }
 
-        $countScheduledPost = $this->postQuery->getCountScheduledPosts();
-        if ($countScheduledPost <= 3) {
-            $authIdentifier = AuthIdentifierService::new();
-            AuthIdentifierService::slack(
-                'Only `' . $countScheduledPost . '` scheduled post' . ($countScheduledPost > 1 ? 's' : ''),
-                $authIdentifier
-            );
+            $countScheduledPost = $this->postQuery->getCountScheduledPosts();
+            if ($countScheduledPost <= 3) {
+                $authIdentifier = AuthIdentifierService::new();
+                AuthIdentifierService::slack(
+                    'Only `' . $countScheduledPost . '` scheduled post' . ($countScheduledPost > 1 ? 's' : '') . ' for `' . $account . '`',
+                    $authIdentifier
+                );
+            }
         }
     }
 }

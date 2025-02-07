@@ -24,6 +24,18 @@ class Session
         return null;
     }
 
+    public function setSessionAccount(string $account): Session
+    {
+        $this->setSession('xAccount', $account);
+
+        return $this;
+    }
+
+    public function getSessionAccount():? string
+    {
+        return $this->getItem('xAccount');
+    }
+
     public function setSession(string $name, mixed $value): Session
     {
         $_SESSION[$name] = $value;

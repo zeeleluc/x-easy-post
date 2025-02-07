@@ -17,6 +17,10 @@ try {
     // Initialize the application.
     $initialize = new \App\Initialize();
 
+    if (!$initialize->getSession()->getSessionAccount()) {
+        $initialize->getSession()->setSessionAccount('HasMints'); // default
+    }
+
     // Run the action and show the output.
     $initialize->action()->show();
 

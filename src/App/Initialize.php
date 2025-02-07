@@ -100,6 +100,10 @@ class Initialize extends BaseObject
             return new Action\Actions\DeleteScheduledPost();
         }
 
+        if ($get['action'] === 'account') {
+            return new Action\Actions\Account();
+        }
+
         if ($get['action'] === 'retry-post') {
             return new Action\Actions\RetryPost();
         }

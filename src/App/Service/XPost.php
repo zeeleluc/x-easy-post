@@ -7,20 +7,31 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 class XPost
 {
     private string $oauthId;
-
-    private string $oauthToken;
-
-    private string $oauthTokenSecret;
+//
+//    private string $oauthToken;
+//
+//    private string $oauthTokenSecret;
 
     private string $text = '';
 
+    private string $account = '';
+
     private ?string $image = null;
 
-    public function __construct()
+    public function __construct(string $account)
     {
-        $this->oauthId = env('OAUTH_ID');
-        $this->oauthToken = env('OAUTH_TOKEN');
-        $this->oauthTokenSecret = env('OAUTH_TOKEN_SECRET');
+        $this->account = $account;
+
+        $this->oauthId = env('OAUTH_ID__' . strtoupper($this->account));
+//        $this->oauthToken = env('OAUTH_TOKEN__' . strtoupper($this->account));
+//        $this->oauthTokenSecret = env('OAUTH_TOKEN_SECRET__' . strtoupper($this->account));
+    }
+
+    public function setAccount(string $account): self
+    {
+        $this->account = $account;
+
+        return $this;
     }
 
     public function setText(string $text): self
@@ -110,8 +121,8 @@ class XPost
         $connection = new TwitterOAuth(
             $apiCredentials['consumer_key'],
             $apiCredentials['consumer_secret'],
-            $this->oauthToken,
-            $this->oauthTokenSecret
+            $apiCredentials['token_identifier'],
+            $apiCredentials['token_secret'],
         );
         $connection->setTimeouts(30, 60);
 
@@ -123,11 +134,11 @@ class XPost
     private function getApiCredentials(): array
     {
         return [
-            'bearer_token' => env('TWITTER_BEARER_TOKEN'),
-            'consumer_key' => env('TWITTER_CONSUMER_KEY'),
-            'consumer_secret' => env('TWITTER_CONSUMER_SECRET'),
-            'token_identifier' => env('TWITTER_TOKEN_IDENTIFIER'),
-            'token_secret' => env('TWITTER_TOKEN_SECRET'),
+            'bearer_token' => env('TWITTER_BEARER_TOKEN__' . strtoupper($this->account)),
+            'consumer_key' => env('TWITTER_CONSUMER_KEY__' . strtoupper($this->account)),
+            'consumer_secret' => env('TWITTER_CONSUMER_SECRET__' . strtoupper($this->account)),
+            'token_identifier' => env('TWITTER_TOKEN_IDENTIFIER__' . strtoupper($this->account)),
+            'token_secret' => env('TWITTER_TOKEN_SECRET__' . strtoupper($this->account)),
         ];
     }
 }

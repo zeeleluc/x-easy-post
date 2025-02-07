@@ -330,3 +330,24 @@ if (!function_exists('is_hypeomatic_website')) {
         return false;
     }
 }
+
+if (!function_exists('current_account')) {
+    function current_account()
+    {
+        return (new \App\Session())->getSessionAccount();
+    }
+}
+
+if (!function_exists('get_all_accounts')) {
+    function get_all_accounts()
+    {
+        return [
+            'HasMints',
+            'NoBased',
+//            'PigPunks',
+            'RipplePunks',
+            'PunkDerivs',
+//            'InjectMeme',
+        ];
+    }
+}
