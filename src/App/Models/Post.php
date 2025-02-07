@@ -192,7 +192,6 @@ class Post extends BaseModel
         }
 
         try {
-            print_r($this->toArray());
             $xPost = new XPost($this->account);
             if ($this->text) {
                 $xPost->setText($this->text);
