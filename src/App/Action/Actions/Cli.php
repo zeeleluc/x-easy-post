@@ -5,6 +5,7 @@ use App\Action\Actions\Cli\CheckPosts;
 use App\Action\Actions\Cli\ClearOldMagicTokens;
 use App\Action\Actions\Cli\Migrate;
 use App\Action\Actions\Cli\NextPost;
+use App\Action\Actions\Cli\RecurringPost;
 use App\Action\BaseAction;
 use App\Models\AuthIdentifier;
 use App\Service\AuthIdentifierService;
@@ -52,6 +53,9 @@ class Cli extends BaseAction
             (new ClearOldMagicTokens())->run();
         }
 
+        if ($this->action === 'gm') {
+            (new RecurringPost('gm'))->run();
+        }
 
         if ($this->action === 'read-metadata') {
 
