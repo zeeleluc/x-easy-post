@@ -49,13 +49,13 @@ class RecurringPost extends BaseAction
     {
         if ($this->type === 'gm') {
             if ($account === 'HasMints') {
-                return ['assets/images/luc.png'];
+                return [ROOT . '/assets/images/luc.png'];
             } elseif ($account === 'NoBased') {
                 return [download_remote_url_and_return_temp_path('nobased', '15.png')['urlTMP']];
             } elseif ($account === 'RipplePunks') {
                 return [download_remote_url_and_return_temp_path('ripplepunks', '15.png')['urlTMP']];
             } elseif ($account === 'PunkDerivs') {
-                return ['assets/images/pd-logo.png'];
+                return [ROOT . '/assets/images/pd-logo.png'];
             }
         }
 
