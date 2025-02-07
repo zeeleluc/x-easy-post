@@ -37,7 +37,7 @@ class PostIntervalEvery4Hours
         $now = Carbon::now()->subHours(4);
         $nextSlot = $this->postHours[$now->hour];
         $nextSlot = $now->addHours($nextSlot - $now->hour);
-        $nextSlot->addHours($skipRounds * 2);
+        $nextSlot->addHours($skipRounds * 6);
 
         return $nextSlot;
     }
