@@ -31,6 +31,12 @@ abstract class BaseAction extends BaseObject
             $this->setVariable(new Variable('htmlTitle', $htmlTitle));
             $this->template = new Template();
 
+            $scheduledPostsPerAccount = [];
+            foreach (get_all_accounts() as $account) {
+                $scheduledPostsPerAccount[$account] = (new PostQuery())->getCountScheduledPosts($account);
+            }
+
+            $this->setVariable(new Variable('scheduledPostsPerAccount', $scheduledPostsPerAccount));
             $this->setVariable(new Variable('actualPostsLast24Hours', count((new PostQuery())->getActualPostsOnX(now()->subDay()))));
             $this->setVariable(new Variable('isLoggedIn', $this->getSession()->getItem('loggedIn')));
             $this->setVariable(new Variable('alert', $this->getSession()->getItem('alert')));

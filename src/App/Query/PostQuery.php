@@ -225,7 +225,7 @@ SQL;
             ->get($this->table));
     }
 
-    public function getCountScheduledPosts(): int
+    public function getCountScheduledPosts(string $account = null): int
     {
         $sql = <<<SQL
 SELECT COUNT(*) AS row_count
@@ -235,7 +235,7 @@ SELECT COUNT(*) AS row_count
 SQL;
 
         $results = $this->db->rawQuery($sql, [
-            current_account(),
+            $account ?: current_account(),
         ]);
 
         return $results[0]['row_count'];
