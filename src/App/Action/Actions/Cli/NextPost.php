@@ -16,11 +16,16 @@ class NextPost extends BaseAction
 
     public function run()
     {
+        echo 'Run ...' . PHP_EOL;
         foreach (get_all_accounts() as $account) {
+            echo ' - try account `' . $account . '` ...' . PHP_EOL;
             $post = $this->postQuery->getNextScheduledPost($account);
 
             if ($post) {
+                echo ' - does have post` ...' . PHP_EOL;
                 $post->postOnX();
+            } else {
+                echo ' - does NOT have post` ...' . PHP_EOL;
             }
         }
     }
