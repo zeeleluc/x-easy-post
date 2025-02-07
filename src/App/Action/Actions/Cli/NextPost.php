@@ -28,5 +28,6 @@ class NextPost extends BaseAction
                 echo ' - does NOT have post` ...' . PHP_EOL;
             }
         }
+        echo 'Done ...' . PHP_EOL;
     }
 }
