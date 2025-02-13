@@ -34,6 +34,7 @@ class CopyPost extends BaseAction
         ])->do();
 
         $post = $post->copy();
+        $post->text = html_entity_decode($post->text);
         $post->image = $resolveImage->urlCDN;
         $post->save();
 
