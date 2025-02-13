@@ -31,6 +31,7 @@ class CopyPost extends BaseAction
             'text' => $post->textImage,
         ])->do();
 
+        $post = (new Post())->fromArray($post);
         $post = $post->copy();
         $post->image = $resolveImage->urlCDN;
         $post->save();
