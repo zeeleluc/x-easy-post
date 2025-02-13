@@ -25,13 +25,14 @@ class CopyPost extends BaseAction
             abort('', 'Error');
         }
 
+        $post = (new Post())->fromArray($post);
+
         $resolveImage = ResolveImage::make($post->imageType, $post->project, [
             'nft_id' => null,
             'type' => $post->imageAttributeType ?: null,
             'text' => $post->textImage,
         ])->do();
 
-        $post = (new Post())->fromArray($post);
         $post = $post->copy();
         $post->image = $resolveImage->urlCDN;
         $post->save();

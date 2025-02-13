@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
         v.cpus = 2
         v.linked_clone = false
     end
-    config.vm.synced_folder ".", "/var/www", type: "nfs"
+    config.vm.synced_folder ".", "/var/www", type: "nfs", mount_options: ['nolock', 'vers=3']
 
     config.vm.define "x-easy-post"
     config.vm.hostname = "x-easy-post"
