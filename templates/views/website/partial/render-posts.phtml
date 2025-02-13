@@ -59,6 +59,10 @@
                                 Redo Image
                             </a>
                         <?php endif; ?>
+                    <?php else: ?>
+                        <a class="btn btn-primary mb-1" href="/copy-post/<?=$post->id; ?>">
+                            Copy
+                        </a>
                     <?php endif; ?>
                 </div>
             </div>

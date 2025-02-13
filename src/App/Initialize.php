@@ -112,6 +112,10 @@ class Initialize extends BaseObject
             return new Action\Actions\RedoImage();
         }
 
+        if ($get['action'] === 'copy-post') {
+            return new Action\Actions\CopyPost();
+        }
+
         if ($get['action'] === 'magic-login') {
             return new Action\Actions\MagicLogin();
         }

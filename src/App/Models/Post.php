@@ -162,6 +162,19 @@ class Post extends BaseModel
         }
     }
 
+    public function copy()
+    {
+        $attributes = $this->toArray();
+        $attributes['id'] = null;
+        $attributes['post_id'] = null;
+        $attributes['success'] = null;
+        $attributes['result'] = null;
+        $attributes['posted_at'] = null;
+        $attributes['created_at'] = null;
+
+        return $this->getQueryObject()->createNewPost($attributes);
+    }
+
     public function create()
     {
         return $this->getQueryObject()->createNewPost($this->toArray());
