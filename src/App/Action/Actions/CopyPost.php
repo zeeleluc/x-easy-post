@@ -25,11 +25,6 @@ class CopyPost extends BaseAction
             abort('', 'Error');
         }
 
-        $post = (new Post())->fromArray($post);
-        if (isset($post->success) && $post->success) {
-            abort('', 'Error');
-        }
-
         $resolveImage = ResolveImage::make($post->imageType, $post->project, [
             'nft_id' => null,
             'type' => $post->imageAttributeType ?: null,
