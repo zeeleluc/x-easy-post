@@ -49,6 +49,8 @@ use App\Service\Images\MoneyMindedApes\Regular as MoneyMindedApesRegular;
 use App\Service\Images\MagicPunks\Regular as MagicPunksRegular;
 use App\Service\Images\NoBased\Regular as NoBasedRegular;
 use App\Service\Images\BullRunPunks\Regular as BullRunPunksRegular;
+use App\Service\Images\InjectMeme\TextSimpleBlackBGWhiteText as InjectMemeTextSimpleBlackBGWhiteText;
+use App\Service\Images\InjectMeme\TextSimpleWhiteBGPurpleText as InjectMemeTextSimpleWhiteBGPurpleText;
 
 class ResolveImage
 {
@@ -449,6 +451,26 @@ class ResolveImage
     public function getHasMintsTextSimpleBlackBGWhiteText(): array
     {
         $textImage = new TextSimpleBlackBGWhiteText();
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
+
+        return $textImage->render();
+    }
+
+    public function getInjectMemeTextSimpleBlackBGWhiteText(): array
+    {
+        $textImage = new InjectMemeTextSimpleBlackBGWhiteText();
+        if ($this->text) {
+            $textImage->setText($this->text);
+        }
+
+        return $textImage->render();
+    }
+
+    public function getInjectMemeTextSimpleWhiteBGPurpleText(): array
+    {
+        $textImage = new InjectMemeTextSimpleWhiteBGPurpleText();
         if ($this->text) {
             $textImage->setText($this->text);
         }

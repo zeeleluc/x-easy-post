@@ -5,6 +5,8 @@ class Projects
 {
     const HAS_MINTS = 'HasMints';
 
+    const INJECT_MEME = 'InjectMeme';
+
     const RIPPLE_PUNKS = 'RipplePunks';
 
     const BULLRUN_PUNKS = 'BullRun Punks';
@@ -34,24 +36,52 @@ class Projects
 
     const MONEY_MINDED_APES = 'Money Minded Apes';
 
-    public static function getAll(): array
+    public static function getAll(string $forAccount = null): array
     {
-        $projects = [
-            flatten_string(self::HAS_MINTS) => self::HAS_MINTS,
-            flatten_string(self::RIPPLE_PUNKS) => self::RIPPLE_PUNKS,
-            flatten_string(self::MAGIC_PUNKS) => self::MAGIC_PUNKS,
-            flatten_string(self::NO_BASED) => self::NO_BASED,
-            flatten_string(self::BULLRUN_PUNKS) => self::BULLRUN_PUNKS,
-            flatten_string(self::PIPING_PUNKS) => self::PIPING_PUNKS,
-            flatten_string(self::LOADING_PUNKS) => self::LOADING_PUNKS,
-            flatten_string(self::LOADING_PUNKS_BASE) => self::LOADING_PUNKS_BASE,
-//            flatten_string(self::OPEPE_PUNKS) => self::OPEPE_PUNKS,
-//            flatten_string(self::SHAPED_PUNKS) => self::SHAPED_PUNKS,
-            flatten_string(self::LOONEY_LUCA) => self::LOONEY_LUCA,
-            flatten_string(self::BASE_ALIENS) => self::BASE_ALIENS,
-            flatten_string(self::RICH_LISTS) => self::RICH_LISTS,
-//            flatten_string(self::XRPEPENS) => self::XRPEPENS,
-        ];
+        if ($forAccount) {
+            if ($forAccount === 'HasMints') {
+                $projects = [
+                    flatten_string(self::HAS_MINTS) => self::HAS_MINTS,
+                    flatten_string(self::LOONEY_LUCA) => self::LOONEY_LUCA,
+                ];
+            } elseif ($forAccount === 'NoBased') {
+                $projects = [
+                    flatten_string(self::NO_BASED) => self::NO_BASED,
+                ];
+            } elseif ($forAccount === 'RipplePunks') {
+                $projects = [
+                    flatten_string(self::RIPPLE_PUNKS) => self::RIPPLE_PUNKS,
+                ];
+            } elseif ($forAccount === 'PunkDerivs') {
+                $projects = [
+                    flatten_string(self::RIPPLE_PUNKS) => self::RIPPLE_PUNKS,
+                    flatten_string(self::MAGIC_PUNKS) => self::MAGIC_PUNKS,
+                    flatten_string(self::NO_BASED) => self::NO_BASED,
+                    flatten_string(self::BULLRUN_PUNKS) => self::BULLRUN_PUNKS,
+                    flatten_string(self::PIPING_PUNKS) => self::PIPING_PUNKS,
+                    flatten_string(self::LOADING_PUNKS) => self::LOADING_PUNKS,
+                    flatten_string(self::LOADING_PUNKS_BASE) => self::LOADING_PUNKS_BASE,
+                    flatten_string(self::BASE_ALIENS) => self::BASE_ALIENS,
+                ];
+            } elseif ($forAccount === 'InjectMeme') {
+                $projects = [
+                    flatten_string(self::INJECT_MEME) => self::INJECT_MEME,
+                ];
+            }
+        } else {
+            $projects = [
+                flatten_string(self::HAS_MINTS) => self::HAS_MINTS,
+                flatten_string(self::RIPPLE_PUNKS) => self::RIPPLE_PUNKS,
+                flatten_string(self::MAGIC_PUNKS) => self::MAGIC_PUNKS,
+                flatten_string(self::NO_BASED) => self::NO_BASED,
+                flatten_string(self::BULLRUN_PUNKS) => self::BULLRUN_PUNKS,
+                flatten_string(self::PIPING_PUNKS) => self::PIPING_PUNKS,
+                flatten_string(self::LOADING_PUNKS) => self::LOADING_PUNKS,
+                flatten_string(self::LOADING_PUNKS_BASE) => self::LOADING_PUNKS_BASE,
+                flatten_string(self::LOONEY_LUCA) => self::LOONEY_LUCA,
+                flatten_string(self::BASE_ALIENS) => self::BASE_ALIENS,
+            ];
+        }
 
         asort($projects);
 
@@ -136,6 +166,10 @@ class Projects
 
         if ($neatProjectString === 'basealiens') {
             return flatten_string(self::BASE_ALIENS);
+        }
+
+        if ($neatProjectString === 'injectmeme') {
+            return flatten_string(self::INJECT_MEME);
         }
 
         if ($neatProjectString === 'weepingplebs') {

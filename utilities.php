@@ -347,7 +347,7 @@ if (!function_exists('get_all_accounts')) {
 //            'PigPunks',
             'RipplePunks',
             'PunkDerivs',
-//            'InjectMeme',
+            'InjectMeme',
         ];
     }
 }
