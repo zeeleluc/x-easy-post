@@ -27,7 +27,8 @@
                             <?php endif; ?>
                         <?php else: ?>
                             Scheduled<br />
-                            <?=(new \App\Service\PostIntervalEvery4Hours())->skipIntervalsFromNow($scheduledPostsAhead)->format('Y-m-d H:00'); ?>
+                            Next 15:00 ...
+<!--                            --><?php //=(new \App\Service\PostIntervalEvery4Hours())->skipIntervalsFromNow($scheduledPostsAhead)->format('Y-m-d H:00'); ?>
                         <?php endif; ?>
                     <?php endif; ?>
 
