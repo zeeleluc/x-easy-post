@@ -30,15 +30,17 @@ class RecurringPost extends BaseAction
 
     private function getText($account): string
     {
-        if ($this->type === 'gm') {
-            if ($account === 'HasMints') {
-                return 'GM web3, enjoy your day, tell your friends it\'s another day to mint 💦';
-            } elseif ($account === 'NoBased') {
-                return 'GM from No-Based on @base ✊🏻';
-            } elseif ($account === 'RipplePunks') {
-                return 'GM Punks on XRPL - keep grinding 👑';
-            } elseif ($account === 'PunkDerivs') {
-                return 'GM Punks!';
+        if (in_array(date('N'), [2, 6])) { // Tuesday and Saturday
+            if ($this->type === 'gm') {
+                if ($account === 'HasMints') {
+                    return 'GM web3, enjoy your day, tell your friends it\'s another day to mint 💦';
+                } elseif ($account === 'NoBased') {
+                    return 'GM from No-Based on @base ✊🏻';
+                } elseif ($account === 'RipplePunks') {
+                    return 'GM Punks on XRPL - keep grinding 👑';
+                } elseif ($account === 'PunkDerivs') {
+                    return 'GM Punks!';
+                }
             }
         }
 
